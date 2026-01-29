@@ -1,11 +1,57 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Welcome from "../components/Welcome.astro";
+import Layout from "../layouts/Layout.astro";
+import Badge from "../components/Badge.astro";
+import fotoPerfil from "../assets/Foto_perfil.jpg";
+import LinkedInIcon from "../components/icons/LinkedIn.astro";
+import GitHubIcon from "../components/icons/GitHub.astro";
+import { ACTION_ERROR_CODES } from "astro:actions";
+import SocialPill from "../components/SocialPill.astro";
 ---
 
 <Layout>
-	<Welcome />
+  <main>
+    <section class="w-full lg:w-185 mx-auto py-10">
+      <img
+        class="rounded-full w-12 h-12"
+        src={fotoPerfil.src}
+        alt="misael photo"
+      />
+      <h1 class="text-white text-5xl font-bold flex flex-row gap-x-4 pb-10">
+        Hey, soy Misael Moncion Marcano <a
+          href="https://www.linkedin.com/in/misael-marcano/"
+          target="_blank"
+          rel="noopener"
+          class="flex justify-center items-center"
+        >
+          <Badge>Disponible para trabajar</Badge>
+        </a>
+      </h1>
+      <h2 class="text-xl opacity-80 text-wrap">
+        <span
+          >Desarrollador de software con 3 años de experiencia en Oracle Forms y
+          Oracle Reports</span
+        >,
+        <span class="text-yellow-200/90"
+          >y experiencia junior en desarrollo web.</span
+        >
+        <span class="text-red-100/90"> De Santiago, República Dominicana.</span>
+        <span class="opacity-75"
+          >Especializado en la creación de aplicaciones funcionales.</span
+        >
+      </h2>
+
+      <nav class="flex gap-2">
+        <SocialPill>
+          <LinkedInIcon class="w-6 h-6" />
+          LinkedIn
+        </SocialPill>
+
+		<SocialPill>
+          <GitHubIcon class="w-6 h-6" />
+          GitHub
+        </GitHubIcon>
+      </nav>
+    </section>
+  </main>
 </Layout>
