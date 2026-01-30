@@ -9,20 +9,24 @@ import SocialPill from "../components/SocialPill.astro";
 import Experience from "../components/experience.astro";
 import SectionContainer from "../components/SectionContainer.astro";
 import BriefcaseIcon from "../components/icons/Briefcase.astro";
+import ProjectsIcon from "../components/icons/Projects.astro";
+import Projects from "../components/Projects.astro";
 ---
 
-<Layout 
+<Layout
   title="Portafolio de Misael - Desarrollador y Programador Oracle Forms, Oracle Reports y Web"
   description="Contrata a Misael para crear tu aplicación web. Desarrollador Web. Especializado en crear aplicaciones únicas."
 >
-  <main>
-    <SectionContainer class="py-44 pb-22">
+  <main class="px-4">
+    <SectionContainer class="py-44 pb-32">
       <img
         class="rounded-full w-12 h-12"
         src={fotoPerfil.src}
         alt="misael photo"
       />
-      <h1 class="text-white text-5xl font-bold flex flex-row gap-x-4 pb-10">
+      <h1
+        class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6lg:pb-10"
+      >
         Hey, soy Misael Moncion Marcano <a
           href="https://www.linkedin.com/in/misael-marcano/"
           target="_blank"
@@ -32,7 +36,7 @@ import BriefcaseIcon from "../components/icons/Briefcase.astro";
           <Badge>Disponible para trabajar</Badge>
         </a>
       </h1>
-      <h2 class="text-xl opacity-80 text-wrap">
+      <h2 class="text-xl lg:text-xl opacity-80 text-wrap max-w-175">
         <span
           >Desarrollador de software con 3 años de experiencia en Oracle Forms y
           Oracle Reports</span
@@ -46,30 +50,38 @@ import BriefcaseIcon from "../components/icons/Briefcase.astro";
         >
       </h2>
 
-      <nav class="flex gap-4 mt-8">
+      <nav class="flex gap-4 mt-8 flex-wrap">
         <SocialPill href="https://www.linkedin.com/in/misael-marcano/">
-          <LinkedInIcon class="w-6 h-6" />
+          <LinkedInIcon class="size-4 md:size-6" />
           LinkedIn
         </SocialPill>
 
         <SocialPill href="https://github.com/Misael-Marcano">
-          <GitHubIcon class="w-6 h-6" />
+          <GitHubIcon class="size-4 md:size-6" />
           GitHub
         </SocialPill>
 
         <SocialPill href="https://github.com/Misael-Marcano">
-          <MailIcon class="w-6 h-6" />
+          <MailIcon class="size-4 md:size-6" />
           misaelmarcano0530@gmail.com
         </SocialPill>
       </nav>
     </SectionContainer>
 
     <SectionContainer id="experiencia">
-      <h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+      <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
         <BriefcaseIcon class="size-7" />
         Experiencia laboral
       </h2>
       <Experience />
+    </SectionContainer>
+
+    <SectionContainer id="Proyectos">
+      <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
+        <ProjectsIcon class="size-10" />
+        Proyectos Destacados
+      </h2>
+      <Projects />
     </SectionContainer>
   </main>
 </Layout>

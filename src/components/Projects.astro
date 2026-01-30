@@ -1,0 +1,56 @@
+---
+import JavascriptIcon from "../components/icons/JavaScript.astro";
+import CssIcon from "../components/icons/CSS.astro";
+import EjsIcon from "../components/icons/Ejs.astro";
+const TAGS = {
+    JavaScript: {
+        name: "JavaScript",
+        class: "bg-[#F7DF1E] text-black font-bold",
+        icon: JavascriptIcon,
+    },
+    CSS: {
+        name: "CSS",
+        class: "bg-[#639] text-white font-bold",
+        icon: CssIcon,
+    },
+EJS: {
+    name: "EJS",
+    class: "bg-[#2d5016] text-white",
+    icon: EjsIcon, 
+}
+}
+
+const PROJECTS = [
+  {
+    title: "Configurador de Bromas",
+    description: "Proyecto enfocado en el consumo de una API REST pública (JokeAPI v2) para la obtención de chistes en tiempo real. Implementa peticiones HTTP, manejo de respuestas en formato JSON y filtrado por categorías y tipo de contenido, demostrando integración de APIs externas y manejo de datos dinámicos en aplicaciones web.",
+    link: "#",
+    github: "#",
+    image: "/projects/svgl.png",
+    tags: [TAGS.JavaScript, TAGS.CSS, TAGS.EJS],
+  },
+];
+---
+
+{
+    PROJECTS.map(({ image, title, description, tags}) =>(
+        <article>
+            <h3 class="text-2xl font-semibold text-yellow-200 mb-2">{title}</h3>
+            <p class="text-lg mb-4 text-pretty">{description}</p>
+            <ul class="flex gap-x-2 flex-row mb-4">
+                {tags.map(tag => {
+                    const IconComponent = tag.icon;
+                    return (
+                        <li>
+                            <span class={`flex gap-x-2 items-center justify-center rounded-full text-xs ${tag.class} py-1 px-3 whitespace-nowrap`}>
+                                <IconComponent class="size-4" />
+                                {tag.name}
+                            </span>
+                        </li>
+                    );
+                })}
+            </ul>
+            <img class="rounded shadow-2xl shadow-white/10" src={image} alt={`Captura de pantalla del proyecto ${title}`} />
+        </article>
+    ))
+}
