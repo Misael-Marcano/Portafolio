@@ -1,5 +1,5 @@
 ---
-import "@fontsource-variable/onest";
+// import "@fontsource-variable/onest";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
@@ -37,7 +37,6 @@ const { description, title } = Astro.props;
 
     <Footer />
 
-    <!-- LÓGICA GLOBAL: Tema + Idioma -->
     <script is:inline>
       // ===== THEME =====
       const getTheme = () => {
@@ -75,6 +74,8 @@ const { description, title } = Astro.props;
       // inicializar idioma
       document.documentElement.lang = getLang();
     </script>
+    <script type="module" src="/src/scripts/i18n.ts"></script>
+
   </body>
 </html>
 
