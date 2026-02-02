@@ -12,16 +12,14 @@ const EXPERIENCE = [
     date: "Noviembre 2023 - Junio 2024",
     title: "Desarrollador Oracle Forms y Reports – La Monumental de Seguros",
     description:
-      "Desarrollé y di mantenimiento a aplicaciones orientadas a la gestión de pólizas, reclamaciones y procesos administrativos. Implementé mejoras funcionales y correcciones que aseguraron la operatividad diaria de los sistemas, trabajando con equipos internos para adaptar soluciones tecnológicas a las necesidades del negocio asegurador.",
+      "Desarrollé y mantenimiento a aplicaciones orientadas a la gestión de pólizas, reclamaciones y procesos administrativos. Implementé mejoras funcionales y correcciones que aseguraron la operatividad diaria de los sistemas, trabajando con equipos internos para adaptar soluciones tecnológicas a las necesidades del negocio asegurador.",
   },
 ];
 ---
-
-<ol class="relative border-s border-gray-200 ml-3">
+<ol class="relative border-s border-gray-200 dark:border-gray-700 ml-3">
   {
     EXPERIENCE.map((experiencie) => (
-      <li class="mb-10 ms-4">
-        <ExperienceItem {...experiencie} />
+      <li class="mb-10 ms-6"> <ExperienceItem {...experiencie} />
       </li>
     ))
   }

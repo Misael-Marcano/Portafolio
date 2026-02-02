@@ -5,54 +5,86 @@ import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
 interface Props {
-	title: string
-	description: string
+  title: string;
+  description: string;
 }
 
-const {description, title} = Astro.props
+const { description, title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-	<meta name="description" content={description}>
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Portafolio Misael</title>
+    <link rel="icon" type="image/svg+xml" href="/code.ico" />
+    <title>{title}</title>
   </head>
-  <body>
+
+  <body class="bg-gray-50 dark:bg-gray-950 min-h-screen flex flex-col">
     <div
-      class="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
-    >
-    </div>
+      class="fixed top-0 left-0 right-0 bottom-0 z-[-2]
+      bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
+      dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
+    ></div>
+
     <Header />
-    <slot />
+
+    <main>
+      <slot />
+    </main>
+
     <Footer />
+
+    <!-- LÓGICA GLOBAL: Tema + Idioma -->
+    <script is:inline>
+      // ===== THEME =====
+      const getTheme = () => {
+        const saved = localStorage.getItem("theme");
+        if (saved === "dark" || saved === "light") return saved;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      };
+
+      const setTheme = (t) => {
+        document.documentElement.classList.toggle("dark", t === "dark");
+        localStorage.setItem("theme", t);
+      };
+
+      // aplicar inmediatamente para evitar parpadeo
+      setTheme(getTheme());
+
+      window.toggleTheme = () => {
+        const isDark = document.documentElement.classList.contains("dark");
+        setTheme(isDark ? "light" : "dark");
+      };
+
+      // ===== LANGUAGE =====
+      const getLang = () => {
+        const saved = localStorage.getItem("language");
+        return saved === "en" ? "en" : "es";
+      };
+
+      window.changeLanguage = (lang) => {
+        const safeLang = lang === "en" ? "en" : "es";
+        document.documentElement.lang = safeLang;
+        localStorage.setItem("language", safeLang);
+        window.dispatchEvent(new CustomEvent("languageChange", { detail: { language: safeLang } }));
+      };
+
+      // inicializar idioma
+      document.documentElement.lang = getLang();
+    </script>
   </body>
 </html>
 
 <style is:global>
-  :root {
-    color-scheme: light dark;
-  }
+  :root { color-scheme: light dark; }
   html {
     font-family: "Onest Variable", sans-serif;
-	scroll-behavior: smooth;
-
+    scroll-behavior: smooth;
   }
-  body {
-    background: #050505;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-	html {
-	  scroll-behavior: auto;
-	}
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
   }
 </style>
