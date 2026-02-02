@@ -18,7 +18,7 @@ import Projects from "../components/Projects.astro";
   description="Contrata a Misael para crear tu aplicación web. Desarrollador Web. Especializado en crear aplicaciones únicas."
 >
   <main class="px-4 w-full overflow-x-hidden">
-    <SectionContainer class="py-10 sm:py-16 md:py-20 pb-16 sm:pb-24 md:pb-32">
+    <SectionContainer class="py-40 sm:py-40 md:py-40 pb-40 sm:pb-25 md:pb-30">
       <div
         class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
       >
@@ -27,13 +27,14 @@ import Projects from "../components/Projects.astro";
           src={fotoPerfil.src}
           alt="misael photo"
         />
-        <Badge>Disponible para trabajar</Badge>
+        <Badge data-i18n="status_available">Disponible para trabajar</Badge>
       </div>
       <div
-        class="flex flex-col lg:flex-row gap-x-4 items-start lg:items-center pb-6 lg:pb-10"
+        class="flex flex-col lg:flex-row gap-x-4 items-start lg:items-center pb-6 lg:pb-2"
       >
         <h1
           class="text-3xl sm:text-5xl md:text-5xl font-bold tracking-tight text-gray-800 dark:text-white"
+          data-i18n="welcome_title"
         >
           Hey, soy Misael
         </h1>
@@ -41,48 +42,55 @@ import Projects from "../components/Projects.astro";
       <p
         class="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300 max-w-2xl"
       >
-        <span
-          >Desarrollador de software con 3 años de experiencia en Oracle Forms y
-          Oracle Reports</span
-        >,
-        <span class="text-yellow-200"
-          ><strong>y experiencia junior en desarrollo web.</strong></span
-        >
-        <span class="text-yellow-200"> De Santiago, República Dominicana.</span>
-        <span>Especializado en la creación de aplicaciones funcionales.</span>
+        <span data-i18n="desc_part_1">
+          Desarrollador de software con 3 años de experiencia en Oracle Forms y
+          Oracle Reports
+        </span>,
+        <span class="text-yellow-200">
+          <strong data-i18n="desc_part_2">
+            y experiencia junior en desarrollo web.
+          </strong>
+        </span>
+        <span class="text-yellow-200" data-i18n="desc_part_3">
+          De Santiago, República Dominicana.
+        </span>
+        <span data-i18n="desc_part_4">
+          Especializado en la creación de aplicaciones funcionales.
+        </span>
       </p>
+
       <nav class="flex gap-2 sm:gap-4 mt-6 sm:mt-8 flex-wrap">
         <SocialPill href="https://www.linkedin.com/in/misael-marcano/">
-          <LinkedInIcon class="size-3 sm:size-4 md:size-6" />
-          <span class="hidden sm:inline">LinkedIn</span>
+          <LinkedInIcon class="size-3 sm:size-4 md:size-6 text-gray-800 dark:text-gray-200" />
+          <span class="hidden sm:inline text-gray-800 dark:text-gray-200">LinkedIn</span>
         </SocialPill>
         <SocialPill href="https://github.com/Misael-Marcano">
-          <GitHubIcon class="size-3 sm:size-4 md:size-6" />
-          <span class="hidden sm:inline">GitHub</span>
+          <GitHubIcon class="size-3 sm:size-4 md:size-6 text-gray-800 dark:text-gray-200" />
+          <span class="hidden sm:inline text-gray-800 dark:text-gray-200">GitHub</span>
         </SocialPill>
-        <SocialPill href="mailto:misaelmarcano0530@gmail.com">
+        <!-- <SocialPill href="mailto:misaelmarcano0530@gmail.com">
           <MailIcon class="size-3 sm:size-4 md:size-6" />
           <span class="hidden sm:inline">misaelmarcano0530@gmail.com</span>
-        </SocialPill>
+        </SocialPill> -->
       </nav>
     </SectionContainer>
 
     <SectionContainer id="experiencia">
       <h2
-        class="text-2xl sm:text-3xl font-semibold mb-6 flex gap-x-3 items-center flex-wrap"
+        class="text-2xl sm:text-3xl font-semibold mb-2 flex gap-x-3 items-center flex-wrap"
       >
-        <BriefcaseIcon class="size-6 sm:size-7" />
-        Experiencia laboral
+        <BriefcaseIcon class="size-6 sm:size-7 text-gray-800 dark:text-gray-200" />
+        <span data-i18n="section_experience_title" class="text-gray-800 dark:text-gray-200">Experiencia laboral</span>
       </h2>
       <Experience />
     </SectionContainer>
 
-    <SectionContainer id="Proyectos">
+    <SectionContainer id="proyectos">
       <h2
         class="text-2xl sm:text-3xl font-semibold mb-6 flex gap-x-3 items-center flex-wrap"
       >
         <ProjectsIcon class="size-8 sm:size-10" />
-        Proyectos Destacados
+        <span data-i18n="section_projects_title">Proyectos Destacados</span>
       </h2>
       <Projects />
     </SectionContainer>

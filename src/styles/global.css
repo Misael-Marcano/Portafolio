@@ -1,1 +1,5 @@
+/* ✅ Tailwind v4: define el variant dark basado en .dark */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ✅ carga Tailwind */
 @import "tailwindcss";

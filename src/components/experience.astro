@@ -1,26 +1,27 @@
 ---
 import ExperienceItem from "./experienceItem.astro";
+
 const EXPERIENCE = [
   {
-    date: "Actualmente...",
-    title: "Desarrollador Oracle Forms y Reports – Banfondesa",
-    description:
-      "Responsable del análisis, desarrollo y optimización de módulos internos utilizando Oracle Forms y Reports. Participación activa en la mejora continua de los sistemas financieros de la institución, realizando ajustes funcionales, correcciones y ampliaciones que garantizan la estabilidad y el rendimiento de las aplicaciones críticas.",
+    dateKey: "exp_1_date",
+    titleKey: "exp_1_title",
+    title2Key: "exp_1_company",
+    descriptionKey: "exp_1_desc",
     link: "#",
   },
   {
-    date: "Noviembre 2023 - Junio 2024",
-    title: "Desarrollador Oracle Forms y Reports – La Monumental de Seguros",
-    description:
-      "Desarrollé y mantenimiento a aplicaciones orientadas a la gestión de pólizas, reclamaciones y procesos administrativos. Implementé mejoras funcionales y correcciones que aseguraron la operatividad diaria de los sistemas, trabajando con equipos internos para adaptar soluciones tecnológicas a las necesidades del negocio asegurador.",
+    dateKey: "exp_2_date",
+    titleKey: "exp_2_title",
+    title2Key: "exp_2_company",
+    descriptionKey: "exp_2_desc",
   },
 ];
 ---
+
 <ol class="relative border-s border-gray-200 dark:border-gray-700 ml-3">
-  {
-    EXPERIENCE.map((experiencie) => (
-      <li class="mb-10 ms-6"> <ExperienceItem {...experiencie} />
-      </li>
-    ))
-  }
+  {EXPERIENCE.map((exp) => (
+    <li class="mb-10 ms-6">
+      <ExperienceItem {...exp} />
+    </li>
+  ))}
 </ol>
