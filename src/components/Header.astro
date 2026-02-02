@@ -1,29 +1,20 @@
+---
+---
+
 <header class="fixed top-0 z-50 flex items-center justify-center w-full mt-2">
   <nav
     id="main-nav"
     class="flex px-4 py-2 text-sm font-medium rounded-full justify-center items-center transition-all duration-300 gap-x-4 sm:gap-x-8 text-gray-700 dark:text-gray-300"
   >
     <a href="#top" data-i18n="nav_home" class="hover:text-blue-500 transition">Inicio</a>
-
-    <a href="#experiencia" data-i18n="nav_experience" class="hover:text-blue-500 transition">
-      Experiencia
-    </a>
-
-    <a href="#Proyectos" data-i18n="nav_projects" class="hover:text-blue-500 transition">
-      Proyectos
-    </a>
-
-    <a href="#sobremi" data-i18n="nav_about" class="hover:text-blue-500 transition">
-      Sobre mí
-    </a>
-
-    <a href="#Contacto" data-i18n="nav_contact" class="hover:text-blue-500 transition">
-      Contacto
-    </a>
+    <a href="#experiencia" data-i18n="nav_experience" class="hover:text-blue-500 transition">Experiencia</a>
+    <a href="#proyectos" data-i18n="nav_projects" class="hover:text-blue-500 transition">Proyectos</a>
+    <a href="#sobremi" data-i18n="nav_about" class="hover:text-blue-500 transition">Sobre mí</a>
+    <a href="#contacto" data-i18n="nav_contact" class="hover:text-blue-500 transition">Contacto</a>
 
     <div class="w-px h-5 bg-gray-400/50 dark:bg-gray-600/50"></div>
 
-    <!-- Toggle de idioma con indicador -->
+    <!-- Toggle de idioma -->
     <div class="flex bg-gray-200/50 dark:bg-gray-800/50 rounded-full p-1 border border-black/5 dark:border-white/10 relative h-8 w-24">
       <div
         id="lang-indicator"
@@ -55,7 +46,6 @@
       class="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition cursor-pointer"
       aria-label="Cambiar tema"
     >
-      <!-- Sol (visible en dark mode) -->
       <svg id="icon-sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="5" stroke-width="2"></circle>
         <path
@@ -64,7 +54,6 @@
         ></path>
       </svg>
 
-      <!-- Luna (visible en light mode) -->
       <svg id="icon-moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
           d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
@@ -83,11 +72,18 @@
     animation-range: 0 100px;
   }
 
+  #main-nav a.active {
+    color: #3b82f6;
+    font-weight: 600;
+  }
+  :global(.dark) #main-nav a.active {
+    color: #60a5fa;
+  }
+
   @keyframes nav-shadow {
     from { background-color: transparent; }
     to {
-      /* background-color: rgba(255, 255, 255, 0.3); */
-      background-color: #1e2736;
+      background-color: rgba(255, 255, 255, 0.3);
       backdrop-filter: blur(10px);
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -142,21 +138,55 @@
       }
     };
 
-    themeBtn.addEventListener("click", () => window.toggleTheme());
+    // Scroll-spy
+    const links = Array.from(document.querySelectorAll('#main-nav a[href^="#"]'));
+
+    const getSections = () =>
+      links
+        .map((a) => {
+          const href = a.getAttribute("href");
+          if (!href) return null;
+          const el = document.querySelector(href);
+          return el ? { a, el, href } : null;
+        })
+        .filter(Boolean);
+
+    let sections = getSections();
+
+    const setActiveLink = () => {
+      if (!sections.length) sections = getSections();
+
+      const offset = 160;
+      let currentHref = "#top";
+
+      for (const s of sections) {
+        const rect = s.el.getBoundingClientRect();
+        if (rect.top <= offset) currentHref = s.href;
+      }
+
+      links.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === currentHref));
+    };
+
+    // Eventos
+    themeBtn.addEventListener("click", () => {
+      if (typeof window.toggleTheme === "function") window.toggleTheme();
+    });
 
     btnEs.addEventListener("click", () => {
-      window.changeLanguage("es");
+      if (typeof window.changeLanguage === "function") window.changeLanguage("es");
       paintLangIndicator();
     });
 
     btnEn.addEventListener("click", () => {
-      window.changeLanguage("en");
+      if (typeof window.changeLanguage === "function") window.changeLanguage("en");
       paintLangIndicator();
     });
 
     window.addEventListener("languageChange", paintLangIndicator);
+    window.addEventListener("scroll", setActiveLink, { passive: true });
 
     paintLangIndicator();
+    setActiveLink();
   };
 
   if (document.readyState === "loading") {

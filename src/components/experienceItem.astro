@@ -1,14 +1,27 @@
 ---
+import es from "../i18n/es.json";
 interface Props {
   dateKey: string;
   titleKey: string;
   title2Key?: string;
   descriptionKey: string;
   link?: string;
-  ctaKey?: string; // optional
+  ctaKey?: string;
 }
 
-const { dateKey, titleKey, title2Key, descriptionKey, link, ctaKey = "exp_more" } = Astro.props;
+const {
+  dateKey,
+  titleKey,
+  title2Key,
+  descriptionKey,
+  link,
+  ctaKey = "exp_more",
+} = Astro.props;
+
+const fb = (key?: string) => {
+  if (!key) return "";
+  return (es as Record<string, string>)[key] ?? "";
+};
 ---
 
 <div class="absolute w-3 h-3 bg-yellow-500 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-yellow-400 z-10"></div>
@@ -16,21 +29,23 @@ const { dateKey, titleKey, title2Key, descriptionKey, link, ctaKey = "exp_more" 
 <div class="grid md:grid-cols-5 md:gap-10 md:space-x-4 h-full">
   <div class="relative pb-2 md:col-span-2">
     <h3 class="text-xl font-bold text-yellow-400 dark:text-yellow-400" data-i18n={titleKey}>
-
+      {fb(titleKey)}
     </h3>
 
     {title2Key && (
       <h4 class="font-semibold text-xl text-gray-600 dark:text-white" data-i18n={title2Key}>
+        {fb(title2Key)}
       </h4>
     )}
 
     <time class="p-0 m-0 text-sm leading-none text-gray-600/80 dark:text-white/80" data-i18n={dateKey}>
-
+      {fb(dateKey)}
     </time>
   </div>
 
   <div class="relative flex flex-col gap-2 pb-4 text-gray-600 dark:text-gray-300 md:col-span-3 h-full justify-between">
     <p class="mb-4 text-base font-normal text-pretty" data-i18n={descriptionKey}>
+      {fb(descriptionKey)}
     </p>
 
     {link && (
@@ -38,7 +53,7 @@ const { dateKey, titleKey, title2Key, descriptionKey, link, ctaKey = "exp_more" 
         href={link}
         class="inline-flex items-center text-lg font-medium text-yellow-400/90 dark:text-yellow-200/90 hover:text-yellow-500 dark:hover:text-yellow-300 transition-colors duration-300 no-underline w-fit"
       >
-        <span data-i18n={ctaKey}>Saber más...</span>
+        <span data-i18n={ctaKey}>{fb(ctaKey) || "Saber más..."}</span>
         <svg
           class="w-4 h-4 ms-2"
           aria-hidden="true"

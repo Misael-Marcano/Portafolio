@@ -1,5 +1,5 @@
 ---
-// import "@fontsource-variable/onest";
+import "@fontsource-variable/onest";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
@@ -20,9 +20,58 @@ const { description, title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/code.ico" />
     <title>{title}</title>
+
+    <!-- ✅ ÚNICO script: Tema + Idioma global (sin duplicados) -->
+    <script is:inline>
+      (() => {
+        // ====== THEME ======
+        const getTheme = () => {
+          const stored = localStorage.getItem("theme");
+          if (stored === "dark" || stored === "light") return stored;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        };
+
+        const applyTheme = (theme) => {
+          // ✅ Tailwind darkMode:"class" depende de <html>
+          document.documentElement.classList.toggle("dark", theme === "dark");
+          localStorage.setItem("theme", theme);
+        };
+
+        // Inicializa tema temprano
+        applyTheme(getTheme());
+
+        // Expone toggle global
+        window.toggleTheme = () => {
+          const isDark = document.documentElement.classList.contains("dark");
+          applyTheme(isDark ? "light" : "dark");
+        };
+
+        // ====== LANGUAGE ======
+        window.changeLanguage = (lang) => {
+          const safe = lang === "en" ? "en" : "es";
+          localStorage.setItem("language", safe);
+          document.documentElement.lang = safe;
+
+          window.dispatchEvent(
+            new CustomEvent("languageChange", { detail: { language: safe } })
+          );
+        };
+
+        // Inicializa lang del HTML
+        document.documentElement.lang =
+          localStorage.getItem("language") === "en" ? "en" : "es";
+      })();
+    </script>
+
+    <!-- ✅ i18n desde JSON -->
+    <script is:inline type="module">
+      import "/src/scripts/i18n.ts";
+    </script>
   </head>
 
   <body class="bg-gray-50 dark:bg-gray-950 min-h-screen flex flex-col">
+    <div id="top"></div>
+
     <div
       class="fixed top-0 left-0 right-0 bottom-0 z-[-2]
       bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
@@ -36,46 +85,6 @@ const { description, title } = Astro.props;
     </main>
 
     <Footer />
-
-    <script is:inline>
-      // ===== THEME =====
-      const getTheme = () => {
-        const saved = localStorage.getItem("theme");
-        if (saved === "dark" || saved === "light") return saved;
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      };
-
-      const setTheme = (t) => {
-        document.documentElement.classList.toggle("dark", t === "dark");
-        localStorage.setItem("theme", t);
-      };
-
-      // aplicar inmediatamente para evitar parpadeo
-      setTheme(getTheme());
-
-      window.toggleTheme = () => {
-        const isDark = document.documentElement.classList.contains("dark");
-        setTheme(isDark ? "light" : "dark");
-      };
-
-      // ===== LANGUAGE =====
-      const getLang = () => {
-        const saved = localStorage.getItem("language");
-        return saved === "en" ? "en" : "es";
-      };
-
-      window.changeLanguage = (lang) => {
-        const safeLang = lang === "en" ? "en" : "es";
-        document.documentElement.lang = safeLang;
-        localStorage.setItem("language", safeLang);
-        window.dispatchEvent(new CustomEvent("languageChange", { detail: { language: safeLang } }));
-      };
-
-      // inicializar idioma
-      document.documentElement.lang = getLang();
-    </script>
-    <script type="module" src="/src/scripts/i18n.ts"></script>
-
   </body>
 </html>
 
