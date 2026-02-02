@@ -40,65 +40,76 @@ const PROJECTS = [
     PROJECTS.map(({ image, title, description, tags, link, github }) => (
       <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
         
+        <!-- Imagen -->
         <div class="w-full md:w-1/2 flex">
-          <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50 h-full">
+          <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50 h-full bg-gray-200 dark:bg-gray-800">
             <img 
               alt={`Captura de pantalla del proyecto ${title}`} 
               class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-100" 
-              loading="lazy" 
+              loading="eager"
+              decoding="async"
               src={image} 
             />
           </div>
         </div>
 
+        <!-- Contenido -->
         <div class="w-full md:w-1/2 md:max-w-lg flex flex-col">
           <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
             {title}
           </h3>
           
-          <div class="flex flex-wrap mt-2">
-            <ul class="flex flex-row mb-4 gap-x-2">
-              {tags.map((tag) => (
-                <li>
-                  <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}>
-                    <tag.icon class="size-4" />
-                    {tag.name}
-                  </span>
-                </li>
-              ))}
-            </ul>
+          <!-- Tags -->
+          <ul class="flex flex-row mt-3 mb-4 gap-x-2 flex-wrap">
+            {tags.map((tag) => (
+              <li>
+                <span class={`inline-flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}>
+                  <tag.icon class="size-4" />
+                  {tag.name}
+                </span>
+              </li>
+            ))}
+          </ul>
 
-            <div class="mt-2 text-gray-700 dark:text-gray-400 text-pretty flex-grow">
-              {description}
-            </div>
+          <!-- Descripción -->
+          <p class="text-gray-700 dark:text-gray-400 text-pretty mb-6 flex-grow">
+            {description}
+          </p>
 
-            <footer class="flex items-end justify-start mt-6 gap-x-4 w-full">
-              {github && (
-                <a 
-                  href={github} 
-                  role="link" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center justify-center gap-2 px-3 py-2 text-base text-white transition bg-gray-800 border border-gray-600 focus-visible:ring-yellow-500/80 text-md hover:bg-gray-900 hover:border-gray-900 group max-w-fit rounded-xl active:bg-black focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2"
-                >
-                  <GitHubIcon class="size-4" />
-                  Code
-                </a>
-              )}
-              {link && (
-                <a 
-                  href={link} 
-                  role="link" 
-                  class="inline-flex items-center justify-center gap-2 px-3 py-2 text-base text-white transition bg-gray-800 border border-gray-600 focus-visible:ring-yellow-500/80 text-md hover:bg-gray-900 hover:border-gray-900 group max-w-fit rounded-xl active:bg-black focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2"
-                >
-                  <LinkIcon class="size-4" />
-                  Preview
-                </a>
-              )}
-            </footer>
-          </div>
+          <!-- Botones -->
+          <footer class="flex items-center justify-start gap-x-4 w-full">
+            {github && (
+              <a 
+                href={github} 
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white transition bg-gray-800 border border-gray-600 rounded-lg hover:bg-gray-900 hover:border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500/80 focus:ring-offset-2 dark:focus:ring-offset-gray-950"
+              >
+                <GitHubIcon class="size-4" />
+                Code
+              </a>
+            )}
+            {link && (
+              <a 
+                href={link} 
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white transition bg-gray-800 border border-gray-600 rounded-lg hover:bg-gray-900 hover:border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500/80 focus:ring-offset-2 dark:focus:ring-offset-gray-950"
+              >
+                <LinkIcon class="size-4" />
+                Preview
+              </a>
+            )}
+          </footer>
         </div>
       </article>
     ))
   }
 </div>
+
+<style>
+  /* Optimizar renderizado de imágenes */
+  img {
+    contain: layout style paint;
+  }
+</style>
