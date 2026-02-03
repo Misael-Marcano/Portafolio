@@ -1,21 +1,65 @@
 ---
-const { class: className, ...rest } = Astro.props;
+interface Props {
+  class?: string;
+  href?: string;
+  [key: string]: any;
+}
+
+const { class: className, href, ...rest } = Astro.props;
+const isLink = href !== undefined;
 ---
 
-<div class="inline-flex items-center transition">
-  <span class="relative inline-flex overflow-hidden rounded-full p-px">
-    <span class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#51E4B8_0%,#21554E_50%,#51E4B8_100%)]"></span>
-
-    <div
-      {...rest}
-      class={`inline-flex items-center justify-center w-full px-3 py-1 text-sm font-medium text-white bg-gray-950/90 rounded-full cursor-pointer backdrop-blur-3xl whitespace-nowrap z-10 ${className ?? ""}`}
+{
+  isLink ? (
+    <a 
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center transition md:hover:scale-105"
     >
-      <span class="relative flex h-2 w-2 mr-2">
-        <span class="animate-pulse absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-full w-full bg-green-500"></span>
-      </span>
+      <span class="relative inline-flex overflow-hidden rounded-full p-px">
+        <!-- Animación de borde giratorio -->
+        <span class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#10b981_0%,#059669_50%,#10b981_100%)] dark:bg-[conic-gradient(from_90deg_at_50%_50%,#6ee7b7_0%,#047857_50%,#6ee7b7_100%)]"></span>
 
-      <slot />
-    </div>
-  </span>
-</div>
+        <!-- Contenido del badge -->
+        <div
+          {...rest}
+          class={`relative inline-flex items-center justify-center w-full px-3 py-1 text-sm font-medium rounded-full cursor-pointer backdrop-blur-3xl whitespace-nowrap z-10 transition-colors duration-300
+          bg-green-50 text-green-800 dark:bg-gray-900/80 dark:text-green-300
+          ${className ?? ""}`}
+        >
+          <!-- Puntito pulsante -->
+          <span class="relative flex h-2 w-2 mr-2">
+            <span class="animate-pulse absolute inline-flex h-full w-full rounded-full bg-green-400 dark:bg-green-500 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-full w-full bg-green-500 dark:bg-green-400"></span>
+          </span>
+
+          <slot />
+        </div>
+      </span>
+    </a>
+  ) : (
+    <span class="inline-flex items-center transition">
+      <span class="relative inline-flex overflow-hidden rounded-full p-px">
+        <!-- Animación de borde giratorio -->
+        <span class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#10b981_0%,#059669_50%,#10b981_100%)] dark:bg-[conic-gradient(from_90deg_at_50%_50%,#6ee7b7_0%,#047857_50%,#6ee7b7_100%)]"></span>
+
+        <!-- Contenido del badge -->
+        <div
+          {...rest}
+          class={`relative inline-flex items-center justify-center w-full px-3 py-1 text-sm font-medium rounded-full cursor-pointer backdrop-blur-3xl whitespace-nowrap z-10 transition-colors duration-300
+          bg-green-50 text-green-800 dark:bg-gray-900/80 dark:text-green-300
+          ${className ?? ""}`}
+        >
+          <!-- Puntito pulsante -->
+          <span class="relative flex h-2 w-2 mr-2">
+            <span class="animate-pulse absolute inline-flex h-full w-full rounded-full bg-green-400 dark:bg-green-500 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-full w-full bg-green-500 dark:bg-green-400"></span>
+          </span>
+
+          <slot />
+        </div>
+      </span>
+    </span>
+  )
+}

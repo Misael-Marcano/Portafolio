@@ -21,7 +21,6 @@ const { description, title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/code.ico" />
     <title>{title}</title>
 
-    <!-- ✅ ÚNICO script: Tema + Idioma global (sin duplicados) -->
     <script is:inline>
       (() => {
         // ====== THEME ======
@@ -32,7 +31,6 @@ const { description, title } = Astro.props;
         };
 
         const applyTheme = (theme) => {
-          // ✅ Tailwind darkMode:"class" depende de <html>
           document.documentElement.classList.toggle("dark", theme === "dark");
           localStorage.setItem("theme", theme);
         };
@@ -63,7 +61,6 @@ const { description, title } = Astro.props;
       })();
     </script>
 
-    <!-- ✅ i18n desde JSON -->
     <script is:inline type="module">
       import "/src/scripts/i18n.ts";
     </script>
