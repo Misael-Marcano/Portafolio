@@ -21,5 +21,15 @@
     "exp_2_date": "Noviembre 2023 - Junio 2024",
     "exp_2_title": "Desarrollador Oracle Forms y Reports",
     "exp_2_company": "La Monumental de Seguros",
-    "exp_2_desc": "Desarrollé y mantuve aplicaciones orientadas a la gestión de pólizas, reclamaciones y procesos administrativos. Implementé mejoras funcionales y correcciones que aseguraron la operatividad diaria de los sistemas, trabajando con equipos internos para adaptar soluciones tecnológicas a las necesidades del negocio asegurador."
+    "exp_2_desc": "Desarrollé y mantuve aplicaciones orientadas a la gestión de pólizas, reclamaciones y procesos administrativos. Implementé mejoras funcionales y correcciones que aseguraron la operatividad diaria de los sistemas, trabajando con equipos internos para adaptar soluciones tecnológicas a las necesidades del negocio asegurador.",
+    "projects": "Proyectos",
+    "projects_subtitle": "Configurador de Bromas",
+    "proj_1_title": "Configurador de Bromas",
+    "proj_1_desc": "Proyecto enfocado en el consumo de una API REST pública (JokeAPI v2) para la obtención de chistes en tiempo real. Implementa peticiones HTTP, manejo de respuestas en formato JSON y filtrado por categorías y tipo de contenido.",
+    "proj_1_alt": "Captura de pantalla del proyecto Configurador de Bromas",
+    "btn_code": "Código",
+    "btn_preview": "Vista previa",
+    "tag_js": "JavaScript",
+    "tag_css": "CSS",
+    "tag_ejs": "EJS"
 }

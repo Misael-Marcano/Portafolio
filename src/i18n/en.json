@@ -21,5 +21,14 @@
     "exp_2_date": "November 2023 - June 2024",
     "exp_2_title": "Oracle Forms & Reports Developer",
     "exp_2_company": "La Monumental Insurance",
-    "exp_2_desc": "Developed and maintained applications focused on policy management, claims, and administrative processes. Implemented functional improvements and fixes that ensured daily system operation, collaborating with internal teams to adapt technology solutions to business needs."
+    "exp_2_desc": "Developed and maintained applications focused on policy management, claims, and administrative processes. Implemented functional improvements and fixes that ensured daily system operation, collaborating with internal teams to adapt technology solutions to business needs.",
+    "projects": "Projects",
+    "proj_1_title": "Jokes Configurator",
+    "proj_1_desc": "Project focused on the consumption of a public REST API (JokeAPI v2) to obtain jokes in real time. It implements HTTP requests, handles responses in JSON format, and filters by category and content type.",
+    "proj_1_alt": "Screenshot of the project Jokes Configurator",
+    "btn_code": "Code",
+    "btn_preview": "Preview",
+    "tag_js": "JavaScript",
+    "tag_css": "CSS",
+    "tag_ejs": "EJS"
 }

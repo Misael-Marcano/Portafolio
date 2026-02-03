@@ -7,96 +7,108 @@ import LinkIcon from "../components/icons/Link.astro";
 
 const TAGS = {
   JavaScript: {
-    name: "JavaScript",
+    nameKey: "tag_js",
     class: "bg-[#F7DF1E] text-black font-bold",
     icon: JavascriptIcon,
   },
   CSS: {
-    name: "CSS",
+    nameKey: "tag_css",
     class: "bg-[#639] text-white font-bold",
     icon: CssIcon,
   },
   EJS: {
-    name: "EJS",
+    nameKey: "tag_ejs",
     class: "bg-[#2d5016] text-white",
     icon: EjsIcon,
-  }
-}
+  },
+};
 
 const PROJECTS = [
   {
-    title: "Configurador de Bromas",
-    description: "Proyecto enfocado en el consumo de una API REST pública (JokeAPI v2) para la obtención de chistes en tiempo real. Implementa peticiones HTTP, manejo de respuestas en formato JSON y filtrado por categorías y tipo de contenido.",
+    titleKey: "proj_1_title",
+    descriptionKey: "proj_1_desc",
     link: "#",
     github: "https://github.com/Misael-Marcano/Configurador-de-Bromas",
     image: "/Portafolio/projects/svgl.png",
     tags: [TAGS.JavaScript, TAGS.CSS, TAGS.EJS],
   },
 ];
+
+// Keys para botones
+const UI = {
+  codeKey: "btn_code",
+  previewKey: "btn_preview",
+};
 ---
 
 <div class="flex flex-col gap-y-16">
   {
-    PROJECTS.map(({ image, title, description, tags, link, github }) => (
+    PROJECTS.map(({ image, titleKey, descriptionKey, tags, link, github }) => (
       <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
-        
+
         <!-- Imagen -->
         <div class="w-full md:w-1/2 flex">
           <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50 h-full bg-gray-200 dark:bg-gray-800">
-            <img 
-              alt={`Captura de pantalla del proyecto ${title}`} 
-class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"              loading="eager"
+            <img
+              data-i18n-attr="alt"
+              data-i18n-alt="proj_1_alt"
+              alt="Captura del proyecto"
+              class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
+              loading="eager"
               decoding="async"
-              src={image} 
+              src={image}
             />
           </div>
         </div>
 
         <!-- Contenido -->
         <div class="w-full md:w-1/2 md:max-w-lg flex flex-col">
-          <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
-            {title}
+          <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100" data-i18n={titleKey}>
+            {/* fallback */}
+            Proyecto
           </h3>
-          
+
           <!-- Tags -->
           <ul class="flex flex-row mt-3 mb-4 gap-x-2 flex-wrap">
             {tags.map((tag) => (
               <li>
                 <span class={`inline-flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}>
                   <tag.icon class="size-4" />
-                  {tag.name}
+                  <span data-i18n={tag.nameKey}>{/* fallback */}Tag</span>
                 </span>
               </li>
             ))}
           </ul>
 
           <!-- Descripción -->
-          <p class="text-gray-700 dark:text-gray-400 text-pretty mb-6 grow">
-            {description}
+          <p class="text-gray-700 dark:text-gray-400 text-pretty mb-6 grow" data-i18n={descriptionKey}>
+            {/* fallback */}
+            Descripción del proyecto...
           </p>
 
           <!-- Botones -->
           <footer class="flex items-center justify-start gap-x-4 w-full">
             {github && (
-              <a 
-                href={github} 
+              <a
+                href={github}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex bg-gray-100 text-gray-800 border-gray-300 items-center justify-center gap-2 px-3 py-2 space-x-2 text-base transition dark:text-white dark:bg-gray-800 border dark:border-gray-600 focus-visible:ring-yellow-500/80 text-md hover:bg-gray-800 hover:border-gray-900 group max-w-fit rounded-xl hover:text-white focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-black"
               >
                 <GitHubIcon class="size-6" />
-                Code
+                <span data-i18n={UI.codeKey}>Code</span>
               </a>
             )}
+
             {link && (
-              <a 
-                href={link} 
+              <a
+                href={link}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex bg-gray-100 text-gray-800 border-gray-300 items-center justify-center gap-2 px-3 py-2 space-x-2 text-base transition dark:text-white dark:bg-gray-800 border dark:border-gray-600 focus-visible:ring-yellow-500/80 text-md hover:bg-gray-800 hover:border-gray-900 group max-w-fit rounded-xl hover:text-white focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-black"
               >
                 <LinkIcon class="size-6" />
-                Preview
+                <span data-i18n={UI.previewKey}>Preview</span>
               </a>
             )}
           </footer>
@@ -107,8 +119,5 @@ class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:
 </div>
 
 <style>
-  /* Optimizar renderizado de imágenes */
-  img {
-    contain: layout style paint;
-  }
+  img { contain: layout style paint; }
 </style>

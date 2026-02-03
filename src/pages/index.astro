@@ -12,6 +12,8 @@ import BriefcaseIcon from "../components/icons/Briefcase.astro";
 import ProjectsIcon from "../components/icons/Projects.astro";
 import Projects from "../components/Projects.astro";
 import UserIcon from "../components/icons/User.astro";
+import CurriculumIcon from "../components/icons/Curriculum.astro";
+import ContactIcon from "../components/icons/Contact.astro";
 ---
 
 <Layout
@@ -54,12 +56,9 @@ import UserIcon from "../components/icons/User.astro";
             y experiencia junior en desarrollo web.
           </strong>
         </span>
-        <span
-          class="text-yellow-400 dark:text-yellow-200"
-          data-i18n="desc_part_3"
-        >
-          <strong class="font-semibold"
-            >De Santiago, República Dominicana.
+        <span class="text-yellow-400 dark:text-yellow-200">
+          <strong data-i18n="desc_part_3" class="font-semibold">
+            De Santiago, República Dominicana.
           </strong>
         </span>
         <span data-i18n="desc_part_4">
@@ -69,26 +68,7 @@ import UserIcon from "../components/icons/User.astro";
 
       <nav class="flex flex-wrap gap-4 mt-8">
         <SocialPill href="mailto:misaelmarcano0530@gmail.com">
-          <svg
-            class="size-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path
-              d="M12 18h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v7.5"
-            ></path>
-            <path d="M3 6l9 6l9 -6"></path>
-            <path d="M15 18h6"></path>
-            <path d="M18 15l3 3l-3 3"></path>
-          </svg>
+          <ContactIcon class="size-4" />
           Contáctame
         </SocialPill>
 
@@ -101,6 +81,11 @@ import UserIcon from "../components/icons/User.astro";
           <GitHubIcon class="size-4" />
           GitHub
         </SocialPill>
+
+        <SocialPill href="https://github.com/Misael-Marcano">
+          <CurriculumIcon class="size-4" />
+          Descargar CV
+        </CurriculumIcon>
       </nav>
     </SectionContainer>
 
@@ -119,12 +104,12 @@ import UserIcon from "../components/icons/User.astro";
       <Experience />
     </SectionContainer>
 
-    <SectionContainer id="proyectos">
+    <SectionContainer id="proyectos" class="py-20">
       <h2
         class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white undefined"
       >
         <ProjectsIcon class="size-8 sm:size-10" />
-        <span data-i18n="section_projects_title">Proyectos Destacados</span>
+        <span data-i18n="projects">Proyectos</span>
       </h2>
       <Projects />
     </SectionContainer>

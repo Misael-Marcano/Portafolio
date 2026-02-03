@@ -1,6 +1,10 @@
 ---
+
 ---
-<header class="fixed top-0 z-50 flex items-center justify-center w-full mt-2 px-4">
+
+<header
+  class="fixed top-0 z-50 flex items-center justify-center w-full mt-2 px-4"
+>
   <nav
     id="main-nav"
     class="flex items-center justify-center gap-x-4 sm:gap-x-8 px-4 py-2 text-sm font-medium rounded-full
@@ -40,13 +44,13 @@
       Sobre mí
     </a>
 
-    <a
+    <!-- <a
       href="#contacto"
       data-i18n="nav_contact"
       class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400"
     >
       Contacto
-    </a>
+    </a> -->
 
     <!-- Separador -->
     <div class="w-px h-5 bg-gray-300/80 dark:bg-gray-600/50"></div>
@@ -64,7 +68,8 @@
         class="absolute top-1 bottom-1 w-11 rounded-full transition-all duration-300 ease-in-out shadow-sm
                bg-blue-500 dark:bg-blue-600"
         style="left: 4px;"
-      ></div>
+      >
+      </div>
 
       <button
         id="btn-es"
@@ -94,10 +99,10 @@
              text-gray-700 dark:text-gray-300"
       aria-label="Cambiar tema"
     >
-      <!-- Sol (visible en dark mode) -->
+      <!-- Sol (visible en LIGHT mode) -->
       <svg
         id="icon-sun"
-        class="w-5 h-5 hidden dark:block text-yellow-500"
+        class="w-5 h-5 block dark:hidden text-yellow-500"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -105,14 +110,13 @@
         <circle cx="12" cy="12" r="5" stroke-width="2"></circle>
         <path
           d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
-          stroke-width="2"
-        ></path>
+          stroke-width="2"></path>
       </svg>
 
-      <!-- Luna (visible en light mode) -->
+      <!-- Luna (visible en DARK mode) -->
       <svg
         id="icon-moon"
-        class="w-5 h-5 block dark:hidden text-blue-600"
+        class="w-5 h-5 hidden dark:block text-blue-400"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -120,15 +124,13 @@
         <path
           d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
           stroke-width="2"
-          stroke-linecap="round"
-        ></path>
+          stroke-linecap="round"></path>
       </svg>
     </button>
   </nav>
 </header>
 
 <style>
-  /* Animación tipo midudev: el nav gana fondo/blur/borde/sombra con scroll */
   #main-nav {
     animation: nav-shadow 1s linear both;
     animation-timeline: scroll();
@@ -187,13 +189,14 @@
     const btnEn = document.getElementById("btn-en");
     const indicator = document.getElementById("lang-indicator");
     const nav = document.getElementById("main-nav");
-    const navLinks = document.querySelectorAll('#main-nav a.nav-link');
+    const navLinks = document.querySelectorAll("#main-nav a.nav-link");
 
     if (!nav || !indicator || !btnEs || !btnEn) return;
 
     // ---- Idioma (tu lógica con indicador) ----
     const paintLangIndicator = () => {
-      const currentLang = localStorage.getItem("language") === "en" ? "en" : "es";
+      const currentLang =
+        localStorage.getItem("language") === "en" ? "en" : "es";
 
       if (currentLang === "es") {
         indicator.style.left = "4px";
@@ -215,7 +218,7 @@
       const offset = 200;
       let currentSection = "#top";
 
-      navLinks.forEach(link => {
+      navLinks.forEach((link) => {
         const href = link.getAttribute("href");
         if (!href || href === "#top") return;
 
@@ -230,7 +233,7 @@
         }
       });
 
-      navLinks.forEach(link => {
+      navLinks.forEach((link) => {
         const href = link.getAttribute("href");
         if (href === currentSection) link.classList.add("active");
         else link.classList.remove("active");
@@ -238,9 +241,9 @@
     };
 
     // Click marca activo inmediatamente
-    navLinks.forEach(link => {
+    navLinks.forEach((link) => {
       link.addEventListener("click", () => {
-        navLinks.forEach(l => l.classList.remove("active"));
+        navLinks.forEach((l) => l.classList.remove("active"));
         link.classList.add("active");
       });
     });
@@ -250,21 +253,22 @@
       if (typeof window.toggleTheme === "function") {
         window.toggleTheme();
       } else {
-        // Fallback por si no existe tu función
         document.documentElement.classList.toggle("dark");
       }
     });
 
     // ---- Toggle idioma (usa tu función global) ----
     btnEs?.addEventListener("click", () => {
-      if (typeof window.changeLanguage === "function") window.changeLanguage("es");
+      if (typeof window.changeLanguage === "function")
+        window.changeLanguage("es");
       localStorage.setItem("language", "es");
       paintLangIndicator();
       setTimeout(setActiveLink, 50);
     });
 
     btnEn?.addEventListener("click", () => {
-      if (typeof window.changeLanguage === "function") window.changeLanguage("en");
+      if (typeof window.changeLanguage === "function")
+        window.changeLanguage("en");
       localStorage.setItem("language", "en");
       paintLangIndicator();
       setTimeout(setActiveLink, 50);
@@ -286,7 +290,9 @@
   };
 
   if (document.readyState === "loading") {
-    window.addEventListener("DOMContentLoaded", initHeaderControls, { once: true });
+    window.addEventListener("DOMContentLoaded", initHeaderControls, {
+      once: true,
+    });
   } else {
     initHeaderControls();
   }

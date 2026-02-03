@@ -18,10 +18,21 @@ const EXPERIENCE = [
 ];
 ---
 
-<ol class="relative border-s border-gray-200 dark:border-gray-700 ml-3">
+<ol class="relative mt-16">
   {EXPERIENCE.map((exp) => (
-    <li class="mb-10 ms-6">
+    <li class="">
       <ExperienceItem {...exp} />
     </li>
   ))}
 </ol>
+
+<style>
+  ol {
+    --line-width: 2px;
+    --line-color: rgba(0, 0, 0, 0.2);
+  }
+
+  :global(.dark) ol {
+    --line-color: rgba(255, 255, 255, 0.15);
+  }
+</style>
