@@ -1,10 +1,8 @@
 ---
-
 ---
 
-<header
-  class="fixed top-0 z-50 flex items-center justify-center w-full mt-2 px-4"
->
+<header class="fixed top-0 z-50 flex items-center justify-center w-full mt-2 px-4">
+  <!-- NAV (desktop igual) -->
   <nav
     id="main-nav"
     class="flex items-center justify-center gap-x-4 sm:gap-x-8 px-4 py-2 text-sm font-medium rounded-full
@@ -15,7 +13,7 @@
     <a
       href="#top"
       data-i18n="nav_home"
-      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400"
+      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400 whitespace-nowrap"
     >
       Inicio
     </a>
@@ -23,7 +21,7 @@
     <a
       href="#experiencia"
       data-i18n="nav_experience"
-      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400"
+      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400 whitespace-nowrap"
     >
       Experiencia
     </a>
@@ -31,7 +29,7 @@
     <a
       href="#proyectos"
       data-i18n="nav_projects"
-      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400"
+      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400 whitespace-nowrap"
     >
       Proyectos
     </a>
@@ -39,37 +37,28 @@
     <a
       href="#sobremi"
       data-i18n="nav_about"
-      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400"
+      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400 whitespace-nowrap"
     >
       Sobre mí
     </a>
 
-    <!-- <a
-      href="#contacto"
-      data-i18n="nav_contact"
-      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400"
-    >
-      Contacto
-    </a> -->
-
     <!-- Separador -->
-    <div class="w-px h-5 bg-gray-300/80 dark:bg-gray-600/50"></div>
+    <div class="w-px h-5 bg-gray-300/80 dark:bg-gray-600/50 shrink-0"></div>
 
     <!-- Toggle de idioma -->
     <div
       class="relative flex items-center rounded-full p-1 h-8 w-24
              bg-gray-200/70 dark:bg-gray-800/70
              border border-gray-200/80 dark:border-gray-700/60
-             backdrop-blur-md"
+             backdrop-blur-md shrink-0"
       aria-label="Cambiar idioma"
     >
       <div
         id="lang-indicator"
         class="absolute top-1 bottom-1 w-11 rounded-full transition-all duration-300 ease-in-out shadow-sm
-               bg-blue-500 dark:bg-blue-600"
+               bg-blue-500 dark:bg-blue-600 shrink-0"
         style="left: 4px;"
-      >
-      </div>
+      ></div>
 
       <button
         id="btn-es"
@@ -90,7 +79,7 @@
       </button>
     </div>
 
-    <!-- Toggle de tema (mantiene tu window.toggleTheme()) -->
+    <!-- Toggle tema -->
     <button
       id="theme-toggle-btn"
       type="button"
@@ -99,7 +88,7 @@
              text-gray-700 dark:text-gray-300"
       aria-label="Cambiar tema"
     >
-      <!-- Sol (visible en LIGHT mode) -->
+      <!-- Sol -->
       <svg
         id="icon-sun"
         class="w-5 h-5 block dark:hidden text-yellow-500"
@@ -110,10 +99,11 @@
         <circle cx="12" cy="12" r="5" stroke-width="2"></circle>
         <path
           d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
-          stroke-width="2"></path>
+          stroke-width="2"
+        ></path>
       </svg>
 
-      <!-- Luna (visible en DARK mode) -->
+      <!-- Luna -->
       <svg
         id="icon-moon"
         class="w-5 h-5 hidden dark:block text-blue-400"
@@ -124,10 +114,52 @@
         <path
           d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
           stroke-width="2"
-          stroke-linecap="round"></path>
+          stroke-linecap="round"
+        ></path>
+      </svg>
+    </button>
+
+    <button
+      id="menu-toggle-btn"
+      type="button"
+      class="md:hidden p-1.5 rounded-full hover:bg-gray-200/70 dark:hover:bg-gray-800/70
+             transition-colors duration-300 cursor-pointer
+             text-gray-700 dark:text-gray-300"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path>
       </svg>
     </button>
   </nav>
+
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden mt-2 w-full px-4"
+  >
+    <div
+      class="mx-auto max-w-fit flex flex-col gap-2 px-4 py-3 rounded-2xl
+             text-gray-700 dark:text-gray-200
+             bg-gray-200/70 dark:bg-gray-800/70
+             border border-gray-200/80 dark:border-gray-700/60
+             backdrop-blur-md"
+    >
+      <a href="#top" data-i18n="nav_home" class="nav-link block px-2 py-2 whitespace-nowrap hover:text-blue-500 dark:hover:text-blue-400">
+        Inicio
+      </a>
+      <a href="#experiencia" data-i18n="nav_experience" class="nav-link block px-2 py-2 whitespace-nowrap hover:text-blue-500 dark:hover:text-blue-400">
+        Experiencia
+      </a>
+      <a href="#proyectos" data-i18n="nav_projects" class="nav-link block px-2 py-2 whitespace-nowrap hover:text-blue-500 dark:hover:text-blue-400">
+        Proyectos
+      </a>
+      <a href="#sobremi" data-i18n="nav_about" class="nav-link block px-2 py-2 whitespace-nowrap hover:text-blue-500 dark:hover:text-blue-400">
+        Sobre mí
+      </a>
+    </div>
+  </div>
 </header>
 
 <style>
@@ -174,10 +206,12 @@
   }
 
   /* Link activo (scroll-spy) */
-  #main-nav a.nav-link.active {
+  #main-nav a.nav-link.active,
+  #mobile-menu a.nav-link.active {
     color: #3b82f6; /* blue-500 */
   }
-  :global(.dark) #main-nav a.nav-link.active {
+  :global(.dark) #main-nav a.nav-link.active,
+  :global(.dark) #mobile-menu a.nav-link.active {
     color: #60a5fa; /* blue-400 */
   }
 </style>
@@ -189,14 +223,37 @@
     const btnEn = document.getElementById("btn-en");
     const indicator = document.getElementById("lang-indicator");
     const nav = document.getElementById("main-nav");
-    const navLinks = document.querySelectorAll("#main-nav a.nav-link");
 
-    if (!nav || !indicator || !btnEs || !btnEn) return;
+    // Desktop links + Mobile links (para marcar active en ambos)
+    const navLinksDesktop = Array.from(document.querySelectorAll("#main-nav a.nav-link"));
+    const navLinksMobile = Array.from(document.querySelectorAll("#mobile-menu a.nav-link"));
+    const navLinks = [...navLinksDesktop, ...navLinksMobile];
 
-    // ---- Idioma (tu lógica con indicador) ----
+    // Mobile menu toggle
+    const menuBtn = document.getElementById("menu-toggle-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    if (!nav || !indicator || !btnEs || !btnEn || navLinks.length === 0) return;
+
+    const toggleMobileMenu = (open) => {
+      if (!menuBtn || !mobileMenu) return;
+      const willOpen = typeof open === "boolean" ? open : mobileMenu.classList.contains("hidden");
+      mobileMenu.classList.toggle("hidden", !willOpen);
+      menuBtn.setAttribute("aria-expanded", String(willOpen));
+    };
+
+    menuBtn?.addEventListener("click", () => toggleMobileMenu());
+    // Cierra menú si haces click fuera (móvil)
+    document.addEventListener("click", (e) => {
+      if (!mobileMenu || mobileMenu.classList.contains("hidden")) return;
+      const target = e.target;
+      if (!(target instanceof Node)) return;
+      if (!nav.contains(target) && !mobileMenu.contains(target)) toggleMobileMenu(false);
+    });
+
+    // ---- Idioma ----
     const paintLangIndicator = () => {
-      const currentLang =
-        localStorage.getItem("language") === "en" ? "en" : "es";
+      const currentLang = localStorage.getItem("language") === "en" ? "en" : "es";
 
       if (currentLang === "es") {
         indicator.style.left = "4px";
@@ -213,86 +270,164 @@
       }
     };
 
-    // ---- Scroll-spy (activo según sección) ----
-    const setActiveLink = () => {
-      const offset = 200;
-      let currentSection = "#top";
-
-      navLinks.forEach((link) => {
-        const href = link.getAttribute("href");
-        if (!href || href === "#top") return;
-
-        const targetId = href.substring(1);
-        const targetElement = document.getElementById(targetId);
-
-        if (targetElement) {
-          const rect = targetElement.getBoundingClientRect();
-          if (rect.top <= offset && rect.top > -rect.height) {
-            currentSection = href;
-          }
-        }
-      });
-
-      navLinks.forEach((link) => {
-        const href = link.getAttribute("href");
-        if (href === currentSection) link.classList.add("active");
-        else link.classList.remove("active");
-      });
+    // ---- Helpers ----
+    const normalizeHash = (href) => {
+      try {
+        const url = new URL(href, window.location.origin);
+        return url.hash || "#top";
+      } catch {
+        if (href.startsWith("#")) return href;
+        const idx = href.indexOf("#");
+        return idx !== -1 ? href.slice(idx) : "#top";
+      }
     };
 
-    // Click marca activo inmediatamente
+    const getTargetIdFromLink = (link) => {
+      const href = link.getAttribute("href") || "#top";
+      const hash = normalizeHash(href);
+      return hash === "#top" ? null : hash.substring(1);
+    };
+
+    const setActiveByHash = (hash) => {
+      navLinks.forEach((l) => l.classList.remove("active"));
+      const link = navLinks.find((l) => normalizeHash(l.getAttribute("href") || "") === hash);
+      if (link) link.classList.add("active");
+    };
+
+    // ---- Scroll spy estable ----
+    let sections = [];
+    let ticking = false;
+
+    const getFixedNavHeight = () => {
+      const navEl = document.getElementById("main-nav");
+      if (!navEl) return 72;
+      const rect = navEl.getBoundingClientRect();
+      return Math.ceil(rect.height + 16);
+    };
+
+    const computeSections = () => {
+      // solo ids de los links DESKTOP (son los mismos)
+      const ids = navLinksDesktop.map(getTargetIdFromLink).filter(Boolean);
+      sections = ids
+        .map((id) => {
+          const el = document.getElementById(id);
+          if (!el) return null;
+          return { id, el };
+        })
+        .filter(Boolean);
+    };
+
+    const updateActiveSection = () => {
+      ticking = false;
+
+      if (window.scrollY < 80) {
+        setActiveByHash("#top");
+        return;
+      }
+
+      const offset = getFixedNavHeight();
+      const probeY = window.scrollY + offset;
+
+      let currentId = null;
+      for (let i = 0; i < sections.length; i++) {
+        const { id, el } = sections[i];
+        if (el.offsetTop <= probeY) currentId = id;
+        else break;
+      }
+
+      if (currentId) setActiveByHash(`#${currentId}`);
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateActiveSection);
+    };
+
+    // Click: scroll con compensación + cierra menú móvil
     navLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        navLinks.forEach((l) => l.classList.remove("active"));
-        link.classList.add("active");
+      link.addEventListener("click", (e) => {
+        const id = getTargetIdFromLink(link);
+
+        if (!id) {
+          e.preventDefault();
+          setActiveByHash("#top");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          toggleMobileMenu(false);
+          return;
+        }
+
+        const target = document.getElementById(id);
+        if (!target) return;
+
+        e.preventDefault();
+
+        const offset = getFixedNavHeight();
+        const y = target.offsetTop - offset;
+
+        window.scrollTo({ top: y, behavior: "smooth" });
+        setActiveByHash(`#${id}`);
+        toggleMobileMenu(false);
       });
     });
 
-    // ---- Toggle tema (usa tu función global) ----
+    // ---- Tema ----
     themeBtn?.addEventListener("click", () => {
-      if (typeof window.toggleTheme === "function") {
-        window.toggleTheme();
-      } else {
-        document.documentElement.classList.toggle("dark");
-      }
+      if (typeof window.toggleTheme === "function") window.toggleTheme();
+      else document.documentElement.classList.toggle("dark");
     });
 
-    // ---- Toggle idioma (usa tu función global) ----
+    // ---- Idioma ----
     btnEs?.addEventListener("click", () => {
-      if (typeof window.changeLanguage === "function")
-        window.changeLanguage("es");
+      if (typeof window.changeLanguage === "function") window.changeLanguage("es");
       localStorage.setItem("language", "es");
       paintLangIndicator();
-      setTimeout(setActiveLink, 50);
+      setTimeout(() => {
+        computeSections();
+        updateActiveSection();
+      }, 50);
     });
 
     btnEn?.addEventListener("click", () => {
-      if (typeof window.changeLanguage === "function")
-        window.changeLanguage("en");
+      if (typeof window.changeLanguage === "function") window.changeLanguage("en");
       localStorage.setItem("language", "en");
       paintLangIndicator();
-      setTimeout(setActiveLink, 50);
+      setTimeout(() => {
+        computeSections();
+        updateActiveSection();
+      }, 50);
     });
 
     // Listeners
     window.addEventListener("languageChange", paintLangIndicator);
-    window.addEventListener("scroll", setActiveLink, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener(
+      "resize",
+      () => {
+        computeSections();
+        updateActiveSection();
+        // Si pasas a desktop, cierra menú móvil
+        toggleMobileMenu(false);
+      },
+      { passive: true }
+    );
 
     // Inicializar
     paintLangIndicator();
-    setActiveLink();
+    computeSections();
+    updateActiveSection();
 
-    // Si usas view transitions / Astro swaps
+    // Astro swaps
     document.addEventListener("astro:after-swap", () => {
       paintLangIndicator();
-      setActiveLink();
+      computeSections();
+      updateActiveSection();
+      toggleMobileMenu(false);
     });
   };
 
   if (document.readyState === "loading") {
-    window.addEventListener("DOMContentLoaded", initHeaderControls, {
-      once: true,
-    });
+    window.addEventListener("DOMContentLoaded", initHeaderControls, { once: true });
   } else {
     initHeaderControls();
   }

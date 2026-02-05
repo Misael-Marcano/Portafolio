@@ -2,15 +2,15 @@
 interface Props {
   href: string;
   class?: string;
+  download?: boolean;
 }
 
-const { href, class: className } = Astro.props;
+const { href, class: className, download } = Astro.props;
 ---
 
 <a
   href={href}
-  target="_blank"
-  rel="noopener noreferrer"
+  download={download}
   role="link"
   class={`inline-flex items-center justify-center gap-2 px-4 py-1 
   text-gray-800 dark:text-white
@@ -23,14 +23,13 @@ const { href, class: className } = Astro.props;
   hover:border-gray-700 dark:hover:border-gray-300
   hover:text-white dark:hover:text-black
   
-  focus-visible:ring-yellow-500/80
+ 
   focus:outline-none focus-visible:outline-none
   focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2
   
   active:bg-black dark:active:bg-white
   
   text-md group max-w-fit
-  
   ${className ?? ""}`}
 >
   <slot />

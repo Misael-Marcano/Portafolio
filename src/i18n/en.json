@@ -11,6 +11,8 @@
     "desc_part_4": "Specialized in creating functional applications.",
     "experience_title": "Work Experience",
     "welcome_title": "Hey, I'm Misael",
+    "contact_title": "Contact Me",
+    "download_cv": "Download CV",
     "section_experience_title": "Work Experience",
     "experience_title_1": "Oracle Forms and Reports Developer",
     "exp_more": "Learn more...",
@@ -30,5 +32,12 @@
     "btn_preview": "Preview",
     "tag_js": "JavaScript",
     "tag_css": "CSS",
-    "tag_ejs": "EJS"
+    "tag_ejs": "EJS",
+    "aboutme_strong_1": "I’m passionate about technology, software development, and continuous learning",
+    "aboutme_text_1": ". I enjoy turning ideas into functional solutions, writing clean code, and taking on challenges that push me to think differently and improve every day. I like programming as much as I like ",
+    "aboutme_strong_2": "video games, because both train my mind: strategy, logic, patience, and focus on results.",
+    "aboutme_strong_3": "The gym is a key part of my daily discipline;",
+    "aboutme_text_2": " it helps me stay consistent, mentally strong, and balanced between mind and body—something I also apply to my projects. I’m curious, self-taught, and growth-minded.",
+    "aboutme_text_3": "I’m always learning new technologies, best practices, and more efficient ways of doing things.",
+    "aboutme_strong_4": "I adapt quickly, work well in teams, and enjoy contributing ideas that add real value."
 }

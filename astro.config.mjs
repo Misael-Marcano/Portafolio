@@ -8,6 +8,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  site: 'https://Misael-Marcano.github.io/Portafolio-Misael/',
+  site: 'https://github.com/Misael-Marcano/Portafolio/',
   base: '/Portafolio/'
 });

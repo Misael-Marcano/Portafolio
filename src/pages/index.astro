@@ -14,6 +14,7 @@ import Projects from "../components/Projects.astro";
 import UserIcon from "../components/icons/User.astro";
 import CurriculumIcon from "../components/icons/Curriculum.astro";
 import ContactIcon from "../components/icons/Contact.astro";
+import Aboutme from "../components/Aboutme.astro";
 ---
 
 <Layout
@@ -69,7 +70,7 @@ import ContactIcon from "../components/icons/Contact.astro";
       <nav class="flex flex-wrap gap-4 mt-8">
         <SocialPill href="mailto:misaelmarcano0530@gmail.com">
           <ContactIcon class="size-4" />
-          Contáctame
+          <span data-i18n="contact_title"></span>
         </SocialPill>
 
         <SocialPill href="https://www.linkedin.com/in/misael-marcano/">
@@ -82,10 +83,13 @@ import ContactIcon from "../components/icons/Contact.astro";
           GitHub
         </SocialPill>
 
-        <SocialPill href="https://github.com/Misael-Marcano">
-          <CurriculumIcon class="size-4" />
-          Descargar CV
-        </CurriculumIcon>
+        <SocialPill
+          href={`${import.meta.env.BASE_URL}cv/Misael-Marcano-CV.pdf`}
+          download
+        >
+          <CurriculumIcon class="size-4" da/>
+          <span data-i18n="download_cv">Descargar CV</span>
+        </SocialPill>
       </nav>
     </SectionContainer>
 
@@ -114,13 +118,14 @@ import ContactIcon from "../components/icons/Contact.astro";
       <Projects />
     </SectionContainer>
 
-    <SectionContainer id="sobremi" class:list="py-20">
+    <SectionContainer id="sobremi" class="py-20">
       <h2
         class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white undefined"
       >
         <UserIcon class="size-8 sm:size-10" />
         <span data-i18n="section_about_title">Sobre mí</span>
       </h2>
+      <Aboutme />
     </SectionContainer>
   </main>
 </Layout>

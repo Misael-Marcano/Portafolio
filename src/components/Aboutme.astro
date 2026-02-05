@@ -1,0 +1,72 @@
+---
+import fotoPerfil from "../assets/Foto_perfil.jpg";
+---
+
+<section class="w-full">
+  <article
+    class="flex flex-col items-center justify-center gap-8 text-gray-700 dark:text-gray-300 md:flex-row"
+  >
+    <!-- Texto -->
+    <div class="[&>p]:mb-4 text-pretty order-2 md:order-1">
+      <p>
+        <strong
+          class="text-yellow-400 dark:text-yellow-200 font-normal font-mono"
+          data-i18n="aboutme_strong_1"
+        >
+          Soy un apasionado por la tecnología, el desarrollo de software y el
+          aprendizaje constante
+        </strong><span data-i18n="aboutme_text_1">
+          . Disfruto convertir ideas en soluciones funcionales, escribir código
+          limpio y enfrentar retos que me obliguen a pensar diferente y mejorar
+          cada día. Me gusta programar tanto como me gustan
+        </span>
+        <strong
+          class="text-yellow-400 dark:text-yellow-200 font-normal font-mono"
+          data-i18n="aboutme_strong_2"
+        >
+          los videojuegos, porque ambos me entrenan la mente: estrategia,
+          lógica, paciencia y enfoque en resultados.
+        </strong>
+      </p>
+
+      <p>
+        <strong
+          class="text-yellow-400 dark:text-yellow-200 font-normal font-mono"
+          data-i18n="aboutme_strong_3"
+        >
+          El gym es parte clave de mi disciplina diaria;
+        </strong>
+        <span data-i18n="aboutme_text_2">
+          me ayuda a mantener constancia, mentalidad fuerte y equilibrio entre
+          mente y cuerpo, algo que también aplico en mis proyectos. Soy una
+          persona curiosa, autodidacta y con mentalidad de crecimiento.
+        </span>
+      </p>
+
+      <p>
+        <span data-i18n="aboutme_text_3">
+          Siempre estoy aprendiendo nuevas tecnologías, buenas prácticas y
+          formas más eficientes de hacer las cosas.
+        </span>
+        <strong
+          class="text-yellow-400 dark:text-yellow-200 font-normal font-mono"
+          data-i18n="aboutme_strong_4"
+        >
+          Me adapto rápido, trabajo bien en equipo y me gusta aportar ideas que
+          sumen valor real.
+        </strong>
+      </p>
+    </div>
+
+    <!-- Imagen -->
+    <img
+      width="200"
+      height="200"
+      src={fotoPerfil.src}
+      alt="Misael Marcano"
+      class="order-1 object-cover w-64 h-full p-1 md:order-2 rotate-3 lg:p-2 lg:w-64 aspect-square rounded-2xl bg-black/20 dark:bg-yellow-500/5 ring-1 ring-black/70 dark:ring-white/20"
+      style="object-position: 50% 50%"
+      loading="lazy"
+    />
+  </article>
+</section>

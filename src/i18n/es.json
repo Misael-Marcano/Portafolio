@@ -11,6 +11,8 @@
     "desc_part_4": "Especializado en la creación de aplicaciones funcionales.",
     "experience_title": "Experiencia laboral",
     "welcome_title": "Hey, soy Misael",
+    "contact_title": "Contáctame",
+    "download_cv": "Descargar CV",
     "section_experience_title": "Experiencia laboral",
     "experience_title_1": "Desarrollador Oracle Forms y Reports",
     "exp_more": "Saber más...",
@@ -31,5 +33,12 @@
     "btn_preview": "Vista previa",
     "tag_js": "JavaScript",
     "tag_css": "CSS",
-    "tag_ejs": "EJS"
+    "tag_ejs": "EJS",
+    "aboutme_strong_1": "Soy un apasionado por la tecnología, el desarrollo de software y el aprendizaje constante",
+    "aboutme_text_1": ". Disfruto convertir ideas en soluciones funcionales, escribir código limpio y enfrentar retos que me obliguen a pensar diferente y mejorar cada día. Me gusta programar tanto como me gustan ",
+    "aboutme_strong_2": "los videojuegos, porque ambos me entrenan la mente: estrategia, lógica, paciencia y enfoque en resultados.",
+    "aboutme_strong_3": "El gym es parte clave de mi disciplina diaria;",
+    "aboutme_text_2": " me ayuda a mantener constancia, mentalidad fuerte y equilibrio entre mente y cuerpo, algo que también aplico en mis proyectos. Soy una persona curiosa, autodidacta y con mentalidad de crecimiento.",
+    "aboutme_text_3": "Siempre estoy aprendiendo nuevas tecnologías, buenas prácticas y formas más eficientes de hacer las cosas.",
+    "aboutme_strong_4": "Me adapto rápido, trabajo bien en equipo y me gusta aportar ideas que sumen valor real."
 }
