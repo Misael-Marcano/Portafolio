@@ -19,11 +19,13 @@ const base = import.meta.env.BASE_URL;
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
+
+    <!-- ✅ En GitHub Pages respeta el base (/Portafolio/) -->
     <link rel="icon" href={`${base}code.ico`} sizes="any" />
-    <!-- <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} /> -->
 
     <title>{title}</title>
 
+    <!-- ✅ Init temprano de tema + idioma -->
     <script is:inline>
       (() => {
         // ====== THEME ======
@@ -56,7 +58,7 @@ const base = import.meta.env.BASE_URL;
           document.documentElement.lang = safe;
 
           window.dispatchEvent(
-            new CustomEvent("languageChange", { detail: { language: safe } }),
+            new CustomEvent("languageChange", { detail: { language: safe } })
           );
         };
 
@@ -66,7 +68,8 @@ const base = import.meta.env.BASE_URL;
       })();
     </script>
 
-    <script type="module" src="/src/scripts/i18n.ts"></script>
+    <!-- ✅ i18n: cargar con BASE_URL (importantísimo para GitHub Pages) -->
+    <script type="module" src={`${base}src/scripts/i18n.ts`}></script>
   </head>
 
   <body class="bg-gray-50 dark:bg-gray-950 min-h-screen flex flex-col">
