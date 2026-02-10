@@ -5,6 +5,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   vite: { plugins: [tailwindcss()] },
-  site: "https://misael-marcano.github.io/Portafolio",
+  site: "https://github.com/Misael-Marcano/Portafolio",
   base: "/Portafolio",
 });
