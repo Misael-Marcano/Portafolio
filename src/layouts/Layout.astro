@@ -20,7 +20,7 @@ const base = import.meta.env.BASE_URL;
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
 
-    <!-- ✅ En GitHub Pages respeta el base (/Portafolio/) -->
+    <!-- ✅ Para assets en /public sí usa base -->
     <link rel="icon" href={`${base}code.ico`} sizes="any" />
 
     <title>{title}</title>
@@ -42,10 +42,8 @@ const base = import.meta.env.BASE_URL;
           localStorage.setItem("theme", theme);
         };
 
-        // Inicializa tema temprano
         applyTheme(getTheme());
 
-        // Expone toggle global
         window.toggleTheme = () => {
           const isDark = document.documentElement.classList.contains("dark");
           applyTheme(isDark ? "light" : "dark");
@@ -62,14 +60,13 @@ const base = import.meta.env.BASE_URL;
           );
         };
 
-        // Inicializa lang del HTML
         document.documentElement.lang =
           localStorage.getItem("language") === "en" ? "en" : "es";
       })();
     </script>
 
-    <!-- ✅ i18n: cargar con BASE_URL (importantísimo para GitHub Pages) -->
-    <script type="module" src={`${base}src/scripts/i18n.ts`}></script>
+    <!-- ✅ IMPORTANTE: scripts desde /src NO llevan base -->
+    <script type="module" src="/src/scripts/i18n.ts"></script>
   </head>
 
   <body class="bg-gray-50 dark:bg-gray-950 min-h-screen flex flex-col">
@@ -79,8 +76,7 @@ const base = import.meta.env.BASE_URL;
       class="fixed top-0 left-0 right-0 bottom-0 z-[-2]
       bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
       dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
-    >
-    </div>
+    ></div>
 
     <Header />
 
