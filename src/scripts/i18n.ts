@@ -1,24 +1,27 @@
+// i18n.ts
+import es from "../i18n/es.json";
+import en from "../i18n/en.json";
+
 type Lang = "es" | "en";
 
 const getLang = (): Lang =>
   localStorage.getItem("language") === "en" ? "en" : "es";
 
-/**
- * ✅ Production-safe en Astro/Vite:
- * Incluye los JSON en el build aunque cargues por idioma.
- */
-const DICTS = import.meta.glob("../i18n/*.json", { import: "default" });
+// ✅ En lugar de import.meta.glob, usa un objeto directo
+const DICTS: Record<Lang, Record<string, string>> = {
+  es,
+  en,
+};
 
 const loadDict = async (lang: Lang) => {
-  const key = `../i18n/${lang}.json`;
-  const loader = DICTS[key];
-
-  if (!loader) {
-    console.warn(`[i18n] No se encontró diccionario: ${key}`);
+  const dict = DICTS[lang];
+  
+  if (!dict) {
+    console.warn(`[i18n] No se encontró diccionario: ${lang}`);
     return {};
   }
 
-  return (await loader()) as Record<string, string>;
+  return dict;
 };
 
 const applyTextI18n = (dict: Record<string, string>) => {
@@ -31,7 +34,6 @@ const applyTextI18n = (dict: Record<string, string>) => {
   });
 };
 
-// ✅ i18n para atributos: data-i18n-attr="alt" + data-i18n-alt="key"
 const applyAttrI18n = (dict: Record<string, string>) => {
   document.querySelectorAll<HTMLElement>("[data-i18n-attr]").forEach((el) => {
     const attr = el.getAttribute("data-i18n-attr");
@@ -54,7 +56,6 @@ const applyI18n = async (lang?: Lang) => {
   applyAttrI18n(dict);
 };
 
-// Evento: window.dispatchEvent(new CustomEvent("languageChange", { detail: { language: "en" }}))
 window.addEventListener("languageChange", (e: any) => {
   const l: Lang = e?.detail?.language === "en" ? "en" : "es";
   applyI18n(l);
@@ -62,13 +63,11 @@ window.addEventListener("languageChange", (e: any) => {
 
 const boot = () => applyI18n();
 
-// Primera carga
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", boot, { once: true });
 } else {
   boot();
 }
 
-// ✅ si Astro hace swaps / view transitions
 document.addEventListener("astro:page-load", boot);
 document.addEventListener("astro:after-swap", boot);

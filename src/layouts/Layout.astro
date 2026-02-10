@@ -3,7 +3,7 @@ import "@fontsource-variable/onest";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
-import "../scripts/i18n.ts";
+
 
 interface Props {
   title: string;
@@ -67,7 +67,7 @@ const base = import.meta.env.BASE_URL;
     </script>
 
     <!-- ✅ IMPORTANTE: scripts desde /src NO llevan base -->
-    <!-- <script type="module" src="/src/scripts/i18n.ts"></script> -->
+    <script type="module" src="/src/scripts/i18n.ts"></script>
   </head>
 
   <body class="bg-gray-50 dark:bg-gray-950 min-h-screen flex flex-col">
