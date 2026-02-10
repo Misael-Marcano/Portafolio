@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
+
 interface Props {
   title: string;
   description: string;
@@ -19,12 +20,16 @@ const base = import.meta.env.BASE_URL;
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
+
+    <!-- ✅ Para assets en /public sí usa base -->
     <link rel="icon" href={`${base}code.ico`} sizes="any" />
+
     <title>{title}</title>
 
-    <!-- Script temprano de tema + idioma -->
+    <!-- ✅ Init temprano de tema + idioma -->
     <script is:inline>
       (() => {
+        // ====== THEME ======
         const getTheme = () => {
           const stored = localStorage.getItem("theme");
           if (stored === "dark" || stored === "light") return stored;
@@ -45,10 +50,12 @@ const base = import.meta.env.BASE_URL;
           applyTheme(isDark ? "light" : "dark");
         };
 
+        // ====== LANGUAGE ======
         window.changeLanguage = (lang) => {
           const safe = lang === "en" ? "en" : "es";
           localStorage.setItem("language", safe);
           document.documentElement.lang = safe;
+
           window.dispatchEvent(
             new CustomEvent("languageChange", { detail: { language: safe } })
           );
@@ -58,6 +65,9 @@ const base = import.meta.env.BASE_URL;
           localStorage.getItem("language") === "en" ? "en" : "es";
       })();
     </script>
+
+    <!-- ✅ IMPORTANTE: scripts desde /src NO llevan base -->
+    <script type="module" src="/src/scripts/i18n.ts"></script>
   </head>
 
   <body class="bg-gray-50 dark:bg-gray-950 min-h-screen flex flex-col">
@@ -70,63 +80,12 @@ const base = import.meta.env.BASE_URL;
     ></div>
 
     <Header />
+
     <main>
       <slot />
     </main>
+
     <Footer />
-
-    <!-- ✅ SCRIPT DE I18N AL FINAL DEL BODY -->
-    <script type="module">
-      import es from '/src/i18n/es.json';
-      import en from '/src/i18n/en.json';
-
-      const DICTS = { es, en };
-
-      const getLang = () =>
-        localStorage.getItem("language") === "en" ? "en" : "es";
-
-      const loadDict = (lang) => DICTS[lang] || {};
-
-      const applyTextI18n = (dict) => {
-        document.querySelectorAll("[data-i18n]").forEach((el) => {
-          const key = el.dataset.i18n;
-          if (key && dict[key]) el.textContent = dict[key];
-        });
-      };
-
-      const applyAttrI18n = (dict) => {
-        document.querySelectorAll("[data-i18n-attr]").forEach((el) => {
-          const attr = el.getAttribute("data-i18n-attr");
-          if (!attr) return;
-          const key = el.getAttribute(`data-i18n-${attr}`);
-          if (key && dict[key]) el.setAttribute(attr, dict[key]);
-        });
-      };
-
-      const applyI18n = (lang) => {
-        const l = lang || getLang();
-        document.documentElement.lang = l;
-        const dict = loadDict(l);
-        applyTextI18n(dict);
-        applyAttrI18n(dict);
-      };
-
-      window.addEventListener("languageChange", (e) => {
-        const l = e?.detail?.language === "en" ? "en" : "es";
-        applyI18n(l);
-      });
-
-      const boot = () => applyI18n();
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", boot, { once: true });
-      } else {
-        boot();
-      }
-
-      document.addEventListener("astro:page-load", boot);
-      document.addEventListener("astro:after-swap", boot);
-    </script>
   </body>
 </html>
 
