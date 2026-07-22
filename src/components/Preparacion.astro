@@ -1,0 +1,106 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const dirName = "preparacion-profesional";
+const absDir = path.join(process.cwd(), "public", dirName);
+
+type PrepFile = {
+  filename: string;
+  label: string;
+  href: string;
+};
+
+const cleanLabel = (filename: string) => {
+  const stem = filename.replace(/\.pdf$/i, "");
+  return stem
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\bpl[\s-]?sql\b/gi, "PL-SQL")
+    .replace(/\boracle\b/gi, "Oracle")
+    .replace(/\bpower bi\b/gi, "Power BI")
+    .replace(/\bingles\b/gi, "Inglés")
+    .replace(/\bcertificacion\b/gi, "Certificación")
+    .replace(/\bdiploma\b/gi, "Diploma");
+};
+
+let files: PrepFile[] = [];
+
+if (fs.existsSync(absDir)) {
+  files = fs
+    .readdirSync(absDir)
+    .filter((name) => name.toLowerCase().endsWith(".pdf"))
+    .sort((a, b) => a.localeCompare(b, "es"))
+    .map((filename) => ({
+      filename,
+      label: cleanLabel(filename),
+      href: `${base}${dirName}/${encodeURIComponent(filename)}`,
+    }));
+} else {
+  fs.mkdirSync(absDir, { recursive: true });
+  console.warn(
+    `[Preparacion] Carpeta creada vacía: public/${dirName}. Añade PDFs para listarlos.`,
+  );
+}
+
+if (files.length === 0) {
+  console.warn(
+    `[Preparacion] Sin PDFs en public/${dirName}. La sección se muestra vacía.`,
+  );
+}
+---
+
+{
+  files.length === 0 ? (
+    <p class="font-mono text-sm text-tn-muted border border-dashed border-tn-border/70 rounded-xl px-4 py-6 bg-tn-panel/40">
+      <span class="text-tn-comment">$</span>{" "}
+      <span data-i18n="prep_empty">
+        No hay documentos todavía. Añade PDFs en public/preparacion-profesional.
+      </span>
+    </p>
+  ) : (
+    <ul class="grid gap-4 sm:gap-5 sm:grid-cols-2">
+      {files.map(({ filename, label, href }) => (
+        <li>
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            download={filename}
+            class="group flex flex-col gap-3 rounded-xl border border-tn-border/70 bg-tn-panel/60 backdrop-blur-sm p-4 sm:p-5
+                   transition duration-300 hover:border-tn-cyan/50 hover:-translate-y-0.5
+                   focus:outline-none focus-visible:ring-2 focus-visible:ring-tn-cyan"
+          >
+            <div class="flex items-center gap-2 font-mono text-[11px] text-tn-comment border-b border-tn-border/50 pb-2.5">
+              <span class="ps-sym text-[#2dd4bf]" aria-hidden="true">
+                △
+              </span>
+              <span class="truncate">docs/{filename}</span>
+              <span class="ml-auto text-tn-cyan shrink-0">.pdf</span>
+            </div>
+
+            <div class="flex items-start gap-3 min-w-0">
+              <span
+                class="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-md border border-tn-border/60 bg-tn-panel-2 text-tn-cyan font-mono text-xs"
+                aria-hidden="true"
+              >
+                PDF
+              </span>
+              <div class="min-w-0">
+                <h3 class="text-base sm:text-lg font-semibold text-tn-text text-balance">
+                  {label}
+                </h3>
+                <p class="mt-1 font-mono text-xs text-tn-muted">
+                  <span data-i18n="prep_download">Descargar / ver</span>
+                  <span class="text-tn-cyan group-hover:underline"> →</span>
+                </p>
+              </div>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}

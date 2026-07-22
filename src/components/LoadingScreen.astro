@@ -1,0 +1,231 @@
+---
+---
+
+<div
+  id="boot-screen"
+  class="boot-screen"
+  role="status"
+  aria-live="polite"
+  aria-busy="true"
+  aria-label="Cargando portafolio"
+  data-i18n-attr="aria-label"
+  data-i18n-aria-label="loading_aria"
+>
+  <div class="boot-grid" aria-hidden="true"></div>
+
+  <div class="boot-panel">
+    <div class="boot-symbols" aria-hidden="true">
+      <span class="ps-sym text-[#2dd4bf]">△</span>
+      <span class="ps-sym text-[#f7768e]">○</span>
+      <span class="ps-sym text-[#7aa2f7]">✕</span>
+      <span class="ps-sym text-[#bb9af7]">□</span>
+    </div>
+
+    <p class="boot-title font-mono" data-i18n="loading_title">LOADING...</p>
+    <p class="boot-sub font-mono text-tn-comment" data-i18n="loading_press">
+      PRESS START
+    </p>
+
+    <div
+      class="boot-bar"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      id="boot-progress"
+    >
+      <div class="boot-bar-fill" id="boot-progress-fill"></div>
+    </div>
+
+    <p class="boot-pct font-mono" id="boot-pct" aria-hidden="true">0%</p>
+  </div>
+</div>
+
+<style is:global>
+  .boot-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--tn-bg);
+    color: var(--tn-text);
+    transition: opacity 0.45s ease, visibility 0.45s ease;
+  }
+  .boot-screen.is-done {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .boot-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--tn-grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--tn-grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .boot-panel {
+    position: relative;
+    width: min(92vw, 360px);
+    padding: 1.75rem 1.5rem;
+    border: 1px solid var(--tn-border);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--tn-panel) 88%, transparent);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px -16px var(--tn-neon);
+    text-align: center;
+  }
+  .boot-symbols {
+    display: flex;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+  .boot-title {
+    font-size: 1rem;
+    letter-spacing: 0.22em;
+    color: var(--tn-cyan);
+    margin: 0 0 0.35rem;
+  }
+  .boot-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    margin: 0 0 1.25rem;
+    animation: boot-blink 1.2s step-end infinite;
+  }
+  .boot-bar {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--tn-border);
+    background: var(--tn-panel-2);
+    overflow: hidden;
+  }
+  .boot-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--tn-blue), var(--tn-cyan));
+    transition: width 0.12s linear;
+  }
+  .boot-pct {
+    margin: 0.75rem 0 0;
+    font-size: 0.75rem;
+    color: var(--tn-muted);
+  }
+  @keyframes boot-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  html.is-booting,
+  html.is-booting body {
+    overflow: hidden;
+  }
+
+  /* Tras el boot: todo visible de una vez (sin reveal escalonado) */
+  html.is-ready .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html.is-ready .hero-output {
+    opacity: 1;
+    animation: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .boot-sub {
+      animation: none;
+    }
+    .boot-screen {
+      transition: opacity 0.15s ease, visibility 0.15s ease;
+    }
+    .boot-bar-fill {
+      transition: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const screen = document.getElementById("boot-screen");
+    const fill = document.getElementById("boot-progress-fill");
+    const pctEl = document.getElementById("boot-pct");
+    const bar = document.getElementById("boot-progress");
+    if (!screen) return;
+
+    document.documentElement.classList.add("is-booting");
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const MIN_MS = reduce ? 120 : 1400;
+    const MAX_MS = reduce ? 400 : 2200;
+    const started = performance.now();
+    let progress = 0;
+    let loaded = document.readyState === "complete";
+    let finished = false;
+
+    const setProgress = (value) => {
+      progress = Math.max(progress, Math.min(100, value));
+      if (fill) fill.style.width = `${progress}%`;
+      if (pctEl) pctEl.textContent = `${Math.round(progress)}%`;
+      if (bar) bar.setAttribute("aria-valuenow", String(Math.round(progress)));
+    };
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      setProgress(100);
+      screen.classList.add("is-done");
+      screen.setAttribute("aria-busy", "false");
+      document.documentElement.classList.remove("is-booting");
+      document.documentElement.classList.add("is-ready");
+      document.querySelectorAll(".reveal").forEach((el) => {
+        el.classList.add("visible");
+      });
+      // Libera el nodo tras el fade para no bloquear interacción
+      setTimeout(() => screen.remove(), reduce ? 200 : 500);
+    };
+
+    const tryFinish = () => {
+      const elapsed = performance.now() - started;
+      if (!loaded && elapsed < MAX_MS) return;
+      if (elapsed < MIN_MS) {
+        setTimeout(tryFinish, MIN_MS - elapsed);
+        return;
+      }
+      finish();
+    };
+
+    // Animación suave de barra mientras espera load
+    const tick = () => {
+      if (finished) return;
+      const elapsed = performance.now() - started;
+      const target = loaded
+        ? 100
+        : Math.min(90, (elapsed / MAX_MS) * 90);
+      setProgress(progress + (target - progress) * 0.18);
+      if (!finished) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+
+    const onLoad = () => {
+      loaded = true;
+      tryFinish();
+    };
+
+    if (loaded) tryFinish();
+    else window.addEventListener("load", onLoad, { once: true });
+
+    // Safety: nunca dejar la pantalla colgada
+    setTimeout(() => {
+      loaded = true;
+      tryFinish();
+    }, MAX_MS + 200);
+  })();
+</script>

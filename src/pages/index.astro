@@ -15,6 +15,12 @@ import UserIcon from "../components/icons/User.astro";
 import CurriculumIcon from "../components/icons/Curriculum.astro";
 import ContactIcon from "../components/icons/Contact.astro";
 import Aboutme from "../components/Aboutme.astro";
+import Preparacion from "../components/Preparacion.astro";
+import CertificateIcon from "../components/icons/Certificate.astro";
+
+// Actions a veces pasa --base /Portafolio sin slash → evita /Portafoliocv/...
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const cvHref = `${base}cv/Misael-Marcano-CV.pdf`;
 ---
 
 <Layout
@@ -113,10 +119,7 @@ import Aboutme from "../components/Aboutme.astro";
               GitHub
             </SocialPill>
 
-            <SocialPill
-              href={`${import.meta.env.BASE_URL}cv/Misael-Marcano-CV.pdf`}
-              download
-            >
+            <SocialPill href={cvHref} download="Misael-Marcano-CV.pdf" newTab>
               <CurriculumIcon class="size-4" />
               <span data-i18n="download_cv">Descargar CV</span>
             </SocialPill>
@@ -149,6 +152,22 @@ import Aboutme from "../components/Aboutme.astro";
         <span data-i18n="projects">Proyectos</span>
       </h2>
       <Projects />
+    </SectionContainer>
+
+    <SectionContainer id="preparacion" class="py-16 sm:py-20 reveal">
+      <h2
+        class="flex items-center mb-6 text-2xl sm:text-3xl font-semibold gap-x-3 text-tn-text flex-wrap"
+      >
+        <CertificateIcon class="size-7 sm:size-10 text-tn-cyan shrink-0" />
+        <span data-i18n="section_prep_title">Preparación Profesional</span>
+      </h2>
+      <p
+        class="font-mono text-sm text-tn-muted mb-6 max-w-2xl text-pretty"
+        data-i18n="section_prep_subtitle"
+      >
+        Certificaciones y diplomas listos para descargar.
+      </p>
+      <Preparacion />
     </SectionContainer>
 
     <SectionContainer id="sobremi" class="py-16 sm:py-20 reveal">

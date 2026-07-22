@@ -3,6 +3,7 @@ import "@fontsource-variable/onest";
 import "@fontsource-variable/jetbrains-mono";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import LoadingScreen from "../components/LoadingScreen.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -75,9 +76,19 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
           nav_home: "Inicio",
           nav_experience: "Experiencia",
           nav_projects: "Proyectos",
+          nav_prep: "Preparación",
           nav_about: "Sobre mí",
           nav_contact: "Contacto",
           section_about_title: "Sobre mí",
+          section_prep_title: "Preparación Profesional",
+          section_prep_subtitle:
+            "Certificaciones y diplomas listos para descargar.",
+          prep_download: "Descargar / ver",
+          prep_empty:
+            "No hay documentos todavía. Añade PDFs en public/preparacion-profesional.",
+          loading_title: "LOADING...",
+          loading_press: "PRESS START",
+          loading_aria: "Cargando portafolio",
           status_available: "Disponible para trabajar",
           desc_part_1:
             "Desarrollador de software con 3 años de experiencia en desarrollo y soporte de aplicaciones con Oracle Forms y Oracle Reports",
@@ -130,9 +141,19 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
           nav_home: "Home",
           nav_experience: "Experience",
           nav_projects: "Projects",
+          nav_prep: "Training",
           nav_about: "About Me",
           nav_contact: "Contact",
           section_about_title: "About Me",
+          section_prep_title: "Professional Development",
+          section_prep_subtitle:
+            "Certifications and diplomas ready to download.",
+          prep_download: "Download / view",
+          prep_empty:
+            "No documents yet. Add PDFs to public/preparacion-profesional.",
+          loading_title: "LOADING...",
+          loading_press: "PRESS START",
+          loading_aria: "Loading portfolio",
           status_available: "Available for work",
           desc_part_1:
             "Software developer with 3 years of experience in application development and support using Oracle Forms and Oracle Reports",
@@ -235,6 +256,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
   </head>
 
   <body class="bg-tn-bg text-tn-text min-h-screen flex flex-col overflow-x-clip">
+    <LoadingScreen />
     <div id="top"></div>
 
     <!-- Fondo tecnológico animado: cuadrícula, orbes de luz y partículas -->
@@ -327,46 +349,27 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
     }
   };
 
-  // ===== Reveal on scroll =====
-  // Si al cargar ya hay elementos en viewport (reload a mitad / hash),
-  // marcarlos visibles YA. El delay solo aplica a los que aún están abajo
-  // para que el hero aparezca primero en la carga desde el top.
+  // ===== Reveal: tras boot screen todo visible de una vez =====
+  // El LoadingScreen añade html.is-ready y marca .reveal.visible.
+  // Aquí solo hay fallback si no hay boot o reduced-motion ya lo resolvió.
   const initReveal = () => {
     const els = [...document.querySelectorAll<HTMLElement>(".reveal")];
     if (els.length === 0) return;
 
-    const isInViewport = (el: HTMLElement) => {
-      const r = el.getBoundingClientRect();
-      return r.top < window.innerHeight * 0.95 && r.bottom > 0;
-    };
-
-    // Inmediatos: ya visibles en pantalla
-    els.forEach((el) => {
-      if (isInViewport(el)) el.classList.add("visible");
-    });
-
-    if (!("IntersectionObserver" in window)) {
+    // Si el boot ya terminó (o se saltó), mostrar todo
+    if (document.documentElement.classList.contains("is-ready")) {
       els.forEach((el) => el.classList.add("visible"));
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -5% 0px" },
-    );
+    // Fallback sin boot-screen: mostrar todo al load (sin escalonado)
+    const showAll = () => {
+      document.documentElement.classList.add("is-ready");
+      els.forEach((el) => el.classList.add("visible"));
+    };
 
-    const pending = els.filter((el) => !el.classList.contains("visible"));
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Tras el hero (~0.65s) empezamos a observar el resto; sin delay si reduced-motion
-    const delay = reduceMotion ? 0 : 650;
-    setTimeout(() => pending.forEach((el) => observer.observe(el)), delay);
+    if (document.readyState === "complete") showAll();
+    else window.addEventListener("load", showAll, { once: true });
   };
 
   // ===== Spotlight que sigue el cursor (efecto Linear) =====

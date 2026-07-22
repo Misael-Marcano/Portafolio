@@ -2,20 +2,23 @@
 interface Props {
   href: string;
   class?: string;
-  download?: boolean;
+  download?: boolean | string;
+  /** Forzar nueva pestaña (útil para PDFs en GitHub Pages) */
+  newTab?: boolean;
 }
 
-const { href, class: className, download } = Astro.props;
+const { href, class: className, download, newTab } = Astro.props;
 
-// Los enlaces externos abren en otra pestaña
+// Externos o PDFs/descargas: abrir en otra pestaña (download falla a veces en Pages)
 const isExternal = href.startsWith("http");
+const openBlank = Boolean(newTab || isExternal || download);
 ---
 
 <a
   href={href}
-  download={download}
-  target={isExternal ? "_blank" : undefined}
-  rel={isExternal ? "noopener noreferrer" : undefined}
+  download={download === true ? true : download || undefined}
+  target={openBlank ? "_blank" : undefined}
+  rel={openBlank ? "noopener noreferrer" : undefined}
   role="link"
   class={`inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 min-h-11
   font-mono text-sm
