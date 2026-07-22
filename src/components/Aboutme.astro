@@ -1,13 +1,11 @@
 ---
-import fotoPerfil from "../assets/Foto_perfil.jpg";
 ---
 
 <section class="w-full min-w-0">
   <article
-    class="spotlight-card flex flex-col items-center justify-center gap-6 sm:gap-8 text-tn-muted md:flex-row rounded-xl border border-tn-border/70 bg-tn-panel/60 backdrop-blur-sm p-4 sm:p-6 md:p-8"
+    class="spotlight-card text-tn-muted rounded-xl border border-tn-border/70 bg-tn-panel/60 backdrop-blur-sm p-4 sm:p-6 md:p-8"
   >
-    <!-- Texto -->
-    <div class="[&>p]:mb-4 text-pretty order-2 md:order-1 min-w-0 w-full text-sm sm:text-base">
+    <div class="[&>p]:mb-4 [&>p:last-child]:mb-0 text-pretty min-w-0 w-full max-w-3xl text-sm sm:text-base">
       <p>
         <strong
           class="text-tn-cyan font-normal font-mono"
@@ -57,16 +55,5 @@ import fotoPerfil from "../assets/Foto_perfil.jpg";
         </strong>
       </p>
     </div>
-
-    <!-- Imagen -->
-    <img
-      width="200"
-      height="200"
-      src={fotoPerfil.src}
-      alt="Misael Marcano"
-      class="order-1 object-cover w-40 sm:w-52 md:w-56 lg:w-64 shrink-0 p-1 md:order-2 rotate-3 lg:p-2 aspect-square rounded-2xl bg-tn-panel-2 ring-1 ring-tn-border max-w-full"
-      style="object-position: 50% 50%"
-      loading="lazy"
-    />
   </article>
 </section>
