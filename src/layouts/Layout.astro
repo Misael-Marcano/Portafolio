@@ -22,8 +22,9 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
 
-    <!-- Favicon: solo favicon.svg (code.ico no existe en public/) -->
+    <!-- Favicon con BASE_URL para GitHub Pages -->
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <link rel="icon" href={`${base}code.ico`} sizes="any" />
 
     <title>{title}</title>
 
@@ -235,7 +236,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
     </script>
   </head>
 
-  <body class="bg-tn-bg text-tn-text min-h-screen flex flex-col">
+  <body class="bg-tn-bg text-tn-text min-h-screen flex flex-col overflow-x-clip">
     <div id="top"></div>
 
     <!-- Fondo tecnológico animado: cuadrícula, orbes de luz y partículas -->
@@ -255,7 +256,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
     <Header />
 
-    <main>
+    <main class="flex-1 w-full min-w-0">
       <slot />
     </main>
 
@@ -273,6 +274,15 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
     font-family: "Onest Variable", sans-serif;
     /* Solo smooth tras la carga: evita saltos raros con scroll restoration */
     scroll-behavior: auto;
+    /* clip (no hidden): evita overflow-y:auto implícito = doble scrollbar */
+    overflow-x: clip;
+  }
+  body {
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+  main {
+    overflow: visible;
   }
   html.smooth-scroll {
     scroll-behavior: smooth;

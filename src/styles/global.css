@@ -70,6 +70,17 @@
 
 /* ===== Fondo tecnológico animado =====
    Solo transform/opacity (compositor-friendly): no afecta el layout ni el paint */
+/* ===== Un solo scrollbar (documento) =====
+   overflow-x: hidden en un hijo hace overflow-y: auto (CSS) y aparece
+   una segunda barra vertical. Usar clip en html/body; hijos sin overflow-y. */
+html {
+  overflow-x: clip;
+}
+body {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
 .tech-bg {
   position: fixed;
   inset: 0;
