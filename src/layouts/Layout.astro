@@ -22,9 +22,8 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
 
-    <!-- Favicon con BASE_URL para GitHub Pages -->
+    <!-- Favicon: BASE_URL siempre con slash final (Actions a veces pasa /Portafolio) -->
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
-    <link rel="icon" href={`${base}code.ico`} sizes="any" />
 
     <title>{title}</title>
 
