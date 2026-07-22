@@ -36,15 +36,14 @@ import Aboutme from "../components/Aboutme.astro";
           <span class="ps-sym text-sm text-[#7aa2f7]" aria-hidden="true">✕</span>
           <span class="ps-sym text-sm text-[#bb9af7]" aria-hidden="true">□</span>
           <span class="ml-2 sm:ml-3 text-xs text-tn-comment truncate min-w-0">
-            misael@santiago-do: ~
+            misael@dev: ~
           </span>
         </div>
 
         <!-- Cuerpo del terminal -->
         <div class="p-4 sm:p-6 md:p-8">
           <p class="font-mono text-xs sm:text-sm text-tn-comment mb-6 overflow-x-auto">
-            <span class="text-tn-green">misael@santiago-do</span><span>:</span><span class="text-tn-blue">~</span><span>$</span>
-            <!-- <span class="typing-cmd text-tn-text">whoami</span> -->
+            <span class="text-tn-green">misael@dev</span><span>:</span><span class="text-tn-blue">~</span><span>$</span>
           </p>
 
           <!-- Output estilo neofetch -->
@@ -59,9 +58,20 @@ import Aboutme from "../components/Aboutme.astro";
               <div class="flex flex-wrap items-center gap-x-3 gap-y-2 sm:gap-x-4 sm:gap-y-3 mb-4">
                 <h1
                   class="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-tn-text text-balance"
-                  data-i18n="welcome_title"
+                  data-i18n-attr="aria-label"
+                  data-i18n-aria-label="welcome_title"
+                  aria-label="Hey, soy Misael"
                 >
-                  Hey, soy Misael
+                  <span class="inline-flex flex-wrap items-baseline gap-x-2 gap-y-1" aria-hidden="true">
+                    <span data-i18n="welcome_greeting">Hey, soy</span>
+                    <span class="typewriter-name font-mono text-tn-cyan">
+                      <span
+                        class="typewriter-text"
+                        data-typewriter-name
+                        data-typewriter-value="Misael"
+                      ></span><span class="typewriter-caret" aria-hidden="true"></span>
+                    </span>
+                  </span>
                 </h1>
                 <Badge
                   data-i18n="status_available"
@@ -78,9 +88,6 @@ import Aboutme from "../components/Aboutme.astro";
                 </span>,
                 <strong data-i18n="desc_part_2" class="font-semibold text-tn-cyan">
                   construyendo y manteniendo sistemas críticos.
-                </strong>
-                <strong data-i18n="desc_part_3" class="font-semibold text-tn-magenta">
-                  De Santiago, República Dominicana.
                 </strong>
                 <span data-i18n="desc_part_4">
                   Especializado en aplicaciones funcionales.
@@ -116,7 +123,7 @@ import Aboutme from "../components/Aboutme.astro";
           </nav>
 
           <p class="font-mono text-xs sm:text-sm text-tn-comment mt-6 sm:mt-8 term-cursor overflow-x-auto">
-            <span class="text-tn-green">misael@santiago-do</span><span>:</span><span class="text-tn-blue">~</span><span>$</span>
+            <span class="text-tn-green">misael@dev</span><span>:</span><span class="text-tn-blue">~</span><span>$</span>
           </p>
         </div>
       </div>
@@ -157,18 +164,27 @@ import Aboutme from "../components/Aboutme.astro";
 </Layout>
 
 <style>
-  /* Typing effect del comando whoami (CSS puro con steps) */
-  .typing-cmd {
-    display: inline-block;
-    overflow: hidden;
+  /* Nombre tipado como código en el H1 */
+  .typewriter-name {
+    display: inline-flex;
+    align-items: baseline;
     white-space: nowrap;
-    vertical-align: bottom;
-    width: 0;
-    animation: typing 0.9s steps(6) 0.4s forwards;
   }
-  @keyframes typing {
-    to {
-      width: 6ch;
+  .typewriter-caret {
+    display: inline-block;
+    width: 0.55ch;
+    height: 1.05em;
+    margin-left: 2px;
+    background: var(--tn-green, #9ece6a);
+    vertical-align: text-bottom;
+    animation: typewriter-blink 1.05s step-end infinite;
+  }
+  .typewriter-name.is-done .typewriter-caret {
+    opacity: 0.85;
+  }
+  @keyframes typewriter-blink {
+    50% {
+      opacity: 0;
     }
   }
 
@@ -189,9 +205,8 @@ import Aboutme from "../components/Aboutme.astro";
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .typing-cmd {
-      width: 6ch;
-      animation: none;
+    .typewriter-caret {
+      display: none;
     }
     .hero-output {
       opacity: 1;
@@ -199,3 +214,56 @@ import Aboutme from "../components/Aboutme.astro";
     }
   }
 </style>
+
+<script>
+  const TYPE_MS = 78;
+  let typeTimer: ReturnType<typeof setInterval> | null = null;
+
+  const prefersReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const typewriteName = () => {
+    const el = document.querySelector<HTMLElement>("[data-typewriter-name]");
+    if (!el) return;
+
+    const wrap = el.closest(".typewriter-name");
+    const full = el.dataset.typewriterValue || "Misael";
+
+    if (typeTimer) {
+      clearInterval(typeTimer);
+      typeTimer = null;
+    }
+
+    wrap?.classList.remove("is-done");
+
+    if (prefersReducedMotion()) {
+      el.textContent = full;
+      wrap?.classList.add("is-done");
+      return;
+    }
+
+    el.textContent = "";
+    let i = 0;
+    typeTimer = setInterval(() => {
+      i += 1;
+      el.textContent = full.slice(0, i);
+      if (i >= full.length) {
+        if (typeTimer) clearInterval(typeTimer);
+        typeTimer = null;
+        wrap?.classList.add("is-done");
+      }
+    }, TYPE_MS);
+  };
+
+  const bootTypewriter = () => typewriteName();
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootTypewriter, { once: true });
+  } else {
+    bootTypewriter();
+  }
+
+  document.addEventListener("astro:page-load", bootTypewriter);
+  document.addEventListener("astro:after-swap", bootTypewriter);
+  window.addEventListener("languageChange", bootTypewriter);
+</script>
