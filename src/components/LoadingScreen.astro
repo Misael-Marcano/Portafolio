@@ -163,8 +163,8 @@
     document.documentElement.classList.add("is-booting");
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const MIN_MS = reduce ? 120 : 1400;
-    const MAX_MS = reduce ? 400 : 2200;
+    const MIN_MS = reduce ? 120 : 3000;
+    const MAX_MS = reduce ? 400 : 4000;
     const started = performance.now();
     let progress = 0;
     let loaded = document.readyState === "complete";
