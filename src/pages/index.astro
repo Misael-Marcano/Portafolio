@@ -21,44 +21,44 @@ import Aboutme from "../components/Aboutme.astro";
   title="Portafolio de Misael - Desarrollador y Programador Oracle Forms, Oracle Reports y Web"
   description="Contrata a Misael para crear tu aplicación web. Desarrollador Web. Especializado en crear aplicaciones únicas."
 >
-  <div class="px-4 w-full">
-    <SectionContainer class="pt-32 sm:pt-36 md:pt-40 pb-24">
+  <div class="px-4 w-full min-w-0 overflow-x-clip">
+    <SectionContainer class="pt-28 sm:pt-32 md:pt-40 pb-16 sm:pb-24">
       <!-- Ventana de terminal -->
       <div
         class="rounded-xl border border-tn-border/70 bg-tn-panel/60 backdrop-blur-sm shadow-2xl shadow-black/10 dark:shadow-black/40 overflow-hidden spotlight-card"
       >
         <!-- Barra de título -->
         <div
-          class="flex items-center gap-2.5 px-4 py-2.5 border-b border-tn-border/60 bg-tn-panel-2/80 font-mono"
+          class="flex items-center gap-2.5 px-3 sm:px-4 py-2.5 border-b border-tn-border/60 bg-tn-panel-2/80 font-mono min-w-0"
         >
           <span class="ps-sym text-sm text-[#2dd4bf]" aria-hidden="true">△</span>
           <span class="ps-sym text-sm text-[#f7768e]" aria-hidden="true">○</span>
           <span class="ps-sym text-sm text-[#7aa2f7]" aria-hidden="true">✕</span>
           <span class="ps-sym text-sm text-[#bb9af7]" aria-hidden="true">□</span>
-          <span class="ml-3 text-xs text-tn-comment truncate">
+          <span class="ml-2 sm:ml-3 text-xs text-tn-comment truncate min-w-0">
             misael@santiago-do: ~
           </span>
         </div>
 
         <!-- Cuerpo del terminal -->
-        <div class="p-6 sm:p-8">
-          <p class="font-mono text-sm text-tn-comment mb-6">
+        <div class="p-4 sm:p-6 md:p-8">
+          <p class="font-mono text-xs sm:text-sm text-tn-comment mb-6 overflow-x-auto">
             <span class="text-tn-green">misael@santiago-do</span><span>:</span><span class="text-tn-blue">~</span><span>$</span>
             <!-- <span class="typing-cmd text-tn-text">whoami</span> -->
           </p>
 
           <!-- Output estilo neofetch -->
-          <div class="hero-output flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
+          <div class="hero-output flex flex-col sm:flex-row gap-5 sm:gap-8 items-start min-w-0">
             <img
-              class="rounded-lg w-24 h-24 sm:w-28 sm:h-28 object-cover ring-1 ring-tn-border shadow-lg shrink-0"
+              class="rounded-lg w-20 h-20 sm:w-28 sm:h-28 object-cover ring-1 ring-tn-border shadow-lg shrink-0"
               src={fotoPerfil.src}
               alt="misael photo"
             />
 
-            <div class="min-w-0">
-              <div class="flex flex-wrap items-center gap-x-4 gap-y-3 mb-4">
+            <div class="min-w-0 w-full">
+              <div class="flex flex-wrap items-center gap-x-3 gap-y-2 sm:gap-x-4 sm:gap-y-3 mb-4">
                 <h1
-                  class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-tn-text"
+                  class="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-tn-text text-balance"
                   data-i18n="welcome_title"
                 >
                   Hey, soy Misael
@@ -70,7 +70,7 @@ import Aboutme from "../components/Aboutme.astro";
                 >
               </div>
 
-              <p class="text-lg sm:text-xl text-tn-muted text-pretty">
+              <p class="text-base sm:text-xl text-tn-muted text-pretty">
                 <span data-i18n="desc_part_1">
                   Desarrollador de software con 3 años de experiencia en Oracle
                   Forms y Oracle Reports
@@ -89,7 +89,7 @@ import Aboutme from "../components/Aboutme.astro";
           </div>
 
           <!-- Pills como comandos -->
-          <nav class="hero-output flex flex-wrap gap-3 mt-8">
+          <nav class="hero-output flex flex-wrap gap-2 sm:gap-3 mt-6 sm:mt-8">
             <SocialPill href="mailto:misaelmarcano0530@gmail.com">
               <ContactIcon class="size-4" />
               <span data-i18n="contact_title">Contáctame</span>
@@ -114,7 +114,7 @@ import Aboutme from "../components/Aboutme.astro";
             </SocialPill>
           </nav>
 
-          <p class="font-mono text-sm text-tn-comment mt-8 term-cursor">
+          <p class="font-mono text-xs sm:text-sm text-tn-comment mt-6 sm:mt-8 term-cursor overflow-x-auto">
             <span class="text-tn-green">misael@santiago-do</span><span>:</span><span class="text-tn-blue">~</span><span>$</span>
           </p>
         </div>
@@ -125,7 +125,7 @@ import Aboutme from "../components/Aboutme.astro";
       <h2
         class="text-2xl sm:text-3xl font-semibold mb-2 flex gap-x-3 items-center flex-wrap"
       >
-        <BriefcaseIcon class="size-6 sm:size-7 text-tn-cyan" />
+        <BriefcaseIcon class="size-6 sm:size-7 text-tn-cyan shrink-0" />
         <span data-i18n="section_experience_title" class="text-tn-text"
           >Experiencia laboral</span
         >
@@ -133,21 +133,21 @@ import Aboutme from "../components/Aboutme.astro";
       <Experience />
     </SectionContainer>
 
-    <SectionContainer id="proyectos" class="py-20 reveal">
+    <SectionContainer id="proyectos" class="py-16 sm:py-20 reveal">
       <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-tn-text"
+        class="flex items-center mb-6 text-2xl sm:text-3xl font-semibold gap-x-3 text-tn-text flex-wrap"
       >
-        <ProjectsIcon class="size-8 sm:size-10 text-tn-cyan" />
+        <ProjectsIcon class="size-7 sm:size-10 text-tn-cyan shrink-0" />
         <span data-i18n="projects">Proyectos</span>
       </h2>
       <Projects />
     </SectionContainer>
 
-    <SectionContainer id="sobremi" class="py-20 reveal">
+    <SectionContainer id="sobremi" class="py-16 sm:py-20 reveal">
       <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-tn-text"
+        class="flex items-center mb-6 text-2xl sm:text-3xl font-semibold gap-x-3 text-tn-text flex-wrap"
       >
-        <UserIcon class="size-8 sm:size-10 text-tn-cyan" />
+        <UserIcon class="size-7 sm:size-10 text-tn-cyan shrink-0" />
         <span data-i18n="section_about_title">Sobre mí</span>
       </h2>
       <Aboutme />

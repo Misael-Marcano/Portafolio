@@ -25,27 +25,27 @@ const fb = (key?: string) => {
 ---
 
 <div
-  class="relative mx-6 sm:mx-12 pb-12 grid before:absolute before:left-[-27px] sm:before:left-[-35px] before:block before:h-full before:border-l-2 before:border-dashed before:border-tn-border before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4"
+  class="relative ml-7 mr-1 sm:mx-8 md:mx-12 pb-12 grid min-w-0 before:absolute before:left-[-24px] sm:before:left-[-30px] md:before:left-[-35px] before:block before:h-full before:border-l-2 before:border-dashed before:border-tn-border before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4"
 >
-  <div class="relative pb-12 md:col-span-2">
+  <div class="relative pb-8 md:pb-12 md:col-span-2 min-w-0">
     <div class="sticky top-20">
       <!-- Nodo de commit -->
       <span
-        class="absolute -left-[34px] sm:-left-[42px] top-1 flex h-4 w-4 items-center justify-center"
+        class="absolute -left-[31px] sm:-left-[37px] md:-left-[42px] top-1 flex h-4 w-4 items-center justify-center"
         aria-hidden="true"
       >
         <span class="h-3.5 w-3.5 rounded-full border-2 border-tn-cyan bg-tn-bg"></span>
       </span>
 
       <!-- Título principal -->
-      <h3 class="text-xl font-bold text-tn-cyan" data-i18n={titleKey}>
+      <h3 class="text-lg sm:text-xl font-bold text-tn-cyan text-balance" data-i18n={titleKey}>
         {fb(titleKey)}
       </h3>
 
       <!-- Empresa -->
       {
         title2Key && (
-          <h4 class="font-semibold text-lg text-tn-text" data-i18n={title2Key}>
+          <h4 class="font-semibold text-base sm:text-lg text-tn-text" data-i18n={title2Key}>
             {fb(title2Key)}
           </h4>
         )
@@ -62,8 +62,8 @@ const fb = (key?: string) => {
   </div>
 
   <!-- Contenido derecho -->
-  <div class="relative flex flex-col gap-2 pb-4 text-tn-muted md:col-span-3">
-    <p class="text-base font-normal text-pretty" data-i18n={descriptionKey}>
+  <div class="relative flex flex-col gap-2 pb-4 text-tn-muted md:col-span-3 min-w-0">
+    <p class="text-sm sm:text-base font-normal text-pretty" data-i18n={descriptionKey}>
       {fb(descriptionKey)}
     </p>
 

@@ -67,15 +67,15 @@ const UI = {
             </span>
           </div>
 
-          <div class="flex flex-col md:flex-row">
+          <div class="flex flex-col md:flex-row min-w-0">
             <!-- Imagen -->
-            <div class="w-full md:w-1/2 p-4 pb-0 md:pb-4">
+            <div class="w-full md:w-1/2 p-3 sm:p-4 pb-0 md:pb-4 min-w-0">
               <div class="relative h-full overflow-clip rounded-lg border border-tn-border/60 bg-tn-panel-2">
                 <img
                   data-i18n-attr="alt"
                   data-i18n-alt="proj_1_alt"
                   alt="Captura del proyecto"
-                  class="object-cover object-top w-full h-56 sm:h-full transition duration-500 md:scale-105 md:group-hover:scale-100"
+                  class="object-cover object-top w-full max-w-full h-48 sm:h-56 md:h-full transition duration-500 md:scale-105 md:group-hover:scale-100"
                   loading="eager"
                   decoding="async"
                   src={image}
@@ -84,16 +84,16 @@ const UI = {
             </div>
 
             <!-- Contenido -->
-            <div class="w-full md:w-1/2 flex flex-col p-4 sm:p-6">
+            <div class="w-full md:w-1/2 flex flex-col p-4 sm:p-6 min-w-0">
               <h3
-                class="text-2xl font-bold text-tn-text"
+                class="text-xl sm:text-2xl font-bold text-tn-text text-balance"
                 data-i18n={titleKey}
               >
                 Proyecto
               </h3>
 
               <!-- Tags estilo lenguajes de GitHub -->
-              <ul class="flex flex-row mt-3 mb-4 gap-x-4 gap-y-2 flex-wrap">
+              <ul class="flex flex-row mt-3 mb-4 gap-x-3 sm:gap-x-4 gap-y-2 flex-wrap">
                 {tags.map((tag) => (
                   <li>
                     <span class="inline-flex items-center gap-x-1.5 font-mono text-xs text-tn-muted">
@@ -110,7 +110,7 @@ const UI = {
 
               <!-- Descripción -->
               <p
-                class="text-tn-muted text-pretty mb-6 grow"
+                class="text-tn-muted text-pretty text-sm sm:text-base mb-6 grow"
                 data-i18n={descriptionKey}
               >
                 Proyecto enfocado en el consumo de una API REST pública (JokeAPI
@@ -120,19 +120,19 @@ const UI = {
               </p>
 
               <!-- Botones -->
-              <footer class="flex items-center justify-start gap-x-3 w-full">
+              <footer class="flex flex-wrap items-center justify-start gap-2 sm:gap-3 w-full">
                 {github && (
                   <a
                     href={github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center gap-2 px-3 py-2 font-mono text-sm rounded-md border transition duration-300 max-w-fit
+                    class="inline-flex items-center justify-center gap-2 px-3 py-2.5 min-h-11 font-mono text-sm rounded-md border transition duration-300
                       bg-tn-panel-2 text-tn-text border-tn-border/70
                       hover:text-tn-green hover:border-tn-green/60 hover:-translate-y-0.5
                       focus:outline-none focus-visible:ring-2 focus-visible:ring-tn-cyan"
                   >
-                    <GitHubIcon class="size-5" />
-                    <span>
+                    <GitHubIcon class="size-5 shrink-0" />
+                    <span class="whitespace-nowrap">
                       $ git clone
                     </span>
                   </a>
@@ -143,12 +143,12 @@ const UI = {
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center gap-2 px-3 py-2 font-mono text-sm rounded-md border transition duration-300 max-w-fit
+                    class="inline-flex items-center justify-center gap-2 px-3 py-2.5 min-h-11 font-mono text-sm rounded-md border transition duration-300
                       bg-tn-panel-2 text-tn-text border-tn-border/70
                       hover:text-tn-cyan hover:border-tn-cyan/60 hover:-translate-y-0.5
                       focus:outline-none focus-visible:ring-2 focus-visible:ring-tn-cyan"
                   >
-                    <LinkIcon class="size-5" />
+                    <LinkIcon class="size-5 shrink-0" />
                     <span data-i18n={UI.previewKey}>Preview</span>
                   </a>
                 )}

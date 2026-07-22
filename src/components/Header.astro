@@ -1,17 +1,17 @@
 ---
 ---
 
-<header class="fixed top-0 z-50 flex flex-col items-center justify-center w-full mt-3 px-4">
+<header class="fixed top-0 z-50 flex flex-col items-center justify-center w-full max-w-[100vw] mt-3 px-3 sm:px-4">
   <!-- Ventana de editor: barra de título + pestañas -->
   <nav
     id="main-nav"
-    class="flex items-center justify-center gap-x-1 sm:gap-x-2 pl-3 pr-2 py-1.5 text-[13px] font-mono rounded-xl
-           text-tn-muted
+    class="flex items-center justify-center gap-x-1.5 sm:gap-x-2 pl-2 sm:pl-3 pr-1.5 sm:pr-2 py-1.5 text-[13px] font-mono rounded-xl
+           text-tn-muted max-w-full
            transition-all duration-300"
   >
-    <!-- Botones PlayStation -->
+    <!-- Botones PlayStation (solo desktop amplio) -->
     <div
-      class="hidden sm:flex items-center gap-2 mr-2 shrink-0 font-mono text-[11px] select-none"
+      class="hidden lg:flex items-center gap-2 mr-2 shrink-0 font-mono text-[11px] select-none"
       aria-hidden="true"
     >
       <span class="ps-sym text-[#2dd4bf]">△</span>
@@ -20,11 +20,11 @@
       <span class="ps-sym text-[#bb9af7]">□</span>
     </div>
 
-    <!-- Pestañas -->
+    <!-- Pestañas (desktop ≥ md; móvil usa menú hamburguesa) -->
     <a
       href="#top"
       data-i18n="nav_home"
-      class="nav-link relative block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
+      class="nav-link relative hidden md:block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
     >
       Inicio
     </a>
@@ -32,7 +32,7 @@
     <a
       href="#experiencia"
       data-i18n="nav_experience"
-      class="nav-link relative block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
+      class="nav-link relative hidden md:block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
     >
       Experiencia
     </a>
@@ -40,7 +40,7 @@
     <a
       href="#proyectos"
       data-i18n="nav_projects"
-      class="nav-link relative block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
+      class="nav-link relative hidden md:block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
     >
       Proyectos
     </a>
@@ -48,24 +48,24 @@
     <a
       href="#sobremi"
       data-i18n="nav_about"
-      class="nav-link relative block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
+      class="nav-link relative hidden md:block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
     >
       Sobre mí
     </a>
 
     <!-- Separador -->
-    <div class="w-px h-5 bg-tn-border/60 mx-1 shrink-0"></div>
+    <div class="hidden md:block w-px h-5 bg-tn-border/60 mx-1 shrink-0"></div>
 
     <!-- Toggle de idioma -->
     <div
-      class="relative flex items-center rounded-md p-1 h-8 w-24
+      class="relative flex items-center rounded-md p-1 h-10 w-[5.75rem] sm:h-8 sm:w-24
              bg-tn-panel-2
              border border-tn-border/50 shrink-0"
       aria-label="Cambiar idioma"
     >
       <div
         id="lang-indicator"
-        class="absolute top-1 bottom-1 w-11 rounded transition-all duration-300 ease-in-out shadow-sm
+        class="absolute top-1 bottom-1 w-[2.6rem] sm:w-11 rounded transition-all duration-300 ease-in-out shadow-sm
                bg-tn-blue shrink-0"
         style="left: 4px;"
       ></div>
@@ -73,7 +73,7 @@
       <button
         id="btn-es"
         type="button"
-        class="relative z-10 w-1/2 text-[10px] font-bold transition-colors duration-300
+        class="relative z-10 w-1/2 h-full text-[10px] font-bold transition-colors duration-300
                text-tn-bg cursor-pointer"
       >
         ES
@@ -82,7 +82,7 @@
       <button
         id="btn-en"
         type="button"
-        class="relative z-10 w-1/2 text-[10px] font-bold transition-colors duration-300
+        class="relative z-10 w-1/2 h-full text-[10px] font-bold transition-colors duration-300
                text-tn-muted cursor-pointer"
       >
         EN
@@ -93,7 +93,7 @@
     <button
       id="theme-toggle-btn"
       type="button"
-      class="ds-toggle px-1.5 py-1 rounded-md
+      class="ds-toggle inline-flex items-center justify-center min-h-10 min-w-10 sm:min-h-0 sm:min-w-0 px-2 py-1.5 sm:px-1.5 sm:py-1 rounded-md
              transition-all duration-300 cursor-pointer
              border border-tn-border/50 bg-tn-panel-2/60
              hover:border-tn-cyan/60"
@@ -135,7 +135,7 @@
     <button
       id="menu-toggle-btn"
       type="button"
-      class="md:hidden p-1.5 rounded-md hover:bg-tn-panel-2
+      class="md:hidden inline-flex items-center justify-center min-h-10 min-w-10 p-2 rounded-md hover:bg-tn-panel-2
              transition-colors duration-300 cursor-pointer
              text-tn-muted"
       aria-label="Abrir menú"
@@ -150,25 +150,25 @@
 
   <div
     id="mobile-menu"
-    class="md:hidden hidden mt-2 w-full px-4"
+    class="md:hidden hidden mt-2 w-full px-3 sm:px-4"
   >
     <div
-      class="mx-auto max-w-fit flex flex-col gap-1 px-4 py-3 rounded-xl font-mono text-[13px]
+      class="mx-auto w-full max-w-xs flex flex-col gap-1 px-3 py-3 rounded-xl font-mono text-[13px]
              text-tn-muted
              bg-tn-panel/90
              border border-tn-border/60
              backdrop-blur-md"
     >
-      <a href="#top" data-i18n="nav_home" class="nav-link block px-2 py-2 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
+      <a href="#top" data-i18n="nav_home" class="nav-link block px-3 py-2.5 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
         Inicio
       </a>
-      <a href="#experiencia" data-i18n="nav_experience" class="nav-link block px-2 py-2 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
+      <a href="#experiencia" data-i18n="nav_experience" class="nav-link block px-3 py-2.5 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
         Experiencia
       </a>
-      <a href="#proyectos" data-i18n="nav_projects" class="nav-link block px-2 py-2 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
+      <a href="#proyectos" data-i18n="nav_projects" class="nav-link block px-3 py-2.5 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
         Proyectos
       </a>
-      <a href="#sobremi" data-i18n="nav_about" class="nav-link block px-2 py-2 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
+      <a href="#sobremi" data-i18n="nav_about" class="nav-link block px-3 py-2.5 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
         Sobre mí
       </a>
     </div>
@@ -309,19 +309,24 @@
     // ---- Idioma ----
     const paintLangIndicator = () => {
       const currentLang = localStorage.getItem("language") === "en" ? "en" : "es";
+      const track = indicator.parentElement;
+      const btnWidth = track ? track.clientWidth / 2 : 44;
+      const inset = 4;
 
       if (currentLang === "es") {
-        indicator.style.left = "4px";
-        btnEs.classList.add("text-white");
-        btnEs.classList.remove("text-gray-700", "dark:text-gray-400");
-        btnEn.classList.remove("text-white");
-        btnEn.classList.add("text-gray-700", "dark:text-gray-400");
+        indicator.style.left = `${inset}px`;
+        indicator.style.width = `${Math.max(0, btnWidth - inset)}px`;
+        btnEs.classList.add("text-tn-bg");
+        btnEs.classList.remove("text-tn-muted");
+        btnEn.classList.remove("text-tn-bg");
+        btnEn.classList.add("text-tn-muted");
       } else {
-        indicator.style.left = "46px";
-        btnEn.classList.add("text-white");
-        btnEn.classList.remove("text-gray-700", "dark:text-gray-400");
-        btnEs.classList.remove("text-white");
-        btnEs.classList.add("text-gray-700", "dark:text-gray-400");
+        indicator.style.left = `${btnWidth}px`;
+        indicator.style.width = `${Math.max(0, btnWidth - inset)}px`;
+        btnEn.classList.add("text-tn-bg");
+        btnEn.classList.remove("text-tn-muted");
+        btnEs.classList.remove("text-tn-bg");
+        btnEs.classList.add("text-tn-muted");
       }
     };
 
@@ -471,8 +476,11 @@
       () => {
         computeSections();
         updateActiveSection();
-        // Si pasas a desktop, cierra menú móvil
-        toggleMobileMenu(false);
+        paintLangIndicator();
+        // Solo cierra el menú al pasar a desktop (≥ md)
+        if (window.matchMedia("(min-width: 768px)").matches) {
+          toggleMobileMenu(false);
+        }
       },
       { passive: true }
     );
