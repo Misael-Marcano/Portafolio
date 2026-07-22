@@ -1,5 +1,6 @@
 ---
 import "@fontsource-variable/onest";
+import "@fontsource-variable/jetbrains-mono";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
@@ -20,7 +21,6 @@ const base = import.meta.env.BASE_URL;
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href={`${base}code.ico`} sizes="any" />
-    <!-- <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} /> -->
 
     <title>{title}</title>
 
@@ -71,14 +71,22 @@ const base = import.meta.env.BASE_URL;
     </script>
   </head>
 
-  <body class="bg-gray-50 dark:bg-gray-950 min-h-screen flex flex-col">
+  <body class="bg-tn-bg text-tn-text min-h-screen flex flex-col">
     <div id="top"></div>
 
-    <div
-      class="fixed top-0 left-0 right-0 bottom-0 z-[-2]
-      bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
-      dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
-    >
+    <!-- Fondo tecnológico animado: cuadrícula, orbes de luz y partículas -->
+    <div class="tech-bg" aria-hidden="true">
+      <div class="tech-grid"></div>
+      <div class="tech-orb tech-orb-1"></div>
+      <div class="tech-orb tech-orb-2"></div>
+      {
+        Array.from({ length: 14 }).map((_, i) => (
+          <span
+            class="tech-particle"
+            style={`--px:${(i * 7.3 + 3) % 100}%; --pd:${((i * 3.7) % 14).toFixed(1)}s; --pt:${16 + (i % 5) * 5}s; --ps:${2 + (i % 3)}px;`}
+          />
+        ))
+      }
     </div>
 
     <Header />
@@ -88,6 +96,8 @@ const base = import.meta.env.BASE_URL;
     </main>
 
     <Footer />
+
+    <div id="konami-toast" role="status">ACHIEVEMENT UNLOCKED — konami.code</div>
   </body>
 </html>
 
@@ -99,9 +109,72 @@ const base = import.meta.env.BASE_URL;
     font-family: "Onest Variable", sans-serif;
     scroll-behavior: smooth;
   }
+  ::selection {
+    background: var(--tn-blue);
+    color: var(--tn-bg);
+  }
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
   }
 </style>
+
+<script>
+  // ===== Reveal on scroll =====
+  const initReveal = () => {
+    const els = document.querySelectorAll<HTMLElement>(".reveal");
+    if (!("IntersectionObserver" in window)) {
+      els.forEach((el) => el.classList.add("visible"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+    els.forEach((el) => observer.observe(el));
+  };
+
+  // ===== Spotlight que sigue el cursor (efecto Linear) =====
+  const initSpotlight = () => {
+    document.querySelectorAll<HTMLElement>(".spotlight-card").forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty("--x", `${e.clientX - r.left}px`);
+        card.style.setProperty("--y", `${e.clientY - r.top}px`);
+      });
+    });
+  };
+
+  // ===== Konami code easter egg =====
+  const initKonami = () => {
+    const seq = [
+      "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
+      "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
+      "b", "a",
+    ];
+    let idx = 0;
+    document.addEventListener("keydown", (e) => {
+      idx = e.key === seq[idx] ? idx + 1 : e.key === seq[0] ? 1 : 0;
+      if (idx !== seq.length) return;
+      idx = 0;
+      document.body.classList.remove("konami-active");
+      void document.body.offsetWidth; // reinicia la animación si se repite
+      document.body.classList.add("konami-active");
+      const toast = document.getElementById("konami-toast");
+      toast?.classList.add("show");
+      setTimeout(() => toast?.classList.remove("show"), 3000);
+    });
+  };
+
+  initReveal();
+  initSpotlight();
+  initKonami();
+</script>

@@ -7,7 +7,6 @@ const EXPERIENCE = [
     titleKey: "exp_1_title",
     title2Key: "exp_1_company",
     descriptionKey: "exp_1_desc",
-    link: "#",
   },
   {
     dateKey: "exp_2_date",
@@ -18,21 +17,10 @@ const EXPERIENCE = [
 ];
 ---
 
-<ol class="relative mt-16">
+<ol class="relative mt-12">
   {EXPERIENCE.map((exp) => (
     <li class="">
       <ExperienceItem {...exp} />
     </li>
   ))}
 </ol>
-
-<style>
-  ol {
-    --line-width: 2px;
-    --line-color: rgba(0, 0, 0, 0.2);
-  }
-
-  :global(.dark) ol {
-    --line-color: rgba(255, 255, 255, 0.15);
-  }
-</style>

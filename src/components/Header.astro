@@ -1,19 +1,30 @@
 ---
 ---
 
-<header class="fixed top-0 z-50 flex items-center justify-center w-full mt-2 px-4">
-  <!-- NAV (desktop igual) -->
+<header class="fixed top-0 z-50 flex flex-col items-center justify-center w-full mt-3 px-4">
+  <!-- Ventana de editor: barra de título + pestañas -->
   <nav
     id="main-nav"
-    class="flex items-center justify-center gap-x-4 sm:gap-x-8 px-4 py-2 text-sm font-medium rounded-full
-           text-gray-700 dark:text-gray-200
+    class="flex items-center justify-center gap-x-1 sm:gap-x-2 pl-3 pr-2 py-1.5 text-[13px] font-mono rounded-xl
+           text-tn-muted
            transition-all duration-300"
   >
-    <!-- Enlaces -->
+    <!-- Botones PlayStation -->
+    <div
+      class="hidden sm:flex items-center gap-2 mr-2 shrink-0 font-mono text-[11px] select-none"
+      aria-hidden="true"
+    >
+      <span class="ps-sym text-[#2dd4bf]">△</span>
+      <span class="ps-sym text-[#f7768e]">○</span>
+      <span class="ps-sym text-[#7aa2f7]">✕</span>
+      <span class="ps-sym text-[#bb9af7]">□</span>
+    </div>
+
+    <!-- Pestañas -->
     <a
       href="#top"
       data-i18n="nav_home"
-      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400 whitespace-nowrap"
+      class="nav-link relative block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
     >
       Inicio
     </a>
@@ -21,7 +32,7 @@
     <a
       href="#experiencia"
       data-i18n="nav_experience"
-      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400 whitespace-nowrap"
+      class="nav-link relative block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
     >
       Experiencia
     </a>
@@ -29,7 +40,7 @@
     <a
       href="#proyectos"
       data-i18n="nav_projects"
-      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400 whitespace-nowrap"
+      class="nav-link relative block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
     >
       Proyectos
     </a>
@@ -37,26 +48,25 @@
     <a
       href="#sobremi"
       data-i18n="nav_about"
-      class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400 whitespace-nowrap"
+      class="nav-link relative block px-2.5 py-1.5 rounded-md transition whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2"
     >
       Sobre mí
     </a>
 
     <!-- Separador -->
-    <div class="w-px h-5 bg-gray-300/80 dark:bg-gray-600/50 shrink-0"></div>
+    <div class="w-px h-5 bg-tn-border/60 mx-1 shrink-0"></div>
 
     <!-- Toggle de idioma -->
     <div
-      class="relative flex items-center rounded-full p-1 h-8 w-24
-             bg-gray-200/70 dark:bg-gray-800/70
-             border border-gray-200/80 dark:border-gray-700/60
-             backdrop-blur-md shrink-0"
+      class="relative flex items-center rounded-md p-1 h-8 w-24
+             bg-tn-panel-2
+             border border-tn-border/50 shrink-0"
       aria-label="Cambiar idioma"
     >
       <div
         id="lang-indicator"
-        class="absolute top-1 bottom-1 w-11 rounded-full transition-all duration-300 ease-in-out shadow-sm
-               bg-blue-500 dark:bg-blue-600 shrink-0"
+        class="absolute top-1 bottom-1 w-11 rounded transition-all duration-300 ease-in-out shadow-sm
+               bg-tn-blue shrink-0"
         style="left: 4px;"
       ></div>
 
@@ -64,7 +74,7 @@
         id="btn-es"
         type="button"
         class="relative z-10 w-1/2 text-[10px] font-bold transition-colors duration-300
-               text-white cursor-pointer"
+               text-tn-bg cursor-pointer"
       >
         ES
       </button>
@@ -73,58 +83,61 @@
         id="btn-en"
         type="button"
         class="relative z-10 w-1/2 text-[10px] font-bold transition-colors duration-300
-               text-gray-700 dark:text-gray-400 cursor-pointer"
+               text-tn-muted cursor-pointer"
       >
         EN
       </button>
     </div>
 
-    <!-- Toggle tema -->
+    <!-- Toggle tema: control DualSense. Claro = LED encendido, oscuro = apagado -->
     <button
       id="theme-toggle-btn"
       type="button"
-      class="p-1.5 rounded-full hover:bg-gray-200/70 dark:hover:bg-gray-800/70
-             transition-colors duration-300 cursor-pointer
-             text-gray-700 dark:text-gray-300"
+      class="ds-toggle px-1.5 py-1 rounded-md
+             transition-all duration-300 cursor-pointer
+             border border-tn-border/50 bg-tn-panel-2/60
+             hover:border-tn-cyan/60"
       aria-label="Cambiar tema"
+      title="Cambiar tema"
     >
-      <!-- Sol -->
-      <svg
-        id="icon-sun"
-        class="w-5 h-5 block dark:hidden text-yellow-500"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <circle cx="12" cy="12" r="5" stroke-width="2"></circle>
+      <svg viewBox="0 0 32 20" class="w-8 h-5" fill="none" aria-hidden="true">
+        <!-- Cuerpo del control -->
         <path
-          d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
-          stroke-width="2"
+          class="ds-body"
+          d="M9 2.6 C5.2 2.6 3.3 5.5 2.7 9.2 C2.1 13.4 2.7 17.1 5 17.4 C7.2 17.7 8.2 14.7 9.6 13.3 L22.4 13.3 C23.8 14.7 24.8 17.7 27 17.4 C29.3 17.1 29.9 13.4 29.3 9.2 C28.7 5.5 26.8 2.6 23 2.6 Z"
+          stroke-width="1"
         ></path>
-      </svg>
-
-      <!-- Luna -->
-      <svg
-        id="icon-moon"
-        class="w-5 h-5 hidden dark:block text-blue-400"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
+        <!-- Lightbar LED -->
         <path
-          d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-          stroke-width="2"
+          class="ds-lightbar"
+          d="M12.5 2.7 Q16 5.3 19.5 2.7"
+          stroke-width="1.7"
           stroke-linecap="round"
         ></path>
+        <!-- D-pad -->
+        <path
+          class="ds-detail"
+          d="M7 6.9 v3.2 M5.4 8.5 h3.2"
+          stroke-width="1.1"
+          stroke-linecap="round"
+        ></path>
+        <!-- Botones frontales -->
+        <circle class="ds-detail-fill" cx="25" cy="6.7" r="0.9"></circle>
+        <circle class="ds-detail-fill" cx="25" cy="10.3" r="0.9"></circle>
+        <circle class="ds-detail-fill" cx="23.2" cy="8.5" r="0.9"></circle>
+        <circle class="ds-detail-fill" cx="26.8" cy="8.5" r="0.9"></circle>
+        <!-- Sticks -->
+        <circle class="ds-stick" cx="12.7" cy="11.4" r="1.7" stroke-width="1"></circle>
+        <circle class="ds-stick" cx="19.3" cy="11.4" r="1.7" stroke-width="1"></circle>
       </svg>
     </button>
 
     <button
       id="menu-toggle-btn"
       type="button"
-      class="md:hidden p-1.5 rounded-full hover:bg-gray-200/70 dark:hover:bg-gray-800/70
+      class="md:hidden p-1.5 rounded-md hover:bg-tn-panel-2
              transition-colors duration-300 cursor-pointer
-             text-gray-700 dark:text-gray-300"
+             text-tn-muted"
       aria-label="Abrir menú"
       aria-expanded="false"
       aria-controls="mobile-menu"
@@ -140,22 +153,22 @@
     class="md:hidden hidden mt-2 w-full px-4"
   >
     <div
-      class="mx-auto max-w-fit flex flex-col gap-2 px-4 py-3 rounded-2xl
-             text-gray-700 dark:text-gray-200
-             bg-gray-200/70 dark:bg-gray-800/70
-             border border-gray-200/80 dark:border-gray-700/60
+      class="mx-auto max-w-fit flex flex-col gap-1 px-4 py-3 rounded-xl font-mono text-[13px]
+             text-tn-muted
+             bg-tn-panel/90
+             border border-tn-border/60
              backdrop-blur-md"
     >
-      <a href="#top" data-i18n="nav_home" class="nav-link block px-2 py-2 whitespace-nowrap hover:text-blue-500 dark:hover:text-blue-400">
+      <a href="#top" data-i18n="nav_home" class="nav-link block px-2 py-2 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
         Inicio
       </a>
-      <a href="#experiencia" data-i18n="nav_experience" class="nav-link block px-2 py-2 whitespace-nowrap hover:text-blue-500 dark:hover:text-blue-400">
+      <a href="#experiencia" data-i18n="nav_experience" class="nav-link block px-2 py-2 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
         Experiencia
       </a>
-      <a href="#proyectos" data-i18n="nav_projects" class="nav-link block px-2 py-2 whitespace-nowrap hover:text-blue-500 dark:hover:text-blue-400">
+      <a href="#proyectos" data-i18n="nav_projects" class="nav-link block px-2 py-2 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
         Proyectos
       </a>
-      <a href="#sobremi" data-i18n="nav_about" class="nav-link block px-2 py-2 whitespace-nowrap hover:text-blue-500 dark:hover:text-blue-400">
+      <a href="#sobremi" data-i18n="nav_about" class="nav-link block px-2 py-2 rounded-md whitespace-nowrap hover:text-tn-cyan hover:bg-tn-panel-2">
         Sobre mí
       </a>
     </div>
@@ -177,42 +190,84 @@
       border: 1px solid transparent;
     }
     to {
-      background-color: rgba(255, 255, 255, 0.75);
+      background-color: color-mix(in srgb, var(--tn-panel) 85%, transparent);
       backdrop-filter: blur(12px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      border: 1px solid rgba(229, 231, 235, 0.8);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--tn-border);
     }
   }
 
-  :global(.dark) #main-nav {
-    animation: nav-shadow-dark 1s linear both;
-    animation-timeline: scroll();
-    animation-range: 0 100px;
-  }
-
-  @keyframes nav-shadow-dark {
-    from {
-      background-color: transparent;
-      backdrop-filter: blur(0px);
-      box-shadow: none;
-      border: 1px solid transparent;
-    }
-    to {
-      background-color: rgba(17, 24, 39, 0.7);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(55, 65, 81, 0.65);
-    }
-  }
-
-  /* Link activo (scroll-spy) */
+  /* Pestaña activa (scroll-spy): borde superior cian + punto "sin guardar" */
   #main-nav a.nav-link.active,
   #mobile-menu a.nav-link.active {
-    color: #3b82f6; /* blue-500 */
+    color: var(--tn-cyan);
+    background: var(--tn-panel-2);
   }
-  :global(.dark) #main-nav a.nav-link.active,
-  :global(.dark) #mobile-menu a.nav-link.active {
-    color: #60a5fa; /* blue-400 */
+  #main-nav a.nav-link.active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 6px;
+    right: 6px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--tn-cyan);
+  }
+  #main-nav a.nav-link.active::after,
+  #mobile-menu a.nav-link.active::after {
+    content: "●";
+    font-size: 8px;
+    margin-left: 6px;
+    vertical-align: middle;
+    color: var(--tn-cyan);
+  }
+
+  /* ===== Toggle DualSense ===== */
+  .ds-toggle:hover svg {
+    transform: scale(1.08);
+  }
+  .ds-toggle svg {
+    transition: transform 0.3s ease;
+  }
+  .ds-body {
+    fill: var(--tn-panel-2);
+    stroke: var(--tn-muted);
+    transition:
+      fill 0.5s ease,
+      stroke 0.5s ease;
+  }
+  .ds-detail {
+    stroke: var(--tn-muted);
+    transition: stroke 0.5s ease;
+  }
+  .ds-detail-fill {
+    fill: var(--tn-muted);
+    transition: fill 0.5s ease;
+  }
+  .ds-stick {
+    fill: var(--tn-panel);
+    stroke: var(--tn-muted);
+    transition:
+      fill 0.5s ease,
+      stroke 0.5s ease;
+  }
+
+  /* Modo claro: control ENCENDIDO, LED azul brillante */
+  .ds-lightbar {
+    stroke: #2e7de9;
+    filter: drop-shadow(0 0 3px #2e7de9);
+    opacity: 1;
+    transition:
+      stroke 0.5s ease,
+      opacity 0.5s ease,
+      filter 0.5s ease;
+  }
+
+  /* Modo oscuro: control APAGADO, LED muy tenue y sin brillo */
+  :global(.dark) .ds-lightbar {
+    stroke: var(--tn-comment);
+    filter: none;
+    opacity: 0.45;
   }
 </style>
 
@@ -322,6 +377,16 @@
 
       if (window.scrollY < 80) {
         setActiveByHash("#top");
+        return;
+      }
+
+      // Al llegar al final de la página, activa la última sección
+      // (su tope nunca alcanza a pasar bajo el nav)
+      const nearBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 4;
+      if (nearBottom && sections.length > 0) {
+        setActiveByHash(`#${sections[sections.length - 1].id}`);
         return;
       }
 

@@ -1,37 +1,45 @@
-<footer
-  class="opacity-80 mt-16 mb-10 w-full mx-auto container lg:max-w-4xl md:max-w-2xl px-4"
->
+<footer class="mt-16 mb-8 w-full mx-auto container lg:max-w-4xl md:max-w-2xl px-4">
+  <!-- Barra de estado estilo tmux/vim -->
   <div
-    class="rounded-lg w-full max-w-7xl mx-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between py-4"
+    class="rounded-lg w-full mx-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between
+           px-4 py-2.5 font-mono text-xs
+           border border-tn-border/70 bg-tn-panel/60 backdrop-blur-sm
+           text-tn-muted"
   >
-    <span
-      class="text-sm text-center md:text-left text-zinc-800/90 dark:text-zinc-200/90"
-    >
-      © 2026
-      <a
-        href="https://github.com/Misael-Marcano"
-        class="hover:underline font-medium"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Misael Monción
-      </a>.
-      Casi todos los derechos reservados.
-    </span>
+    <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1">
+      <span>
+        © 2026
+        <a
+          href="https://github.com/Misael-Marcano"
+          class="text-tn-text hover:text-tn-cyan transition-colors font-medium"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Misael Monción
+        </a>
+      </span>
+    </div>
 
-    <ul
-      class="flex flex-wrap justify-center md:justify-end items-center gap-4 text-sm font-medium text-zinc-800/90 dark:text-white/90"
-    >
+    <ul class="flex flex-wrap justify-center md:justify-end items-center gap-4">
       <li>
-        <a href="#experiencia" class="hover:underline">
+        <a
+          href="#sobremi"
+          data-i18n="nav_about"
+          class="hover:text-tn-cyan transition-colors"
+        >
           Sobre mí
         </a>
       </li>
       <li>
-        <a href="mailto:misaelmarcano0530@gmail.com" class="hover:underline">
+        <a
+          href="mailto:misaelmarcano0530@gmail.com"
+          data-i18n="nav_contact"
+          class="hover:text-tn-cyan transition-colors"
+        >
           Contacto
         </a>
       </li>
+      <!-- <li class="text-tn-comment" aria-hidden="true">:wq</li> -->
     </ul>
   </div>
 </footer>

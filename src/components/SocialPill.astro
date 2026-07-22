@@ -6,30 +6,38 @@ interface Props {
 }
 
 const { href, class: className, download } = Astro.props;
+
+// Los enlaces externos abren en otra pestaña
+const isExternal = href.startsWith("http");
 ---
 
 <a
   href={href}
   download={download}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
   role="link"
-  class={`inline-flex items-center justify-center gap-2 px-4 py-1 
-  text-gray-800 dark:text-white
+  class={`inline-flex items-center justify-center gap-2 px-4 py-1.5
+  font-mono text-sm
+  text-tn-muted
   transition duration-300
-  bg-gray-100 dark:bg-gray-800
-  border border-gray-300 dark:border-gray-600
-  rounded-full
-  
-  hover:bg-gray-900 dark:hover:bg-gray-100
-  hover:border-gray-700 dark:hover:border-gray-300
-  hover:text-white dark:hover:text-black
-  
- 
+  bg-tn-panel-2
+  border border-tn-border/70
+  rounded-md
+
+  before:content-['['] after:content-[']']
+  before:text-tn-comment after:text-tn-comment
+  before:transition-colors after:transition-colors
+
+  hover:text-tn-cyan hover:border-tn-cyan/60
+  hover:before:text-tn-cyan hover:after:text-tn-cyan
+  hover:-translate-y-0.5
+  hover:shadow-[0_4px_16px_-4px_var(--tn-glow)]
+
   focus:outline-none focus-visible:outline-none
-  focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2
-  
-  active:bg-black dark:active:bg-white
-  
-  text-md group max-w-fit
+  focus-visible:ring-2 focus-visible:ring-tn-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-tn-bg
+
+  group max-w-fit
   ${className ?? ""}`}
 >
   <slot />
@@ -37,7 +45,8 @@ const { href, class: className, download } = Astro.props;
 
 <style>
   a {
-    transition-property: background-color, border-color, color;
+    transition-property: background-color, border-color, color, transform,
+      box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
   }

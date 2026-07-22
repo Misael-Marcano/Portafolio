@@ -1,5 +1,295 @@
-/* ✅ Tailwind v4: define el variant dark basado en .dark */
+/* Tailwind v4: variant dark basado en .dark */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ✅ carga Tailwind */
 @import "tailwindcss";
+
+/* ===== Paleta Tokyo Night (claro) / Tokyo Night Storm (oscuro) ===== */
+:root {
+  --tn-bg: #e1e2e7;
+  --tn-panel: #d5d6db;
+  --tn-panel-2: #cbccd1;
+  --tn-border: #a8aecb;
+  --tn-text: #343b58;
+  --tn-muted: #6172b0;
+  --tn-comment: #848cb5;
+  --tn-cyan: #007197;
+  --tn-blue: #2e7de9;
+  --tn-green: #587539;
+  --tn-magenta: #7847bd;
+  --tn-yellow: #8f5e15;
+  --tn-red: #f52a65;
+  --tn-glow: rgba(46, 125, 233, 0.12);
+  --tn-neon: rgba(46, 125, 233, 0.22);
+  --tn-grid-line: rgba(46, 125, 233, 0.07);
+  --tn-orb-1: rgba(46, 125, 233, 0.14);
+  --tn-orb-2: rgba(120, 71, 189, 0.12);
+  --tn-particle: rgba(46, 125, 233, 0.55);
+}
+
+.dark {
+  --tn-bg: #1a1b26;
+  --tn-panel: #24283b;
+  --tn-panel-2: #1f2335;
+  --tn-border: #414868;
+  --tn-text: #c0caf5;
+  --tn-muted: #7982a9;
+  --tn-comment: #565f89;
+  --tn-cyan: #7dcfff;
+  --tn-blue: #7aa2f7;
+  --tn-green: #9ece6a;
+  --tn-magenta: #bb9af7;
+  --tn-yellow: #e0af68;
+  --tn-red: #f7768e;
+  --tn-glow: rgba(125, 207, 255, 0.07);
+  --tn-neon: rgba(125, 207, 255, 0.3);
+  --tn-grid-line: rgba(122, 162, 247, 0.07);
+  --tn-orb-1: rgba(125, 207, 255, 0.15);
+  --tn-orb-2: rgba(187, 154, 247, 0.13);
+  --tn-particle: rgba(125, 207, 255, 0.75);
+}
+
+/* Tokens Tailwind: bg-tn-bg, text-tn-cyan, border-tn-border, etc. */
+@theme inline {
+  --color-tn-bg: var(--tn-bg);
+  --color-tn-panel: var(--tn-panel);
+  --color-tn-panel-2: var(--tn-panel-2);
+  --color-tn-border: var(--tn-border);
+  --color-tn-text: var(--tn-text);
+  --color-tn-muted: var(--tn-muted);
+  --color-tn-comment: var(--tn-comment);
+  --color-tn-cyan: var(--tn-cyan);
+  --color-tn-blue: var(--tn-blue);
+  --color-tn-green: var(--tn-green);
+  --color-tn-magenta: var(--tn-magenta);
+  --color-tn-yellow: var(--tn-yellow);
+  --color-tn-red: var(--tn-red);
+
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "Cascadia Code",
+    monospace;
+}
+
+/* ===== Fondo tecnológico animado =====
+   Solo transform/opacity (compositor-friendly): no afecta el layout ni el paint */
+.tech-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Cuadrícula futurista con paneo diagonal continuo (período = tamaño de celda) */
+.tech-grid {
+  position: absolute;
+  inset: -64px;
+  background-image:
+    linear-gradient(var(--tn-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--tn-grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 0%,
+    black 15%,
+    transparent 80%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 0%,
+    black 15%,
+    transparent 80%
+  );
+  animation: grid-pan 40s linear infinite;
+  will-change: transform;
+}
+@keyframes grid-pan {
+  to {
+    transform: translate(56px, 56px);
+  }
+}
+
+/* Orbes de luz difusa que derivan lentamente */
+.tech-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  will-change: transform;
+}
+.tech-orb-1 {
+  width: 480px;
+  height: 480px;
+  left: -140px;
+  top: -100px;
+  background: radial-gradient(circle, var(--tn-orb-1), transparent 70%);
+  animation: orb-drift-1 28s ease-in-out infinite alternate;
+}
+.tech-orb-2 {
+  width: 420px;
+  height: 420px;
+  right: -120px;
+  top: 28%;
+  background: radial-gradient(circle, var(--tn-orb-2), transparent 70%);
+  animation: orb-drift-2 34s ease-in-out infinite alternate;
+}
+@keyframes orb-drift-1 {
+  to {
+    transform: translate(150px, 90px);
+  }
+}
+@keyframes orb-drift-2 {
+  to {
+    transform: translate(-130px, -80px);
+  }
+}
+
+/* Partículas que ascienden y se desvanecen */
+.tech-particle {
+  position: absolute;
+  bottom: -12px;
+  left: var(--px);
+  width: var(--ps);
+  height: var(--ps);
+  border-radius: 9999px;
+  background: var(--tn-particle);
+  box-shadow: 0 0 6px 1px var(--tn-particle);
+  opacity: 0;
+  animation: particle-rise var(--pt) linear var(--pd) infinite;
+  will-change: transform, opacity;
+}
+@keyframes particle-rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.7;
+  }
+  85% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(-105vh);
+    opacity: 0;
+  }
+}
+
+/* Símbolos PlayStation (barras de ventana) */
+.ps-sym {
+  text-shadow: 0 0 7px currentColor;
+  line-height: 1;
+}
+
+/* ===== Reveal on scroll ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Cursor de terminal parpadeante ===== */
+.term-cursor::after {
+  content: "▊";
+  margin-left: 2px;
+  color: var(--tn-green);
+  animation: blink 1.1s step-end infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ===== Spotlight en cards (efecto Linear) + halo neón al hover ===== */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    box-shadow 0.4s ease,
+    border-color 0.3s ease;
+}
+.spotlight-card:hover {
+  box-shadow: 0 0 36px -12px var(--tn-neon);
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    360px circle at var(--x, 50%) var(--y, 50%),
+    var(--tn-glow),
+    transparent 65%
+  );
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* ===== Konami: ACHIEVEMENT UNLOCKED ===== */
+.konami-active {
+  animation: hue-party 3s linear;
+}
+@keyframes hue-party {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+#konami-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translate(-50%, 80px);
+  z-index: 100;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--tn-green);
+  background: var(--tn-panel);
+  color: var(--tn-green);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  opacity: 0;
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+  pointer-events: none;
+}
+#konami-toast.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-grid,
+  .tech-orb {
+    animation: none;
+  }
+  .tech-particle {
+    display: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .term-cursor::after {
+    animation: none;
+  }
+  .konami-active {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

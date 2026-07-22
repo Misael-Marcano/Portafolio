@@ -8,26 +8,29 @@ import LinkIcon from "../components/icons/Link.astro";
 const TAGS = {
   JavaScript: {
     nameKey: "tag_js",
-    class: "bg-[#F7DF1E] text-black font-bold",
+    dot: "#e0af68",
     icon: JavascriptIcon,
   },
   CSS: {
     nameKey: "tag_css",
-    class: "bg-[#639] text-white font-bold",
+    dot: "#7aa2f7",
     icon: CssIcon,
   },
   EJS: {
     nameKey: "tag_ejs",
-    class: "bg-[#2d5016] text-white",
+    dot: "#9ece6a",
     icon: EjsIcon,
   },
 };
 
 const PROJECTS = [
   {
+    repoName: "configurador-de-bromas",
     titleKey: "proj_1_title",
     descriptionKey: "proj_1_desc",
-    link: "#",
+    // Sin demo desplegada aún: cuando exista, añade `link: "https://..."`
+    // y el botón "Vista previa" aparecerá solo
+    link: null,
     github: "https://github.com/Misael-Marcano/Configurador-de-Bromas",
     image: "/Portafolio/projects/svgl.png",
     tags: [TAGS.JavaScript, TAGS.CSS, TAGS.EJS],
@@ -43,81 +46,120 @@ const UI = {
 
 <div class="flex flex-col gap-y-16">
   {
-    PROJECTS.map(({ image, titleKey, descriptionKey, tags, link, github }) => (
-      <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
-
-        <!-- Imagen -->
-        <div class="w-full md:w-1/2 flex">
-          <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50 h-full bg-gray-200 dark:bg-gray-800">
-            <img
-              data-i18n-attr="alt"
-              data-i18n-alt="proj_1_alt"
-              alt="Captura del proyecto"
-              class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
-              loading="eager"
-              decoding="async"
-              src={image}
-            />
+    PROJECTS.map(
+      ({ image, repoName, titleKey, descriptionKey, tags, link, github }) => (
+        <article class="spotlight-card group rounded-xl border border-tn-border/70 bg-tn-panel/60 backdrop-blur-sm overflow-hidden transition-colors duration-300 hover:border-tn-cyan/50">
+          <!-- Barra de título estilo repo -->
+          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-tn-border/60 bg-tn-panel-2/80">
+            <svg
+              class="size-4 text-tn-muted shrink-0"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z" />
+            </svg>
+            <span class="font-mono text-sm text-tn-cyan truncate">
+              Misael-Marcano/<span class="font-semibold">{repoName}</span>
+            </span>
+            <span class="ml-auto font-mono text-[10px] px-2 py-0.5 rounded-full border border-tn-border text-tn-muted shrink-0">
+              public
+            </span>
           </div>
-        </div>
 
-        <!-- Contenido -->
-        <div class="w-full md:w-1/2 md:max-w-lg flex flex-col">
-          <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100" data-i18n={titleKey}>
-            {/* fallback */}
-            Proyecto
-          </h3>
+          <div class="flex flex-col md:flex-row">
+            <!-- Imagen -->
+            <div class="w-full md:w-1/2 p-4 pb-0 md:pb-4">
+              <div class="relative h-full overflow-clip rounded-lg border border-tn-border/60 bg-tn-panel-2">
+                <img
+                  data-i18n-attr="alt"
+                  data-i18n-alt="proj_1_alt"
+                  alt="Captura del proyecto"
+                  class="object-cover object-top w-full h-56 sm:h-full transition duration-500 md:scale-105 md:group-hover:scale-100"
+                  loading="eager"
+                  decoding="async"
+                  src={image}
+                />
+              </div>
+            </div>
 
-          <!-- Tags -->
-          <ul class="flex flex-row mt-3 mb-4 gap-x-2 flex-wrap">
-            {tags.map((tag) => (
-              <li>
-                <span class={`inline-flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}>
-                  <tag.icon class="size-4" />
-                  <span data-i18n={tag.nameKey}>{/* fallback */}Tag</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          <!-- Descripción -->
-          <p class="text-gray-700 dark:text-gray-400 text-pretty mb-6 grow" data-i18n={descriptionKey}>
-            {/* fallback */}
-            Descripción del proyecto...
-          </p>
-
-          <!-- Botones -->
-          <footer class="flex items-center justify-start gap-x-4 w-full">
-            {github && (
-              <a
-                href={github}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex bg-gray-100 text-gray-800 border-gray-300 items-center justify-center gap-2 px-3 py-2 space-x-2 text-base transition dark:text-white dark:bg-gray-800 border dark:border-gray-600 focus-visible:ring-yellow-500/80 text-md hover:bg-gray-800 hover:border-gray-900 group max-w-fit rounded-xl hover:text-white focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-black"
+            <!-- Contenido -->
+            <div class="w-full md:w-1/2 flex flex-col p-4 sm:p-6">
+              <h3
+                class="text-2xl font-bold text-tn-text"
+                data-i18n={titleKey}
               >
-                <GitHubIcon class="size-6" />
-                <span data-i18n={UI.codeKey}>Code</span>
-              </a>
-            )}
+                Proyecto
+              </h3>
 
-            {link && (
-              <a
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex bg-gray-100 text-gray-800 border-gray-300 items-center justify-center gap-2 px-3 py-2 space-x-2 text-base transition dark:text-white dark:bg-gray-800 border dark:border-gray-600 focus-visible:ring-yellow-500/80 text-md hover:bg-gray-800 hover:border-gray-900 group max-w-fit rounded-xl hover:text-white focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-black"
+              <!-- Tags estilo lenguajes de GitHub -->
+              <ul class="flex flex-row mt-3 mb-4 gap-x-4 gap-y-2 flex-wrap">
+                {tags.map((tag) => (
+                  <li>
+                    <span class="inline-flex items-center gap-x-1.5 font-mono text-xs text-tn-muted">
+                      <span
+                        class="size-2.5 rounded-full shrink-0"
+                        style={`background:${tag.dot}`}
+                      />
+                      <tag.icon class="size-4" />
+                      <span data-i18n={tag.nameKey}>Tag</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <!-- Descripción -->
+              <p
+                class="text-tn-muted text-pretty mb-6 grow"
+                data-i18n={descriptionKey}
               >
-                <LinkIcon class="size-6" />
-                <span data-i18n={UI.previewKey}>Preview</span>
-              </a>
-            )}
-          </footer>
-        </div>
-      </article>
-    ))
+                Descripción del proyecto...
+              </p>
+
+              <!-- Botones -->
+              <footer class="flex items-center justify-start gap-x-3 w-full">
+                {github && (
+                  <a
+                    href={github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center gap-2 px-3 py-2 font-mono text-sm rounded-md border transition duration-300 max-w-fit
+                      bg-tn-panel-2 text-tn-text border-tn-border/70
+                      hover:text-tn-green hover:border-tn-green/60 hover:-translate-y-0.5
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-tn-cyan"
+                  >
+                    <GitHubIcon class="size-5" />
+                    <span>
+                      $ git clone
+                    </span>
+                  </a>
+                )}
+
+                {link && (
+                  <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center gap-2 px-3 py-2 font-mono text-sm rounded-md border transition duration-300 max-w-fit
+                      bg-tn-panel-2 text-tn-text border-tn-border/70
+                      hover:text-tn-cyan hover:border-tn-cyan/60 hover:-translate-y-0.5
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-tn-cyan"
+                  >
+                    <LinkIcon class="size-5" />
+                    <span data-i18n={UI.previewKey}>Preview</span>
+                  </a>
+                )}
+              </footer>
+            </div>
+          </div>
+        </article>
+      ),
+    )
   }
 </div>
 
 <style>
-  img { contain: layout style paint; }
+  img {
+    contain: layout style paint;
+  }
 </style>

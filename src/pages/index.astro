@@ -22,110 +22,179 @@ import Aboutme from "../components/Aboutme.astro";
   description="Contrata a Misael para crear tu aplicación web. Desarrollador Web. Especializado en crear aplicaciones únicas."
 >
   <main class="px-4 w-full overflow-x-hidden">
-    <SectionContainer class="py-40 sm:py-40 md:py-40 pb-40 sm:pb-25 md:pb-30">
+    <SectionContainer class="pt-32 sm:pt-36 md:pt-40 pb-24">
+      <!-- Ventana de terminal -->
       <div
-        class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
+        class="rounded-xl border border-tn-border/70 bg-tn-panel/60 backdrop-blur-sm shadow-2xl shadow-black/10 dark:shadow-black/40 overflow-hidden spotlight-card"
       >
-        <img
-          class="rounded-full w-20 h-20 sm:w-20 sm:h-22 md:w-20 md:h-20"
-          src={fotoPerfil.src}
-          alt="misael photo"
-        />
-        <Badge
-          data-i18n="status_available"
-          href="https://www.linkedin.com/in/misael-marcano/"
-          >Disponible para trabajar</Badge
+        <!-- Barra de título -->
+        <div
+          class="flex items-center gap-2.5 px-4 py-2.5 border-b border-tn-border/60 bg-tn-panel-2/80 font-mono"
         >
+          <span class="ps-sym text-sm text-[#2dd4bf]" aria-hidden="true">△</span>
+          <span class="ps-sym text-sm text-[#f7768e]" aria-hidden="true">○</span>
+          <span class="ps-sym text-sm text-[#7aa2f7]" aria-hidden="true">✕</span>
+          <span class="ps-sym text-sm text-[#bb9af7]" aria-hidden="true">□</span>
+          <span class="ml-3 text-xs text-tn-comment truncate">
+            misael@santiago-do: ~
+          </span>
+        </div>
+
+        <!-- Cuerpo del terminal -->
+        <div class="p-6 sm:p-8">
+          <p class="font-mono text-sm text-tn-comment mb-6">
+            <span class="text-tn-green">misael@santiago-do</span><span>:</span><span class="text-tn-blue">~</span><span>$</span>
+            <!-- <span class="typing-cmd text-tn-text">whoami</span> -->
+          </p>
+
+          <!-- Output estilo neofetch -->
+          <div class="hero-output flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
+            <img
+              class="rounded-lg w-24 h-24 sm:w-28 sm:h-28 object-cover ring-1 ring-tn-border shadow-lg shrink-0"
+              src={fotoPerfil.src}
+              alt="misael photo"
+            />
+
+            <div class="min-w-0">
+              <div class="flex flex-wrap items-center gap-x-4 gap-y-3 mb-4">
+                <h1
+                  class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-tn-text"
+                  data-i18n="welcome_title"
+                >
+                  Hey, soy Misael
+                </h1>
+                <Badge
+                  data-i18n="status_available"
+                  href="https://www.linkedin.com/in/misael-marcano/"
+                  >Disponible para trabajar</Badge
+                >
+              </div>
+
+              <p class="text-lg sm:text-xl text-tn-muted text-pretty">
+                <span data-i18n="desc_part_1">
+                  Desarrollador de software con 3 años de experiencia en Oracle
+                  Forms y Oracle Reports
+                </span>,
+                <strong data-i18n="desc_part_2" class="font-semibold text-tn-cyan">
+                  y experiencia junior en desarrollo web.
+                </strong>
+                <strong data-i18n="desc_part_3" class="font-semibold text-tn-magenta">
+                  De Santiago, República Dominicana.
+                </strong>
+                <span data-i18n="desc_part_4">
+                  Especializado en la creación de aplicaciones funcionales.
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Pills como comandos -->
+          <nav class="hero-output flex flex-wrap gap-3 mt-8">
+            <SocialPill href="mailto:misaelmarcano0530@gmail.com">
+              <ContactIcon class="size-4" />
+              <span data-i18n="contact_title"></span>
+            </SocialPill>
+
+            <SocialPill href="https://www.linkedin.com/in/misael-marcano/">
+              <LinkedInIcon class="size-4" />
+              LinkedIn
+            </SocialPill>
+
+            <SocialPill href="https://github.com/Misael-Marcano">
+              <GitHubIcon class="size-4" />
+              GitHub
+            </SocialPill>
+
+            <SocialPill
+              href={`${import.meta.env.BASE_URL}cv/Misael-Marcano-CV.pdf`}
+              download
+            >
+              <CurriculumIcon class="size-4" />
+              <span data-i18n="download_cv">Descargar CV</span>
+            </SocialPill>
+          </nav>
+
+          <p class="font-mono text-sm text-tn-comment mt-8 term-cursor">
+            <span class="text-tn-green">misael@santiago-do</span><span>:</span><span class="text-tn-blue">~</span><span>$</span>
+          </p>
+        </div>
       </div>
-      <div
-        class="flex flex-col lg:flex-row gap-x-4 items-start lg:items-center pb-6 lg:pb-2"
-      >
-        <h1
-          class="text-3xl sm:text-5xl md:text-5xl font-bold tracking-tight text-gray-800 dark:text-white"
-          data-i18n="welcome_title"
-        >
-          Hey, soy Misael
-        </h1>
-      </div>
-      <p class="mt-6 text-xl text-gray-800 dark:text-gray-300">
-        <span data-i18n="desc_part_1">
-          Desarrollador de software con 3 años de experiencia en Oracle Forms y
-          Oracle Reports
-        </span>,
-        <span class="text-yellow-400 dark:text-yellow-200">
-          <strong data-i18n="desc_part_2" class="font-semibold">
-            y experiencia junior en desarrollo web.
-          </strong>
-        </span>
-        <span class="text-yellow-400 dark:text-yellow-200">
-          <strong data-i18n="desc_part_3" class="font-semibold">
-            De Santiago, República Dominicana.
-          </strong>
-        </span>
-        <span data-i18n="desc_part_4">
-          Especializado en la creación de aplicaciones funcionales.
-        </span>
-      </p>
-
-      <nav class="flex flex-wrap gap-4 mt-8">
-        <SocialPill href="mailto:misaelmarcano0530@gmail.com">
-          <ContactIcon class="size-4" />
-          <span data-i18n="contact_title"></span>
-        </SocialPill>
-
-        <SocialPill href="https://www.linkedin.com/in/misael-marcano/">
-          <LinkedInIcon class="size-4" />
-          LinkedIn
-        </SocialPill>
-
-        <SocialPill href="https://github.com/Misael-Marcano">
-          <GitHubIcon class="size-4" />
-          GitHub
-        </SocialPill>
-
-        <SocialPill
-          href={`${import.meta.env.BASE_URL}cv/Misael-Marcano-CV.pdf`}
-          download
-        >
-          <CurriculumIcon class="size-4" da/>
-          <span data-i18n="download_cv">Descargar CV</span>
-        </SocialPill>
-      </nav>
     </SectionContainer>
 
-    <SectionContainer id="experiencia">
+    <SectionContainer id="experiencia" class="reveal">
       <h2
         class="text-2xl sm:text-3xl font-semibold mb-2 flex gap-x-3 items-center flex-wrap"
       >
-        <BriefcaseIcon
-          class="size-6 sm:size-7 text-gray-800 dark:text-gray-200"
-        />
-        <span
-          data-i18n="section_experience_title"
-          class="text-gray-800 dark:text-gray-200">Experiencia laboral</span
+        <BriefcaseIcon class="size-6 sm:size-7 text-tn-cyan" />
+        <span data-i18n="section_experience_title" class="text-tn-text"
+          >Experiencia laboral</span
         >
       </h2>
       <Experience />
     </SectionContainer>
 
-    <SectionContainer id="proyectos" class="py-20">
+    <SectionContainer id="proyectos" class="py-20 reveal">
       <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white undefined"
+        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-tn-text"
       >
-        <ProjectsIcon class="size-8 sm:size-10" />
+        <ProjectsIcon class="size-8 sm:size-10 text-tn-cyan" />
         <span data-i18n="projects">Proyectos</span>
       </h2>
       <Projects />
     </SectionContainer>
 
-    <SectionContainer id="sobremi" class="py-20">
+    <SectionContainer id="sobremi" class="py-20 reveal">
       <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white undefined"
+        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-tn-text"
       >
-        <UserIcon class="size-8 sm:size-10" />
+        <UserIcon class="size-8 sm:size-10 text-tn-cyan" />
         <span data-i18n="section_about_title">Sobre mí</span>
       </h2>
       <Aboutme />
     </SectionContainer>
   </main>
 </Layout>
+
+<style>
+  /* Typing effect del comando whoami (CSS puro con steps) */
+  .typing-cmd {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    width: 0;
+    animation: typing 0.9s steps(6) 0.4s forwards;
+  }
+  @keyframes typing {
+    to {
+      width: 6ch;
+    }
+  }
+
+  /* El "output" aparece cuando termina de escribirse el comando */
+  .hero-output {
+    opacity: 0;
+    animation: output-in 0.5s ease 1.3s forwards;
+  }
+  @keyframes output-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .typing-cmd {
+      width: 6ch;
+      animation: none;
+    }
+    .hero-output {
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>
