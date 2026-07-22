@@ -4,7 +4,7 @@ import Badge from "../components/Badge.astro";
 import fotoPerfil from "../assets/Foto_perfil.jpg";
 import LinkedInIcon from "../components/icons/LinkedIn.astro";
 import GitHubIcon from "../components/icons/GitHub.astro";
-import MailIcon from "../components/icons/mail.astro";
+// import MailIcon from "../components/icons/mail.astro";
 import SocialPill from "../components/SocialPill.astro";
 import Experience from "../components/experience.astro";
 import SectionContainer from "../components/SectionContainer.astro";
@@ -92,7 +92,7 @@ import Aboutme from "../components/Aboutme.astro";
           <nav class="hero-output flex flex-wrap gap-3 mt-8">
             <SocialPill href="mailto:misaelmarcano0530@gmail.com">
               <ContactIcon class="size-4" />
-              <span data-i18n="contact_title"></span>
+              <span data-i18n="contact_title">Contáctame</span>
             </SocialPill>
 
             <SocialPill href="https://www.linkedin.com/in/misael-marcano/">
@@ -171,10 +171,10 @@ import Aboutme from "../components/Aboutme.astro";
     }
   }
 
-  /* El "output" aparece cuando termina de escribirse el comando */
+  /* El contenido del hero aparece primero, casi de inmediato */
   .hero-output {
     opacity: 0;
-    animation: output-in 0.5s ease 1.3s forwards;
+    animation: output-in 0.5s ease 0.15s forwards;
   }
   @keyframes output-in {
     from {
