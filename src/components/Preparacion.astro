@@ -1,6 +1,7 @@
 ---
 import fs from "node:fs";
 import path from "node:path";
+import es from "../i18n/es.json";
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const dirName = "preparacion-profesional";
@@ -8,8 +9,25 @@ const absDir = path.join(process.cwd(), "public", dirName);
 
 type PrepFile = {
   filename: string;
+  titleKey: string | null;
   label: string;
   href: string;
+};
+
+/** Títulos fijos i18n por archivo (evita nombres crudos / limpiezas frágiles). */
+const TITLE_BY_FILE: Record<string, string> = {
+  "Certificacion PL-SQL de ORACLE.pdf": "prep_cert_plsql",
+  "Certificacion Power BI.pdf": "prep_cert_powerbi",
+  "Diploma Ingles.pdf": "prep_cert_english",
+};
+
+const titleKeyFor = (filename: string): string | null => {
+  if (TITLE_BY_FILE[filename]) return TITLE_BY_FILE[filename];
+  const n = filename.toLowerCase();
+  if (n.includes("pl-sql") || n.includes("plsql")) return "prep_cert_plsql";
+  if (n.includes("power bi") || n.includes("powerbi")) return "prep_cert_powerbi";
+  if (n.includes("ingles") || n.includes("english")) return "prep_cert_english";
+  return null;
 };
 
 const cleanLabel = (filename: string) => {
@@ -26,6 +44,11 @@ const cleanLabel = (filename: string) => {
     .replace(/\bdiploma\b/gi, "Diploma");
 };
 
+const fb = (key: string | null) => {
+  if (!key) return "";
+  return (es as Record<string, string>)[key] ?? "";
+};
+
 let files: PrepFile[] = [];
 
 if (fs.existsSync(absDir)) {
@@ -33,11 +56,15 @@ if (fs.existsSync(absDir)) {
     .readdirSync(absDir)
     .filter((name) => name.toLowerCase().endsWith(".pdf"))
     .sort((a, b) => a.localeCompare(b, "es"))
-    .map((filename) => ({
-      filename,
-      label: cleanLabel(filename),
-      href: `${base}${dirName}/${encodeURIComponent(filename)}`,
-    }));
+    .map((filename) => {
+      const titleKey = titleKeyFor(filename);
+      return {
+        filename,
+        titleKey,
+        label: fb(titleKey) || cleanLabel(filename),
+        href: `${base}${dirName}/${encodeURIComponent(filename)}`,
+      };
+    });
 } else {
   fs.mkdirSync(absDir, { recursive: true });
   console.warn(
@@ -62,7 +89,7 @@ if (files.length === 0) {
     </p>
   ) : (
     <ul class="grid gap-4 sm:gap-5 sm:grid-cols-2">
-      {files.map(({ filename, label, href }) => (
+      {files.map(({ filename, titleKey, label, href }) => (
         <li>
           <a
             href={href}
@@ -89,7 +116,10 @@ if (files.length === 0) {
                 PDF
               </span>
               <div class="min-w-0">
-                <h3 class="text-base sm:text-lg font-semibold text-tn-text text-balance">
+                <h3
+                  class="text-base sm:text-lg font-semibold text-tn-text text-balance"
+                  data-i18n={titleKey ?? undefined}
+                >
                   {label}
                 </h3>
                 <p class="mt-1 font-mono text-xs text-tn-muted">

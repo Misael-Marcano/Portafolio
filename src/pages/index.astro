@@ -237,6 +237,7 @@ const cvHref = `${base}cv/Misael-Marcano-CV.pdf`;
 <script>
   const TYPE_MS = 78;
   let typeTimer: ReturnType<typeof setInterval> | null = null;
+  let waitingForBoot = false;
 
   const prefersReducedMotion = () =>
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -274,15 +275,38 @@ const cvHref = `${base}cv/Misael-Marcano-CV.pdf`;
     }, TYPE_MS);
   };
 
-  const bootTypewriter = () => typewriteName();
+  /** Arranca tras el fade del loading; si no hay boot, de inmediato. */
+  const scheduleTypewriter = () => {
+    const boot = document.getElementById("boot-screen");
+    const ready = document.documentElement.classList.contains("is-ready");
+
+    if (!boot || ready) {
+      typewriteName();
+      return;
+    }
+
+    if (waitingForBoot) return;
+    waitingForBoot = true;
+    window.addEventListener(
+      "boot:done",
+      () => {
+        waitingForBoot = false;
+        typewriteName();
+      },
+      { once: true },
+    );
+  };
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", bootTypewriter, { once: true });
+    document.addEventListener("DOMContentLoaded", scheduleTypewriter, {
+      once: true,
+    });
   } else {
-    bootTypewriter();
+    scheduleTypewriter();
   }
 
-  document.addEventListener("astro:page-load", bootTypewriter);
-  document.addEventListener("astro:after-swap", bootTypewriter);
-  window.addEventListener("languageChange", bootTypewriter);
+  document.addEventListener("astro:page-load", scheduleTypewriter);
+  document.addEventListener("astro:after-swap", scheduleTypewriter);
+  // Cambio de idioma: la página ya es visible → reinicia al momento
+  window.addEventListener("languageChange", () => typewriteName());
 </script>

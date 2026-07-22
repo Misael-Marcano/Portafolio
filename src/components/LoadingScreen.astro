@@ -188,6 +188,8 @@
       document.querySelectorAll(".reveal").forEach((el) => {
         el.classList.add("visible");
       });
+      // El typewriter del hero espera este evento (no animar bajo el overlay)
+      window.dispatchEvent(new CustomEvent("boot:done"));
       // Libera el nodo tras el fade para no bloquear interacción
       setTimeout(() => screen.remove(), reduce ? 200 : 500);
     };
