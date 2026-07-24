@@ -1,4 +1,8 @@
 ---
+import ThemeToggle from "./ThemeToggle.astro";
+
+/** Juego independiente en GitHub Pages (repo separado). */
+const GAME_URL = "https://misael-marcano.github.io/Bug-Hunter/";
 ---
 
 <header class="fixed top-0 z-50 flex flex-col items-center justify-center w-full max-w-[100vw] mt-3 px-3 sm:px-4">
@@ -97,48 +101,50 @@
       </button>
     </div>
 
-    <!-- Toggle tema: control DualSense. Claro = LED encendido, oscuro = apagado -->
-    <button
-      id="theme-toggle-btn"
-      type="button"
-      class="ds-toggle inline-flex items-center justify-center min-h-10 min-w-10 sm:min-h-0 sm:min-w-0 px-2 py-1.5 sm:px-1.5 sm:py-1 rounded-md
-             transition-all duration-300 cursor-pointer
+    <!-- DualSense: lanza el videojuego en GitHub Pages -->
+    <a
+      id="game-launch-btn"
+      href={GAME_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="ds-launch inline-flex items-center justify-center min-h-10 min-w-10 sm:min-h-0 sm:min-w-0 px-2 py-1.5 sm:px-1.5 sm:py-1 rounded-md
+             transition-all duration-300
              border border-tn-border/50 bg-tn-panel-2/60
              hover:border-tn-cyan/60"
-      aria-label="Cambiar tema"
-      title="Cambiar tema"
+      aria-label="Abrir videojuego"
+      title="PLAY — Bug Hunter"
+      data-i18n-attr="aria-label"
+      data-i18n-aria-label="game_launch_label"
     >
       <svg viewBox="0 0 32 20" class="w-8 h-5" fill="none" aria-hidden="true">
-        <!-- Cuerpo del control -->
         <path
           class="ds-body"
           d="M9 2.6 C5.2 2.6 3.3 5.5 2.7 9.2 C2.1 13.4 2.7 17.1 5 17.4 C7.2 17.7 8.2 14.7 9.6 13.3 L22.4 13.3 C23.8 14.7 24.8 17.7 27 17.4 C29.3 17.1 29.9 13.4 29.3 9.2 C28.7 5.5 26.8 2.6 23 2.6 Z"
           stroke-width="1"
         ></path>
-        <!-- Lightbar LED -->
         <path
           class="ds-lightbar"
           d="M12.5 2.7 Q16 5.3 19.5 2.7"
           stroke-width="1.7"
           stroke-linecap="round"
         ></path>
-        <!-- D-pad -->
         <path
           class="ds-detail"
           d="M7 6.9 v3.2 M5.4 8.5 h3.2"
           stroke-width="1.1"
           stroke-linecap="round"
         ></path>
-        <!-- Botones frontales -->
         <circle class="ds-detail-fill" cx="25" cy="6.7" r="0.9"></circle>
         <circle class="ds-detail-fill" cx="25" cy="10.3" r="0.9"></circle>
         <circle class="ds-detail-fill" cx="23.2" cy="8.5" r="0.9"></circle>
         <circle class="ds-detail-fill" cx="26.8" cy="8.5" r="0.9"></circle>
-        <!-- Sticks -->
         <circle class="ds-stick" cx="12.7" cy="11.4" r="1.7" stroke-width="1"></circle>
         <circle class="ds-stick" cx="19.3" cy="11.4" r="1.7" stroke-width="1"></circle>
       </svg>
-    </button>
+    </a>
+
+    <!-- Tema: consola / DevTools ($ theme) -->
+    <ThemeToggle />
 
     <button
       id="menu-toggle-btn"
@@ -233,58 +239,56 @@
     color: var(--tn-cyan);
   }
 
-  /* ===== Toggle DualSense ===== */
-  .ds-toggle:hover svg {
+  /* ===== DualSense → lanzar juego (LED siempre “ready”) ===== */
+  .ds-launch:hover svg {
     transform: scale(1.08);
   }
-  .ds-toggle svg {
+  .ds-launch svg {
     transition: transform 0.3s ease;
   }
   .ds-body {
     fill: var(--tn-panel-2);
     stroke: var(--tn-muted);
-    transition:
-      fill 0.5s ease,
-      stroke 0.5s ease;
   }
   .ds-detail {
     stroke: var(--tn-muted);
-    transition: stroke 0.5s ease;
   }
   .ds-detail-fill {
     fill: var(--tn-muted);
-    transition: fill 0.5s ease;
   }
   .ds-stick {
     fill: var(--tn-panel);
     stroke: var(--tn-muted);
-    transition:
-      fill 0.5s ease,
-      stroke 0.5s ease;
   }
 
-  /* Modo claro: control ENCENDIDO, LED azul brillante */
   .ds-lightbar {
     stroke: #2e7de9;
     filter: drop-shadow(0 0 3px #2e7de9);
     opacity: 1;
-    transition:
-      stroke 0.5s ease,
-      opacity 0.5s ease,
-      filter 0.5s ease;
+    animation: ds-ready-pulse 2.4s ease-in-out infinite;
   }
-
-  /* Modo oscuro: control APAGADO, LED muy tenue y sin brillo */
   :global(.dark) .ds-lightbar {
-    stroke: var(--tn-comment);
-    filter: none;
-    opacity: 0.45;
+    stroke: #7aa2f7;
+    filter: drop-shadow(0 0 4px #7aa2f7);
+  }
+  @keyframes ds-ready-pulse {
+    0%,
+    100% {
+      opacity: 0.75;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ds-lightbar {
+      animation: none;
+    }
   }
 </style>
 
 <script is:inline>
   const initHeaderControls = () => {
-    const themeBtn = document.getElementById("theme-toggle-btn");
     const btnEs = document.getElementById("btn-es");
     const btnEn = document.getElementById("btn-en");
     const indicator = document.getElementById("lang-indicator");
@@ -450,12 +454,6 @@
         setActiveByHash(`#${id}`);
         toggleMobileMenu(false);
       });
-    });
-
-    // ---- Tema ----
-    themeBtn?.addEventListener("click", () => {
-      if (typeof window.toggleTheme === "function") window.toggleTheme();
-      else document.documentElement.classList.toggle("dark");
     });
 
     // ---- Idioma ----

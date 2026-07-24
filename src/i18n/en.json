@@ -16,6 +16,8 @@
     "loading_title": "LOADING...",
     "loading_press": "PRESS START",
     "loading_aria": "Loading portfolio",
+    "game_launch_label": "Open Bug Hunter game",
+    "theme_toggle_label": "Toggle light or dark theme",
     "status_available": "Available for work",
     "desc_part_1": "Software developer with 3 years of experience in application development and support using Oracle Forms and Oracle Reports",
     "desc_part_2": "building and maintaining critical systems.",

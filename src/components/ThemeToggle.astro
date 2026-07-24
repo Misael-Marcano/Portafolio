@@ -1,0 +1,89 @@
+---
+---
+
+<!-- Control de tema estilo consola / DevTools: $ theme --toggle -->
+<button
+  id="theme-toggle-btn"
+  type="button"
+  class="theme-console-toggle inline-flex items-center justify-center gap-1 min-h-10 min-w-10 sm:min-h-0 sm:min-w-0 px-2 py-1.5 sm:px-2 sm:py-1 rounded-md
+         transition-all duration-300 cursor-pointer
+         border border-tn-border/50 bg-tn-panel-2/60
+         hover:border-tn-green/60 hover:text-tn-green
+         font-mono text-[11px] sm:text-[10px] text-tn-muted"
+  aria-label="Cambiar tema"
+  title="$ theme --toggle"
+  data-i18n-attr="aria-label"
+  data-i18n-aria-label="theme_toggle_label"
+>
+  <span class="text-tn-green shrink-0" aria-hidden="true">$</span>
+  <span class="theme-console-cmd tracking-tight" aria-hidden="true">theme</span>
+  <span
+    class="theme-console-mode ml-0.5 px-1 rounded border border-tn-border/40 bg-tn-panel/80 text-[9px] leading-none py-0.5"
+    data-theme-mode
+    aria-hidden="true"
+  >dark</span>
+</button>
+
+<style>
+  .theme-console-toggle:hover .theme-console-cmd {
+    color: var(--tn-green);
+  }
+
+  .theme-console-mode {
+    color: var(--tn-cyan);
+    transition:
+      color 0.35s ease,
+      border-color 0.35s ease,
+      background-color 0.35s ease;
+  }
+
+  /* Modo claro: badge “light” en amarillo Tokyo Night */
+  :global(html:not(.dark)) .theme-console-mode {
+    color: var(--tn-yellow);
+    border-color: color-mix(in srgb, var(--tn-yellow) 35%, transparent);
+  }
+
+  /* Modo oscuro: badge “dark” en cian */
+  :global(.dark) .theme-console-mode {
+    color: var(--tn-cyan);
+    border-color: color-mix(in srgb, var(--tn-cyan) 35%, transparent);
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const syncModeLabel = () => {
+      const el = document.querySelector("[data-theme-mode]");
+      if (!el) return;
+      const isDark = document.documentElement.classList.contains("dark");
+      el.textContent = isDark ? "dark" : "light";
+    };
+
+    const bind = () => {
+      const btn = document.getElementById("theme-toggle-btn");
+      if (!btn || btn.dataset.bound === "1") {
+        syncModeLabel();
+        return;
+      }
+      btn.dataset.bound = "1";
+      btn.addEventListener("click", () => {
+        if (typeof window.toggleTheme === "function") window.toggleTheme();
+        else document.documentElement.classList.toggle("dark");
+        syncModeLabel();
+      });
+      syncModeLabel();
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", bind, { once: true });
+    } else {
+      bind();
+    }
+
+    document.addEventListener("astro:after-swap", () => {
+      const btn = document.getElementById("theme-toggle-btn");
+      if (btn) delete btn.dataset.bound;
+      bind();
+    });
+  })();
+</script>
