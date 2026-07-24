@@ -1,120 +1,143 @@
 ---
 ---
 
-<!-- Mini consola DevTools: icono de panel; tip `$ theme --toggle` -->
+<!-- Lámpara gaming: encendida en claro, apagada en oscuro -->
 <button
   id="theme-toggle-btn"
   type="button"
-  class="devtools-toggle inline-flex items-center justify-center min-h-10 min-w-10 sm:min-h-0 sm:min-w-0 px-2 py-1.5 sm:px-1.5 sm:py-1 rounded-md
+  class="lamp-toggle inline-flex items-center justify-center min-h-10 min-w-10 sm:min-h-0 sm:min-w-0 px-2 py-1.5 sm:px-1.5 sm:py-1 rounded-md
          transition-all duration-300 cursor-pointer
          border border-tn-border/50 bg-tn-panel-2/60
-         hover:border-tn-green/60
-         text-tn-muted"
+         hover:border-tn-yellow/60"
   aria-label="Cambiar tema"
-  title="$ theme --toggle"
+  title="Toggle desk lamp"
   data-i18n-attr="aria-label"
   data-i18n-aria-label="theme_toggle_label"
 >
-  <svg
-    viewBox="0 0 24 20"
-    class="w-6 h-5"
-    fill="none"
-    aria-hidden="true"
-  >
-    <!-- Ventana del panel -->
-    <rect
-      class="dt-frame"
-      x="1.5"
-      y="1.5"
-      width="21"
-      height="17"
-      rx="2"
-      stroke-width="1.2"
-    ></rect>
-    <!-- Barra superior -->
-    <path class="dt-chrome" d="M1.5 6 h21" stroke-width="1.2"></path>
-    <circle class="dt-dot" cx="4.2" cy="3.7" r="0.7"></circle>
-    <circle class="dt-dot" cx="6.4" cy="3.7" r="0.7"></circle>
-    <circle class="dt-dot" cx="8.6" cy="3.7" r="0.7"></circle>
-    <!-- Sidebar Elements -->
-    <path class="dt-chrome" d="M7 6 v12.5" stroke-width="1.2"></path>
-    <!-- Líneas del árbol DOM -->
+  <svg viewBox="0 0 24 22" class="w-6 h-5" fill="none" aria-hidden="true">
+    <!-- Haz de luz (solo visible encendida) -->
     <path
-      class="dt-tree"
-      d="M9.2 8.2 h5.5 M9.2 10.2 h4 M9.2 12.2 h6"
-      stroke-width="1.1"
-      stroke-linecap="round"
+      class="lamp-beam"
+      d="M7 11 L3.5 19.5 H20.5 L17 11 Z"
+      stroke="none"
     ></path>
-    <!-- Consola inferior -->
-    <path class="dt-chrome" d="M7 14.2 h15.5" stroke-width="1.2"></path>
-    <!-- Prompt de consola -->
+    <!-- Pantalla / head -->
     <path
-      class="dt-prompt"
-      d="M9 16.2 h1.6 l1.2 -1.2"
+      class="lamp-shade"
+      d="M6.5 11 C6.5 6.2 9.2 3.2 12 3.2 C14.8 3.2 17.5 6.2 17.5 11 Z"
       stroke-width="1.25"
-      stroke-linecap="round"
       stroke-linejoin="round"
     ></path>
+    <!-- Bombilla -->
+    <circle class="lamp-bulb" cx="12" cy="9.2" r="2.2" stroke-width="1.1"></circle>
+    <!-- Brazo -->
     <path
-      class="dt-caret"
-      d="M13.2 16.2 h4.2"
-      stroke-width="1.25"
+      class="lamp-arm"
+      d="M12 11 V15.5"
+      stroke-width="1.35"
+      stroke-linecap="round"
+    ></path>
+    <!-- Base -->
+    <path
+      class="lamp-base"
+      d="M8.5 18.8 H15.5"
+      stroke-width="1.6"
+      stroke-linecap="round"
+    ></path>
+    <path
+      class="lamp-base"
+      d="M7 20.4 H17"
+      stroke-width="1.35"
       stroke-linecap="round"
     ></path>
   </svg>
 </button>
 
 <style>
-  .devtools-toggle:hover svg {
+  .lamp-toggle:hover svg {
     transform: scale(1.08);
   }
-  .devtools-toggle svg {
+  .lamp-toggle svg {
     transition: transform 0.3s ease;
   }
 
-  .dt-frame {
-    fill: var(--tn-panel);
+  .lamp-shade,
+  .lamp-arm,
+  .lamp-base {
     stroke: var(--tn-muted);
+    fill: none;
     transition:
-      fill 0.35s ease,
-      stroke 0.35s ease;
+      stroke 0.4s ease,
+      fill 0.4s ease,
+      filter 0.4s ease,
+      opacity 0.4s ease;
   }
-  .dt-chrome {
-    stroke: var(--tn-border);
-    transition: stroke 0.35s ease;
-  }
-  .dt-dot {
+
+  .lamp-bulb {
     fill: var(--tn-comment);
-    transition: fill 0.35s ease;
-  }
-  .dt-tree {
     stroke: var(--tn-muted);
-    transition: stroke 0.35s ease;
-  }
-
-  /* Prompt + caret: acento según tema */
-  .dt-prompt,
-  .dt-caret {
-    stroke: var(--tn-yellow);
-    filter: drop-shadow(0 0 2px color-mix(in srgb, var(--tn-yellow) 55%, transparent));
     transition:
-      stroke 0.35s ease,
-      filter 0.35s ease;
+      fill 0.4s ease,
+      stroke 0.4s ease,
+      filter 0.4s ease,
+      opacity 0.4s ease;
   }
 
-  :global(.dark) .dt-prompt,
-  :global(.dark) .dt-caret {
-    stroke: var(--tn-green);
-    filter: drop-shadow(0 0 2px color-mix(in srgb, var(--tn-green) 60%, transparent));
+  .lamp-beam {
+    fill: transparent;
+    opacity: 0;
+    transition:
+      fill 0.4s ease,
+      opacity 0.4s ease;
   }
 
-  .devtools-toggle:hover .dt-frame {
-    stroke: var(--tn-green);
+  /* Claro = lámpara ENCENDIDA */
+  :global(html:not(.dark)) .lamp-shade {
+    stroke: var(--tn-yellow);
+    fill: color-mix(in srgb, var(--tn-yellow) 18%, transparent);
+    filter: drop-shadow(0 0 3px color-mix(in srgb, var(--tn-yellow) 55%, transparent));
   }
-  .devtools-toggle:hover .dt-prompt,
-  .devtools-toggle:hover .dt-caret {
-    stroke: var(--tn-green);
-    filter: drop-shadow(0 0 3px color-mix(in srgb, var(--tn-green) 70%, transparent));
+  :global(html:not(.dark)) .lamp-bulb {
+    fill: #ffe08a;
+    stroke: var(--tn-yellow);
+    filter: drop-shadow(0 0 4px #e0af68);
+  }
+  :global(html:not(.dark)) .lamp-arm,
+  :global(html:not(.dark)) .lamp-base {
+    stroke: var(--tn-muted);
+  }
+  :global(html:not(.dark)) .lamp-beam {
+    fill: color-mix(in srgb, var(--tn-yellow) 28%, transparent);
+    opacity: 1;
+  }
+
+  /* Oscuro = lámpara APAGADA */
+  :global(.dark) .lamp-shade {
+    stroke: var(--tn-comment);
+    fill: color-mix(in srgb, var(--tn-panel) 80%, transparent);
+    filter: none;
+    opacity: 0.75;
+  }
+  :global(.dark) .lamp-bulb {
+    fill: var(--tn-panel-2);
+    stroke: var(--tn-comment);
+    filter: none;
+    opacity: 0.55;
+  }
+  :global(.dark) .lamp-arm,
+  :global(.dark) .lamp-base {
+    stroke: var(--tn-comment);
+    opacity: 0.7;
+  }
+  :global(.dark) .lamp-beam {
+    opacity: 0;
+  }
+
+  .lamp-toggle:hover {
+    border-color: color-mix(in srgb, var(--tn-yellow) 55%, transparent);
+  }
+  :global(.dark) .lamp-toggle:hover {
+    border-color: color-mix(in srgb, var(--tn-cyan) 45%, transparent);
   }
 </style>
 
