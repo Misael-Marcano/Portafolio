@@ -1,77 +1,133 @@
 ---
 ---
 
-<!-- Control de tema estilo consola / DevTools: $ theme --toggle -->
+<!-- Mini consola DevTools: icono de panel; tip `$ theme --toggle` -->
 <button
   id="theme-toggle-btn"
   type="button"
-  class="theme-console-toggle inline-flex items-center justify-center gap-1 min-h-10 min-w-10 sm:min-h-0 sm:min-w-0 px-2 py-1.5 sm:px-2 sm:py-1 rounded-md
+  class="devtools-toggle inline-flex items-center justify-center min-h-10 min-w-10 sm:min-h-0 sm:min-w-0 px-2 py-1.5 sm:px-1.5 sm:py-1 rounded-md
          transition-all duration-300 cursor-pointer
          border border-tn-border/50 bg-tn-panel-2/60
-         hover:border-tn-green/60 hover:text-tn-green
-         font-mono text-[11px] sm:text-[10px] text-tn-muted"
+         hover:border-tn-green/60
+         text-tn-muted"
   aria-label="Cambiar tema"
   title="$ theme --toggle"
   data-i18n-attr="aria-label"
   data-i18n-aria-label="theme_toggle_label"
 >
-  <span class="text-tn-green shrink-0" aria-hidden="true">$</span>
-  <span class="theme-console-cmd tracking-tight" aria-hidden="true">theme</span>
-  <span
-    class="theme-console-mode ml-0.5 px-1 rounded border border-tn-border/40 bg-tn-panel/80 text-[9px] leading-none py-0.5"
-    data-theme-mode
+  <svg
+    viewBox="0 0 24 20"
+    class="w-6 h-5"
+    fill="none"
     aria-hidden="true"
-  >dark</span>
+  >
+    <!-- Ventana del panel -->
+    <rect
+      class="dt-frame"
+      x="1.5"
+      y="1.5"
+      width="21"
+      height="17"
+      rx="2"
+      stroke-width="1.2"
+    ></rect>
+    <!-- Barra superior -->
+    <path class="dt-chrome" d="M1.5 6 h21" stroke-width="1.2"></path>
+    <circle class="dt-dot" cx="4.2" cy="3.7" r="0.7"></circle>
+    <circle class="dt-dot" cx="6.4" cy="3.7" r="0.7"></circle>
+    <circle class="dt-dot" cx="8.6" cy="3.7" r="0.7"></circle>
+    <!-- Sidebar Elements -->
+    <path class="dt-chrome" d="M7 6 v12.5" stroke-width="1.2"></path>
+    <!-- Líneas del árbol DOM -->
+    <path
+      class="dt-tree"
+      d="M9.2 8.2 h5.5 M9.2 10.2 h4 M9.2 12.2 h6"
+      stroke-width="1.1"
+      stroke-linecap="round"
+    ></path>
+    <!-- Consola inferior -->
+    <path class="dt-chrome" d="M7 14.2 h15.5" stroke-width="1.2"></path>
+    <!-- Prompt de consola -->
+    <path
+      class="dt-prompt"
+      d="M9 16.2 h1.6 l1.2 -1.2"
+      stroke-width="1.25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></path>
+    <path
+      class="dt-caret"
+      d="M13.2 16.2 h4.2"
+      stroke-width="1.25"
+      stroke-linecap="round"
+    ></path>
+  </svg>
 </button>
 
 <style>
-  .theme-console-toggle:hover .theme-console-cmd {
-    color: var(--tn-green);
+  .devtools-toggle:hover svg {
+    transform: scale(1.08);
+  }
+  .devtools-toggle svg {
+    transition: transform 0.3s ease;
   }
 
-  .theme-console-mode {
-    color: var(--tn-cyan);
+  .dt-frame {
+    fill: var(--tn-panel);
+    stroke: var(--tn-muted);
     transition:
-      color 0.35s ease,
-      border-color 0.35s ease,
-      background-color 0.35s ease;
+      fill 0.35s ease,
+      stroke 0.35s ease;
+  }
+  .dt-chrome {
+    stroke: var(--tn-border);
+    transition: stroke 0.35s ease;
+  }
+  .dt-dot {
+    fill: var(--tn-comment);
+    transition: fill 0.35s ease;
+  }
+  .dt-tree {
+    stroke: var(--tn-muted);
+    transition: stroke 0.35s ease;
   }
 
-  /* Modo claro: badge “light” en amarillo Tokyo Night */
-  :global(html:not(.dark)) .theme-console-mode {
-    color: var(--tn-yellow);
-    border-color: color-mix(in srgb, var(--tn-yellow) 35%, transparent);
+  /* Prompt + caret: acento según tema */
+  .dt-prompt,
+  .dt-caret {
+    stroke: var(--tn-yellow);
+    filter: drop-shadow(0 0 2px color-mix(in srgb, var(--tn-yellow) 55%, transparent));
+    transition:
+      stroke 0.35s ease,
+      filter 0.35s ease;
   }
 
-  /* Modo oscuro: badge “dark” en cian */
-  :global(.dark) .theme-console-mode {
-    color: var(--tn-cyan);
-    border-color: color-mix(in srgb, var(--tn-cyan) 35%, transparent);
+  :global(.dark) .dt-prompt,
+  :global(.dark) .dt-caret {
+    stroke: var(--tn-green);
+    filter: drop-shadow(0 0 2px color-mix(in srgb, var(--tn-green) 60%, transparent));
+  }
+
+  .devtools-toggle:hover .dt-frame {
+    stroke: var(--tn-green);
+  }
+  .devtools-toggle:hover .dt-prompt,
+  .devtools-toggle:hover .dt-caret {
+    stroke: var(--tn-green);
+    filter: drop-shadow(0 0 3px color-mix(in srgb, var(--tn-green) 70%, transparent));
   }
 </style>
 
 <script is:inline>
   (() => {
-    const syncModeLabel = () => {
-      const el = document.querySelector("[data-theme-mode]");
-      if (!el) return;
-      const isDark = document.documentElement.classList.contains("dark");
-      el.textContent = isDark ? "dark" : "light";
-    };
-
     const bind = () => {
       const btn = document.getElementById("theme-toggle-btn");
-      if (!btn || btn.dataset.bound === "1") {
-        syncModeLabel();
-        return;
-      }
+      if (!btn || btn.dataset.bound === "1") return;
       btn.dataset.bound = "1";
       btn.addEventListener("click", () => {
         if (typeof window.toggleTheme === "function") window.toggleTheme();
         else document.documentElement.classList.toggle("dark");
-        syncModeLabel();
       });
-      syncModeLabel();
     };
 
     if (document.readyState === "loading") {
