@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LinkedIn Banner — Misael</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        width: 1584px;
+        height: 396px;
+        overflow: hidden;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .banner {
+        width: 1584px;
+        height: 396px;
+        position: relative;
+        background:
+          radial-gradient(ellipse 55% 90% at 88% 40%, rgba(122, 162, 247, 0.22), transparent 60%),
+          radial-gradient(ellipse 40% 80% at 70% 100%, rgba(187, 154, 247, 0.12), transparent 55%),
+          linear-gradient(115deg, #12131a 0%, #1a1b26 45%, #1f2335 100%);
+        color: #c0caf5;
+        overflow: hidden;
+      }
+      .banner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(122, 162, 247, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(122, 162, 247, 0.05) 1px, transparent 1px);
+        background-size: 48px 48px;
+        mask-image: linear-gradient(90deg, transparent 0%, transparent 28%, black 48%, black 100%);
+        pointer-events: none;
+      }
+      /* Zona segura: el avatar de LinkedIn tapa ~bottom-left */
+      .safe {
+        position: absolute;
+        left: 420px;
+        right: 72px;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        z-index: 1;
+      }
+      .eyebrow {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 18px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #7dcfff;
+        margin-bottom: 14px;
+      }
+      .name {
+        font-size: 56px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+        line-height: 1.05;
+        margin-bottom: 12px;
+      }
+      .role {
+        font-size: 26px;
+        font-weight: 500;
+        color: #7aa2f7;
+        margin-bottom: 10px;
+      }
+      .tagline {
+        font-size: 20px;
+        color: #7982a9;
+      }
+      .accent-line {
+        margin-top: 22px;
+        width: 96px;
+        height: 3px;
+        border-radius: 99px;
+        background: linear-gradient(90deg, #7dcfff, #bb9af7);
+      }
+      .prompt {
+        position: absolute;
+        right: 56px;
+        bottom: 28px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px;
+        color: #565f89;
+        z-index: 1;
+      }
+      .prompt span {
+        color: #9ece6a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="banner">
+      <div class="safe">
+        <div class="eyebrow">Desarrollador de software</div>
+        <h1 class="name">Misael Monción Marcano</h1>
+        <p class="role">Oracle Forms · Oracle Reports · Web</p>
+        <p class="tagline">Ingeniería en Software · Sistemas críticos · Soluciones funcionales</p>
+        <div class="accent-line"></div>
+      </div>
+      <div class="prompt"><span>misael@dev</span>:~$</div>
+    </div>
+  </body>
+</html>
