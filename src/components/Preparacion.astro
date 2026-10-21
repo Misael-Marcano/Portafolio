@@ -19,6 +19,8 @@ const TITLE_BY_FILE: Record<string, string> = {
   "Certificacion PL-SQL de ORACLE.pdf": "prep_cert_plsql",
   "Certificacion Power BI.pdf": "prep_cert_powerbi",
   "Diploma Ingles.pdf": "prep_cert_english",
+  "DIPLOMADO GESTIÓN DE CATÁSTROFES CIBERNÉTICAS DESDE EL APRENDIZAJE BASADO EN RETOS.pdf":
+    "prep_cert_cyber",
 };
 
 const titleKeyFor = (filename: string): string | null => {
@@ -27,6 +29,8 @@ const titleKeyFor = (filename: string): string | null => {
   if (n.includes("pl-sql") || n.includes("plsql")) return "prep_cert_plsql";
   if (n.includes("power bi") || n.includes("powerbi")) return "prep_cert_powerbi";
   if (n.includes("ingles") || n.includes("english")) return "prep_cert_english";
+  if (n.includes("catástrofe") || n.includes("catastrofe") || n.includes("cibern"))
+    return "prep_cert_cyber";
   return null;
 };
 
